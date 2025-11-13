@@ -1710,7 +1710,7 @@ func flattenObjectSwitchControllerManagedSwitchPortsLinkStatus(v interface{}, d 
 }
 
 func flattenObjectSwitchControllerManagedSwitchPortsLldpProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
+	return conv2str(v)
 }
 
 func flattenObjectSwitchControllerManagedSwitchPortsLldpStatus(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -1846,7 +1846,7 @@ func flattenObjectSwitchControllerManagedSwitchPortsPtpStatus(v interface{}, d *
 }
 
 func flattenObjectSwitchControllerManagedSwitchPortsQosPolicy(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
+	return conv2str(v)
 }
 
 func flattenObjectSwitchControllerManagedSwitchPortsRestrictedAuthPort(v interface{}, d *schema.ResourceData, pre string) interface{} {

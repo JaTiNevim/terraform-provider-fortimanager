@@ -129,6 +129,8 @@ The following arguments are supported:
 * `service_account_id` - Service account ID.
 * `source_ip` - Source IPv4 address used to communicate with FortiGuard.
 * `source_ip6` - Source IPv6 address used to communicate with FortiGuard.
+* `subscribe_update_notification` - Enable/disable subscription to receive update notification from FortiGuard. Valid values: `disable`, `enable`.
+
 * `update_build_proxy` - Enable/disable proxy dictionary rebuild. Valid values: `disable`, `enable`.
 
 * `update_dldb` - Enable/disable DLP signature update. Valid values: `disable`, `enable`.

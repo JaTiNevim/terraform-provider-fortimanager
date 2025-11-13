@@ -154,6 +154,8 @@ The `realservers` block supports:
 
 * `type` - TCP forwarding server type. Valid values: `tcp-forwarding`, `ssh`.
 
+* `verify_cert` - Enable/disable certificate verification of the real server. Valid values: `disable`, `enable`.
+
 * `weight` - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections.
 
 The `ssl_cipher_suites` block supports:
@@ -253,6 +255,8 @@ The `realservers` block supports:
 * `tunnel_encryption` - Tunnel encryption. Valid values: `disable`, `enable`.
 
 * `type` - TCP forwarding server type. Valid values: `tcp-forwarding`, `ssh`.
+
+* `verify_cert` - Enable/disable certificate verification of the real server. Valid values: `disable`, `enable`.
 
 * `weight` - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections.
 

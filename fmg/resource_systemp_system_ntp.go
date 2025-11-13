@@ -85,6 +85,7 @@ func resourceSystempSystemNtp() *schema.Resource {
 						"authentication": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
+							Computed: true,
 						},
 						"id": &schema.Schema{
 							Type:     schema.TypeInt,

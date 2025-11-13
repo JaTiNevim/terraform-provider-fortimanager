@@ -54,6 +54,7 @@ The `downlinks` block supports:
 * `type` - FortiExtender LAN extension downlink type [port/vap]. Valid values: `port`, `vap`.
 
 * `vap` - FortiExtender LAN extension downlink vap.
+* `vids` - FortiExtender LAN extension downlink VIDs.
 
 The `traffic_split_services` block supports:
 

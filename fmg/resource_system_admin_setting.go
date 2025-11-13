@@ -186,6 +186,11 @@ func resourceSystemAdminSetting() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"rtm_max_monitor_by_size": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
 			"rtm_temp_file_limit": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -486,6 +491,10 @@ func flattenSystemAdminSettingPreferredFgfmIntf(v interface{}, d *schema.Resourc
 }
 
 func flattenSystemAdminSettingRtmMaxMonitorByDays(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemAdminSettingRtmMaxMonitorBySize(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -870,6 +879,16 @@ func refreshObjectSystemAdminSetting(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("rtm_max_monitor_by_size", flattenSystemAdminSettingRtmMaxMonitorBySize(o["rtm-max-monitor-by-size"], d, "rtm_max_monitor_by_size")); err != nil {
+		if vv, ok := fortiAPIPatch(o["rtm-max-monitor-by-size"], "SystemAdminSetting-RtmMaxMonitorBySize"); ok {
+			if err = d.Set("rtm_max_monitor_by_size", vv); err != nil {
+				return fmt.Errorf("Error reading rtm_max_monitor_by_size: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading rtm_max_monitor_by_size: %v", err)
+		}
+	}
+
 	if err = d.Set("rtm_temp_file_limit", flattenSystemAdminSettingRtmTempFileLimit(o["rtm-temp-file-limit"], d, "rtm_temp_file_limit")); err != nil {
 		if vv, ok := fortiAPIPatch(o["rtm-temp-file-limit"], "SystemAdminSetting-RtmTempFileLimit"); ok {
 			if err = d.Set("rtm_temp_file_limit", vv); err != nil {
@@ -1174,6 +1193,10 @@ func expandSystemAdminSettingRegisterPasswd(d *schema.ResourceData, v interface{
 }
 
 func expandSystemAdminSettingRtmMaxMonitorByDays(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemAdminSettingRtmMaxMonitorBySize(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1537,6 +1560,15 @@ func getObjectSystemAdminSetting(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["rtm-max-monitor-by-days"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("rtm_max_monitor_by_size"); ok || d.HasChange("rtm_max_monitor_by_size") {
+		t, err := expandSystemAdminSettingRtmMaxMonitorBySize(d, v, "rtm_max_monitor_by_size")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["rtm-max-monitor-by-size"] = t
 		}
 	}
 

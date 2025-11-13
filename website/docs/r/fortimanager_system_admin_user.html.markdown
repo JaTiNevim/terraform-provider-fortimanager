@@ -83,6 +83,7 @@ The following arguments are supported:
 * `login_max` - Max login session for this user.
 * `meta_data` - Meta-Data. The structure of `meta_data` block is documented below.
 * `mobile_number` - Mobile number.
+* `old_password` - Old password.
 * `pager_number` - Pager number.
 * `password` - Password.
 * `password_expire` - Password expire time in GMT.

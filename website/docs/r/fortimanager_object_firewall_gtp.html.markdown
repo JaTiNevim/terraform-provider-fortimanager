@@ -58,6 +58,8 @@ The following arguments are supported:
 * `denied_log` - log denied Valid values: `disable`, `enable`.
 
 * `echo_request_interval` - echo request interval (in seconds)
+* `echo_requires_path_in_use` - Block GTP Echo Request if no active tunnel over the associated GTP path. Valid values: `disable`, `enable`.
+
 * `extension_log` - log in extension format Valid values: `disable`, `enable`.
 
 * `forwarded_log` - log forwarded Valid values: `disable`, `enable`.

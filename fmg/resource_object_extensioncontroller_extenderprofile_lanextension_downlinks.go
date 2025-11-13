@@ -62,6 +62,7 @@ func resourceObjectExtensionControllerExtenderProfileLanExtensionDownlinks() *sc
 			"pvid": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"type": &schema.Schema{
 				Type:     schema.TypeString,
@@ -71,6 +72,12 @@ func resourceObjectExtensionControllerExtenderProfileLanExtensionDownlinks() *sc
 			"vap": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"vids": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeInt},
 				Optional: true,
 				Computed: true,
 			},
@@ -240,6 +247,10 @@ func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVap3rdl
 	return flattenStringList(v)
 }
 
+func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenIntegerList(v)
+}
+
 func refreshObjectObjectExtensionControllerExtenderProfileLanExtensionDownlinks(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -297,6 +308,16 @@ func refreshObjectObjectExtensionControllerExtenderProfileLanExtensionDownlinks(
 		}
 	}
 
+	if err = d.Set("vids", flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids3rdl(o["vids"], d, "vids")); err != nil {
+		if vv, ok := fortiAPIPatch(o["vids"], "ObjectExtensionControllerExtenderProfileLanExtensionDownlinks-Vids"); ok {
+			if err = d.Set("vids", vv); err != nil {
+				return fmt.Errorf("Error reading vids: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading vids: %v", err)
+		}
+	}
+
 	return nil
 }
 
@@ -324,6 +345,10 @@ func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksType3rdl
 
 func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVap3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandIntegerList(v.(*schema.Set).List()), nil
 }
 
 func getObjectObjectExtensionControllerExtenderProfileLanExtensionDownlinks(d *schema.ResourceData) (*map[string]interface{}, error) {
@@ -371,6 +396,15 @@ func getObjectObjectExtensionControllerExtenderProfileLanExtensionDownlinks(d *s
 			return &obj, err
 		} else if t != nil {
 			obj["vap"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("vids"); ok || d.HasChange("vids") {
+		t, err := expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids3rdl(d, v, "vids")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["vids"] = t
 		}
 	}
 

@@ -45,6 +45,10 @@ func resourceObjectSystemNpuNpQueues() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"custom_etype_lookup": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"ethernet_type": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -629,6 +633,10 @@ func resourceObjectSystemNpuNpQueuesRead(d *schema.ResourceData, m interface{}) 
 		return fmt.Errorf("Error reading ObjectSystemNpuNpQueues resource from API: %v", err)
 	}
 	return nil
+}
+
+func flattenObjectSystemNpuNpQueuesCustomEtypeLookup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
 }
 
 func flattenObjectSystemNpuNpQueuesEthernetType2edl(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
@@ -1697,6 +1705,16 @@ func refreshObjectObjectSystemNpuNpQueues(d *schema.ResourceData, o map[string]i
 		d.Set("dynamic_sort_subtable", "false")
 	}
 
+	if err = d.Set("custom_etype_lookup", flattenObjectSystemNpuNpQueuesCustomEtypeLookup2edl(o["custom-etype-lookup"], d, "custom_etype_lookup")); err != nil {
+		if vv, ok := fortiAPIPatch(o["custom-etype-lookup"], "ObjectSystemNpuNpQueues-CustomEtypeLookup"); ok {
+			if err = d.Set("custom_etype_lookup", vv); err != nil {
+				return fmt.Errorf("Error reading custom_etype_lookup: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading custom_etype_lookup: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("ethernet_type", flattenObjectSystemNpuNpQueuesEthernetType2edl(o["ethernet-type"], d, "ethernet_type")); err != nil {
 			if vv, ok := fortiAPIPatch(o["ethernet-type"], "ObjectSystemNpuNpQueues-EthernetType"); ok {
@@ -1824,6 +1842,10 @@ func flattenObjectSystemNpuNpQueuesFortiTestDebug(d *schema.ResourceData, fosdeb
 	log.Printf(strconv.Itoa(fosdebugsn))
 	e := validation.IntBetween(fosdebugbeg, fosdebugend)
 	log.Printf("ER List: %v", e)
+}
+
+func expandObjectSystemNpuNpQueuesCustomEtypeLookup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandObjectSystemNpuNpQueuesEthernetType2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -2767,6 +2789,15 @@ func expandObjectSystemNpuNpQueuesSchedulerName2edl(d *schema.ResourceData, v in
 
 func getObjectObjectSystemNpuNpQueues(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("custom_etype_lookup"); ok || d.HasChange("custom_etype_lookup") {
+		t, err := expandObjectSystemNpuNpQueuesCustomEtypeLookup2edl(d, v, "custom_etype_lookup")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["custom-etype-lookup"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("ethernet_type"); ok || d.HasChange("ethernet_type") {
 		t, err := expandObjectSystemNpuNpQueuesEthernetType2edl(d, v, "ethernet_type")

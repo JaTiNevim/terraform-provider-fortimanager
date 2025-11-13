@@ -55,6 +55,7 @@ The following arguments are supported:
 * `ppk_secret` - IKEv2 Postquantum Preshared Key (ASCII string or hexadecimal encoded with a leading 0x).
 * `qkd_profile` - Quantum Key Distribution (QKD) profile.
 * `radius_server` - Name of RADIUS server with which the user must authenticate.
+* `saml_server` - Name of SAML server with which the user must authenticate.
 * `sms_custom_server` - Two-factor recipient's SMS server.
 * `sms_phone` - Two-factor recipient's mobile phone number.
 * `sms_server` - Send SMS through FortiGuard or other external server. Valid values: `fortiguard`, `custom`.

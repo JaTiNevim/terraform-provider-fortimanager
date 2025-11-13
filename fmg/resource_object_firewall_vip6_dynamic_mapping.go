@@ -298,6 +298,10 @@ func resourceObjectFirewallVip6DynamicMapping() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"verify_cert": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"weight": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
@@ -951,6 +955,12 @@ func flattenObjectFirewallVip6DynamicMappingRealservers2edl(v interface{}, d *sc
 			tmp["translate_host"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6DynamicMapping-Realservers-TranslateHost")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallVip6DynamicMappingRealserversVerifyCert2edl(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6DynamicMapping-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallVip6DynamicMappingRealserversWeight2edl(i["weight"], d, pre_append)
@@ -1008,6 +1018,10 @@ func flattenObjectFirewallVip6DynamicMappingRealserversStatus2edl(v interface{},
 }
 
 func flattenObjectFirewallVip6DynamicMappingRealserversTranslateHost2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallVip6DynamicMappingRealserversVerifyCert2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2383,6 +2397,11 @@ func expandObjectFirewallVip6DynamicMappingRealservers2edl(d *schema.ResourceDat
 			tmp["translate-host"], _ = expandObjectFirewallVip6DynamicMappingRealserversTranslateHost2edl(d, i["translate_host"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallVip6DynamicMappingRealserversVerifyCert2edl(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallVip6DynamicMappingRealserversWeight2edl(d, i["weight"], pre_append)
@@ -2439,6 +2458,10 @@ func expandObjectFirewallVip6DynamicMappingRealserversStatus2edl(d *schema.Resou
 }
 
 func expandObjectFirewallVip6DynamicMappingRealserversTranslateHost2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallVip6DynamicMappingRealserversVerifyCert2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

@@ -123,6 +123,12 @@ func resourceObjectUserLocal() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"saml_server": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"sms_custom_server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -355,6 +361,10 @@ func flattenObjectUserLocalRadiusServer(v interface{}, d *schema.ResourceData, p
 	return convintflist2str(v, d.Get(pre))
 }
 
+func flattenObjectUserLocalSamlServer(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenObjectUserLocalSmsCustomServer(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
 }
@@ -531,6 +541,16 @@ func refreshObjectObjectUserLocal(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading radius_server: %v", err)
+		}
+	}
+
+	if err = d.Set("saml_server", flattenObjectUserLocalSamlServer(o["saml-server"], d, "saml_server")); err != nil {
+		if vv, ok := fortiAPIPatch(o["saml-server"], "ObjectUserLocal-SamlServer"); ok {
+			if err = d.Set("saml_server", vv); err != nil {
+				return fmt.Errorf("Error reading saml_server: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading saml_server: %v", err)
 		}
 	}
 
@@ -737,6 +757,10 @@ func expandObjectUserLocalRadiusServer(d *schema.ResourceData, v interface{}, pr
 	return convstr2list(v, nil), nil
 }
 
+func expandObjectUserLocalSamlServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandObjectUserLocalSmsCustomServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
 }
@@ -933,6 +957,15 @@ func getObjectObjectUserLocal(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["radius-server"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("saml_server"); ok || d.HasChange("saml_server") {
+		t, err := expandObjectUserLocalSamlServer(d, v, "saml_server")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["saml-server"] = t
 		}
 	}
 

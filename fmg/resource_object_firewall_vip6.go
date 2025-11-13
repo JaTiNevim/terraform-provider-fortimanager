@@ -321,6 +321,10 @@ func resourceObjectFirewallVip6() *schema.Resource {
 										Type:     schema.TypeString,
 										Optional: true,
 									},
+									"verify_cert": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
 									"weight": &schema.Schema{
 										Type:     schema.TypeInt,
 										Optional: true,
@@ -803,6 +807,10 @@ func resourceObjectFirewallVip6() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 							Computed: true,
+						},
+						"verify_cert": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
 						},
 						"weight": &schema.Schema{
 							Type:     schema.TypeInt,
@@ -1996,6 +2004,12 @@ func flattenObjectFirewallVip6DynamicMappingRealservers(v interface{}, d *schema
 			tmp["translate_host"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6DynamicMapping-Realservers-TranslateHost")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallVip6DynamicMappingRealserversVerifyCert(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6DynamicMapping-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallVip6DynamicMappingRealserversWeight(i["weight"], d, pre_append)
@@ -2053,6 +2067,10 @@ func flattenObjectFirewallVip6DynamicMappingRealserversStatus(v interface{}, d *
 }
 
 func flattenObjectFirewallVip6DynamicMappingRealserversTranslateHost(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallVip6DynamicMappingRealserversVerifyCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2589,6 +2607,12 @@ func flattenObjectFirewallVip6Realservers(v interface{}, d *schema.ResourceData,
 			tmp["translate_host"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6-Realservers-TranslateHost")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallVip6RealserversVerifyCert(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallVip6-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallVip6RealserversWeight(i["weight"], d, pre_append)
@@ -2646,6 +2670,10 @@ func flattenObjectFirewallVip6RealserversStatus(v interface{}, d *schema.Resourc
 }
 
 func flattenObjectFirewallVip6RealserversTranslateHost(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallVip6RealserversVerifyCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -4607,6 +4635,11 @@ func expandObjectFirewallVip6DynamicMappingRealservers(d *schema.ResourceData, v
 			tmp["translate-host"], _ = expandObjectFirewallVip6DynamicMappingRealserversTranslateHost(d, i["translate_host"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallVip6DynamicMappingRealserversVerifyCert(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallVip6DynamicMappingRealserversWeight(d, i["weight"], pre_append)
@@ -4663,6 +4696,10 @@ func expandObjectFirewallVip6DynamicMappingRealserversStatus(d *schema.ResourceD
 }
 
 func expandObjectFirewallVip6DynamicMappingRealserversTranslateHost(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallVip6DynamicMappingRealserversVerifyCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -5168,6 +5205,11 @@ func expandObjectFirewallVip6Realservers(d *schema.ResourceData, v interface{}, 
 			tmp["translate-host"], _ = expandObjectFirewallVip6RealserversTranslateHost(d, i["translate_host"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallVip6RealserversVerifyCert(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallVip6RealserversWeight(d, i["weight"], pre_append)
@@ -5224,6 +5266,10 @@ func expandObjectFirewallVip6RealserversStatus(d *schema.ResourceData, v interfa
 }
 
 func expandObjectFirewallVip6RealserversTranslateHost(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallVip6RealserversVerifyCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

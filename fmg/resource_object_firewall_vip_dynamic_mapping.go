@@ -346,6 +346,10 @@ func resourceObjectFirewallVipDynamicMapping() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"verify_cert": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"weight": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
@@ -1078,6 +1082,12 @@ func flattenObjectFirewallVipDynamicMappingRealservers2edl(v interface{}, d *sch
 			tmp["type"] = fortiAPISubPartPatch(v, "ObjectFirewallVipDynamicMapping-Realservers-Type")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallVipDynamicMappingRealserversVerifyCert2edl(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallVipDynamicMapping-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallVipDynamicMappingRealserversWeight2edl(i["weight"], d, pre_append)
@@ -1151,6 +1161,10 @@ func flattenObjectFirewallVipDynamicMappingRealserversTranslateHost2edl(v interf
 }
 
 func flattenObjectFirewallVipDynamicMappingRealserversType2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallVipDynamicMappingRealserversVerifyCert2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2752,6 +2766,11 @@ func expandObjectFirewallVipDynamicMappingRealservers2edl(d *schema.ResourceData
 			tmp["type"], _ = expandObjectFirewallVipDynamicMappingRealserversType2edl(d, i["type"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallVipDynamicMappingRealserversVerifyCert2edl(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallVipDynamicMappingRealserversWeight2edl(d, i["weight"], pre_append)
@@ -2824,6 +2843,10 @@ func expandObjectFirewallVipDynamicMappingRealserversTranslateHost2edl(d *schema
 }
 
 func expandObjectFirewallVipDynamicMappingRealserversType2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallVipDynamicMappingRealserversVerifyCert2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

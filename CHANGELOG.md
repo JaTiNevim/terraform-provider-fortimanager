@@ -1,4 +1,66 @@
-## 1.15.0 (Unreleased)
+## 1.16.0 (Unreleased)
+
+## 1.15.0 (Nov 12, 2025)
+
+IMPROVEMENTS:
+* Support FortiManager v7.2.11, 7.4.7, 7.6.3, 7.6.4;
+* Fix device blueprint not work issue of resource dvm_cmd_add_device;
+* Fix type convert issue;
+
+FEATURES:
+* **New Resource:** `fortimanager_object_dlp_exactdatamatch`
+* **New Resource:** `fortimanager_object_dlp_exactdatamatch_columns`
+* **New Resource:** `fortimanager_object_dlp_exactdatamatch_columns_move`
+* **New Resource:** `fortimanager_object_dlp_label`
+* **New Resource:** `fortimanager_object_dlp_label_entries`
+* **New Resource:** `fortimanager_object_dlp_label_entries_move`
+* **New Resource:** `fortimanager_object_extensioncontroller_extendervap`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_disableentry`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_disableentry_iprange`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_disableentry_ip6range`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_disableentry_portrange`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_entry`
+* **New Resource:** `fortimanager_object_firewall_internetserviceextension_entry_portrange`
+* **New Resource:** `fortimanager_object_firewall_pfcp`
+* **New Resource:** `fortimanager_object_gtp_rattimeoutprofile`
+* **New Resource:** `fortimanager_object_icap_servergroup`
+* **New Resource:** `fortimanager_object_icap_servergroup_serverlist`
+* **New Resource:** `fortimanager_object_switchcontroller_securitypolicy_localaccess`
+* **New Resource:** `fortimanager_object_system_dnsdatabase`
+* **New Resource:** `fortimanager_object_system_dnsdatabase_dnsentry`
+* **New Resource:** `fortimanager_object_telemetrycontroller_agent`
+* **New Resource:** `fortimanager_object_telemetrycontroller_agentprofile`
+* **New Resource:** `fortimanager_object_telemetrycontroller_application_predefine`
+* **New Resource:** `fortimanager_object_telemetrycontroller_profile`
+* **New Resource:** `fortimanager_object_telemetrycontroller_profile_application`
+* **New Resource:** `fortimanager_object_telemetrycontroller_profile_application_sla`
+* **New Resource:** `fortimanager_object_user_scim`
+* **New Resource:** `fortimanager_object_vpn_certificate_hsmlocal`
+* **New Resource:** `fortimanager_object_vpn_ipsec_manualkey`
+* **New Resource:** `fortimanager_object_vpn_kmipserver`
+* **New Resource:** `fortimanager_object_vpn_kmipserver_serverlist`
+* **New Resource:** `fortimanager_object_vpn_kmipserver_serverlist_move`
+* **New Resource:** `fortimanager_object_vpn_qkd`
+* **New Resource:** `fortimanager_object_webfilter_ftgdrisklevel`
+* **New Resource:** `fortimanager_object_ztna_trafficforwardproxy`
+* **New Resource:** `fortimanager_object_ztna_trafficforwardproxy_quic`
+* **New Resource:** `fortimanager_object_ztna_trafficforwardproxy_sslciphersuites`
+* **New Resource:** `fortimanager_object_ztna_trafficforwardproxy_sslserverciphersuites`
+* **New Resource:** `fortimanager_object_ztna_webportal`
+* **New Resource:** `fortimanager_object_ztna_webportalbookmark`
+* **New Resource:** `fortimanager_object_ztna_webportalbookmark_bookmarks`
+* **New Resource:** `fortimanager_object_ztna_webportalbookmark_bookmarks_move`
+* **New Resource:** `fortimanager_object_ztna_webproxy`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway6`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway6_quic`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway6_realservers`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway6_sslciphersuites`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway_quic`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway_realservers`
+* **New Resource:** `fortimanager_object_ztna_webproxy_apigateway_sslciphersuites`
+* **New Resource:** `fortimanager_system_log_deviceselector`
 
 ## 1.14.0 (Apr 15, 2025)
 

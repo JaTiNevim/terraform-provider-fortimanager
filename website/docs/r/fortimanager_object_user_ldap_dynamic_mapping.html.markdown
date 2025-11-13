@@ -90,6 +90,8 @@ The following arguments are supported:
 
 * `user_info_exchange_server` - MS Exchange server from which to fetch user information.
 * `username` - Username (full DN) for initial binding.
+* `validate_server_certificate` - Validate-Server-Certificate. Valid values: `disable`, `enable`.
+
 * `vrf_select` - VRF ID used for connection to server.
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
 

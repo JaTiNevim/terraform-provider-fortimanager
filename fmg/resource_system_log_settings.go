@@ -123,6 +123,11 @@ func resourceSystemLogSettings() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"log_process_fast_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"log_upload_interval_dev_no_logging": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -765,6 +770,10 @@ func flattenSystemLogSettingsLogFileArchiveName(v interface{}, d *schema.Resourc
 }
 
 func flattenSystemLogSettingsLogIntervalDevNoLogging(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemLogSettingsLogProcessFastMode(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1761,6 +1770,16 @@ func refreshObjectSystemLogSettings(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("log_process_fast_mode", flattenSystemLogSettingsLogProcessFastMode(o["log-process-fast-mode"], d, "log_process_fast_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["log-process-fast-mode"], "SystemLogSettings-LogProcessFastMode"); ok {
+			if err = d.Set("log_process_fast_mode", vv); err != nil {
+				return fmt.Errorf("Error reading log_process_fast_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading log_process_fast_mode: %v", err)
+		}
+	}
+
 	if err = d.Set("log_upload_interval_dev_no_logging", flattenSystemLogSettingsLogUploadIntervalDevNoLogging(o["log-upload-interval-dev-no-logging"], d, "log_upload_interval_dev_no_logging")); err != nil {
 		if vv, ok := fortiAPIPatch(o["log-upload-interval-dev-no-logging"], "SystemLogSettings-LogUploadIntervalDevNoLogging"); ok {
 			if err = d.Set("log_upload_interval_dev_no_logging", vv); err != nil {
@@ -1953,6 +1972,10 @@ func expandSystemLogSettingsLogFileArchiveName(d *schema.ResourceData, v interfa
 }
 
 func expandSystemLogSettingsLogIntervalDevNoLogging(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemLogSettingsLogProcessFastMode(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2919,6 +2942,15 @@ func getObjectSystemLogSettings(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["log-interval-dev-no-logging"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("log_process_fast_mode"); ok || d.HasChange("log_process_fast_mode") {
+		t, err := expandSystemLogSettingsLogProcessFastMode(d, v, "log_process_fast_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["log-process-fast-mode"] = t
 		}
 	}
 

@@ -26,6 +26,8 @@ The following arguments are supported:
 
 * `ip` - Forward proxy server IP address.
 * `ipv6` - Forward proxy server IPv6 address.
+* `masquerade` - Enable/disable use of the of the IP address of the outgoing interface as the client IP address (default = enable) Valid values: `disable`, `enable`.
+
 * `name` - Server name.
 * `port` - Port number that the forwarding server expects to receive HTTP sessions on (1 - 65535, default = 3128).
 * `vrf_select` - VRF ID used for connection to server.

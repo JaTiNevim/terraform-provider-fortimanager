@@ -114,6 +114,8 @@ The following arguments are supported:
 
 * `ipsec_ob_np_sel` - IPsec NP selection for OB SA offloading. Valid values: `RR`, `Packet`, `Hash`.
 
+* `ipsec_ordering` - Enable/disable IPsec ordering. Valid values: `disable`, `enable`.
+
 * `ipsec_over_vlink` - Enable/disable IPSEC over vlink. Valid values: `disable`, `enable`.
 
 * `ipv4_session_quota` - Enable/Disable NoNAT IPv4 session quota for hyperscale VDOMs. Valid values: `disable`, `enable`.
@@ -131,6 +133,8 @@ The following arguments are supported:
 * `ipt_throughput_msg_frequency` - Set NP7Lite IPT throughput msg frequency: 0--disable 1--32KB 3--64KB ... 0x3fff--256MB 0x7fff--512MB 0xffff--1GB. Valid values: `disable`, `32KB`, `64KB`, `128KB`, `256KB`, `512KB`, `1MB`, `2MB`, `4MB`, `8MB`, `16MB`, `32MB`, `64MB`, `128MB`, `256MB`, `512MB`, `1GB`.
 
 * `isf_np_queues` - Isf-Np-Queues. The structure of `isf_np_queues` block is documented below.
+* `lag_hash_gre` - Set LAG hash for standard GRE. Valid values: `disable`, `gre_inner_l3`, `gre_inner_l4`, `gre_inner_l3l4`.
+
 * `isf_np_rx_tr_distr` - Select ISF NP Rx trunk distribution (PSC) mode. Valid values: `port-flow`, `round-robin`, `randomized`.
 
 * `lag_out_port_select` - Enable/disable LAG outgoing port selection based on incoming traffic port. Valid values: `disable`, `enable`.
@@ -204,6 +208,11 @@ The following arguments are supported:
 * `sw_eh_hash` - Sw-Eh-Hash. The structure of `sw_eh_hash` block is documented below.
 * `sw_np_bandwidth` - Bandwidth from switch to NP. Valid values: `0G`, `2G`, `4G`, `5G`, `6G`, `7G`, `8G`, `9G`.
 
+* `sw_np_pause` - Enable SP5 tx pause and marvell rx receive pause, for sw uplink only. Valid values: `disable`, `enable`.
+
+* `sw_np_rate` - Bandwidth from switch to NP, for sw uplink port.
+* `sw_np_rate_unit` - Unit for bandwidth from switch to NP, for sw uplink port. Valid values: `mbps`, `pps`.
+
 * `sw_tr_hash` - Sw-Tr-Hash. The structure of `sw_tr_hash` block is documented below.
 * `switch_np_hash` - Switch-NP trunk port selection Criteria. Valid values: `src-ip`, `dst-ip`, `src-dst-ip`.
 
@@ -215,6 +224,8 @@ The following arguments are supported:
 * `uesp_offload` - Enable/disable UDP-encapsulated ESP offload (default = disable). Valid values: `disable`, `enable`.
 
 * `ull_port_mode` - Set ULL port's speed to 10G/25G (default 10G). Valid values: `10G`, `25G`.
+
+* `use_mse_oft` - Enable/disable use of MSE OFT. Valid values: `disable`, `enable`.
 
 * `vlan_lookup_cache` - Enable/disable vlan lookup cache (default enabled). Valid values: `disable`, `enable`.
 
@@ -460,6 +471,8 @@ The `isf_np_queues` block supports:
 * `cos7` - CoS profile name for CoS 7.
 
 The `np_queues` block supports:
+
+* `custom_etype_lookup` - Enable/Disable np-queue lookup for custom Ethernet Types. Valid values: `disable`, `enable`.
 
 * `ethernet_type` - Ethernet-Type. The structure of `ethernet_type` block is documented below.
 * `ip_protocol` - Ip-Protocol. The structure of `ip_protocol` block is documented below.

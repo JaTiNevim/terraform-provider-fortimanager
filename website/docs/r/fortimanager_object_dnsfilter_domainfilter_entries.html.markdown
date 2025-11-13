@@ -43,6 +43,7 @@ The following arguments are supported:
 
 * `action` - Action to take for domain filter matches. Valid values: `block`, `allow`, `monitor`.
 
+* `comment` - Comment.
 * `domain` - Domain entries to be filtered.
 * `fosid` - Id.
 * `status` - Enable/disable this domain filter. Valid values: `disable`, `enable`.

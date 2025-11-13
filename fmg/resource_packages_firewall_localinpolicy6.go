@@ -92,6 +92,12 @@ func resourcePackagesFirewallLocalInPolicy6() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"internet_service6_src_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"internet_service6_src_group": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -360,6 +366,10 @@ func flattenPackagesFirewallLocalInPolicy6InternetService6SrcCustomGroup(v inter
 	return flattenStringList(v)
 }
 
+func flattenPackagesFirewallLocalInPolicy6InternetService6SrcFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesFirewallLocalInPolicy6InternetService6SrcGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -490,6 +500,16 @@ func refreshObjectPackagesFirewallLocalInPolicy6(d *schema.ResourceData, o map[s
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service6_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service6_src_fortiguard", flattenPackagesFirewallLocalInPolicy6InternetService6SrcFortiguard(o["internet-service6-src-fortiguard"], d, "internet_service6_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service6-src-fortiguard"], "PackagesFirewallLocalInPolicy6-InternetService6SrcFortiguard"); ok {
+			if err = d.Set("internet_service6_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
 		}
 	}
 
@@ -670,6 +690,10 @@ func expandPackagesFirewallLocalInPolicy6InternetService6SrcCustomGroup(d *schem
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandPackagesFirewallLocalInPolicy6InternetService6SrcFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesFirewallLocalInPolicy6InternetService6SrcGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -789,6 +813,15 @@ func getObjectPackagesFirewallLocalInPolicy6(d *schema.ResourceData) (*map[strin
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service6-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service6_src_fortiguard"); ok || d.HasChange("internet_service6_src_fortiguard") {
+		t, err := expandPackagesFirewallLocalInPolicy6InternetService6SrcFortiguard(d, v, "internet_service6_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service6-src-fortiguard"] = t
 		}
 	}
 

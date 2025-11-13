@@ -114,6 +114,10 @@ func resourceObjectCasbUserActivity() *schema.Resource {
 										Optional: true,
 										Computed: true,
 									},
+									"value_name_from_input": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
 									"values": &schema.Schema{
 										Type:     schema.TypeSet,
 										Elem:     &schema.Schema{Type: schema.TypeString},
@@ -554,6 +558,12 @@ func flattenObjectCasbUserActivityControlOptionsOperations(v interface{}, d *sch
 			tmp["value_from_input"] = fortiAPISubPartPatch(v, "ObjectCasbUserActivityControlOptions-Operations-ValueFromInput")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "value_name_from_input"
+		if _, ok := i["value-name-from-input"]; ok {
+			v := flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput(i["value-name-from-input"], d, pre_append)
+			tmp["value_name_from_input"] = fortiAPISubPartPatch(v, "ObjectCasbUserActivityControlOptions-Operations-ValueNameFromInput")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "values"
 		if _, ok := i["values"]; ok {
 			v := flattenObjectCasbUserActivityControlOptionsOperationsValues(i["values"], d, pre_append)
@@ -603,6 +613,10 @@ func flattenObjectCasbUserActivityControlOptionsOperationsTarget(v interface{}, 
 }
 
 func flattenObjectCasbUserActivityControlOptionsOperationsValueFromInput(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1239,6 +1253,11 @@ func expandObjectCasbUserActivityControlOptionsOperations(d *schema.ResourceData
 			tmp["value-from-input"], _ = expandObjectCasbUserActivityControlOptionsOperationsValueFromInput(d, i["value_from_input"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "value_name_from_input"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["value-name-from-input"], _ = expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput(d, i["value_name_from_input"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "values"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["values"], _ = expandObjectCasbUserActivityControlOptionsOperationsValues(d, i["values"], pre_append)
@@ -1287,6 +1306,10 @@ func expandObjectCasbUserActivityControlOptionsOperationsTarget(d *schema.Resour
 }
 
 func expandObjectCasbUserActivityControlOptionsOperationsValueFromInput(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

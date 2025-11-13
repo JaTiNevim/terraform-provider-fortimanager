@@ -55,6 +55,10 @@ func resourceSystempLogSyslogdFilter() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"debug": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"forti_switch": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -321,6 +325,10 @@ func resourceSystempLogSyslogdFilterRead(d *schema.ResourceData, m interface{}) 
 }
 
 func flattenSystempLogSyslogdFilterAnomaly(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystempLogSyslogdFilterDebug(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -600,6 +608,16 @@ func refreshObjectSystempLogSyslogdFilter(d *schema.ResourceData, o map[string]i
 		}
 	}
 
+	if err = d.Set("debug", flattenSystempLogSyslogdFilterDebug(o["debug"], d, "debug")); err != nil {
+		if vv, ok := fortiAPIPatch(o["debug"], "SystempLogSyslogdFilter-Debug"); ok {
+			if err = d.Set("debug", vv); err != nil {
+				return fmt.Errorf("Error reading debug: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading debug: %v", err)
+		}
+	}
+
 	if err = d.Set("forti_switch", flattenSystempLogSyslogdFilterFortiSwitch(o["forti-switch"], d, "forti_switch")); err != nil {
 		if vv, ok := fortiAPIPatch(o["forti-switch"], "SystempLogSyslogdFilter-FortiSwitch"); ok {
 			if err = d.Set("forti_switch", vv); err != nil {
@@ -838,6 +856,10 @@ func flattenSystempLogSyslogdFilterFortiTestDebug(d *schema.ResourceData, fosdeb
 }
 
 func expandSystempLogSyslogdFilterAnomaly(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystempLogSyslogdFilterDebug(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1085,6 +1107,15 @@ func getObjectSystempLogSyslogdFilter(d *schema.ResourceData) (*map[string]inter
 			return &obj, err
 		} else if t != nil {
 			obj["anomaly"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("debug"); ok || d.HasChange("debug") {
+		t, err := expandSystempLogSyslogdFilterDebug(d, v, "debug")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["debug"] = t
 		}
 	}
 

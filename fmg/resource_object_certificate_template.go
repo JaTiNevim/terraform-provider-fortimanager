@@ -116,6 +116,10 @@ func resourceObjectCertificateTemplate() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"subject_alt_name": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"subject_name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -306,6 +310,10 @@ func flattenObjectCertificateTemplateState(v interface{}, d *schema.ResourceData
 	return v
 }
 
+func flattenObjectCertificateTemplateSubjectAltName(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectCertificateTemplateSubjectName(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -461,6 +469,16 @@ func refreshObjectObjectCertificateTemplate(d *schema.ResourceData, o map[string
 		}
 	}
 
+	if err = d.Set("subject_alt_name", flattenObjectCertificateTemplateSubjectAltName(o["subject-alt-name"], d, "subject_alt_name")); err != nil {
+		if vv, ok := fortiAPIPatch(o["subject-alt-name"], "ObjectCertificateTemplate-SubjectAltName"); ok {
+			if err = d.Set("subject_alt_name", vv); err != nil {
+				return fmt.Errorf("Error reading subject_alt_name: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading subject_alt_name: %v", err)
+		}
+	}
+
 	if err = d.Set("subject_name", flattenObjectCertificateTemplateSubjectName(o["subject-name"], d, "subject_name")); err != nil {
 		if vv, ok := fortiAPIPatch(o["subject-name"], "ObjectCertificateTemplate-SubjectName"); ok {
 			if err = d.Set("subject_name", vv); err != nil {
@@ -547,6 +565,10 @@ func expandObjectCertificateTemplateScepServer(d *schema.ResourceData, v interfa
 }
 
 func expandObjectCertificateTemplateState(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCertificateTemplateSubjectAltName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -693,6 +715,15 @@ func getObjectObjectCertificateTemplate(d *schema.ResourceData) (*map[string]int
 			return &obj, err
 		} else if t != nil {
 			obj["state"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("subject_alt_name"); ok || d.HasChange("subject_alt_name") {
+		t, err := expandObjectCertificateTemplateSubjectAltName(d, v, "subject_alt_name")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["subject-alt-name"] = t
 		}
 	}
 

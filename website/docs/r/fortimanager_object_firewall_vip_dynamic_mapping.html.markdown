@@ -202,6 +202,8 @@ The `realservers` block supports:
 
 * `type` - Type. Valid values: `ip`, `address`.
 
+* `verify_cert` - Verify-Cert. Valid values: `disable`, `enable`.
+
 * `weight` - Weight of the real server. If weighted load balancing is enabled, the server with the highest weight gets more connections.
 
 The `ssl_cipher_suites` block supports:

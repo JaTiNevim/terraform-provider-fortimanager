@@ -30,6 +30,7 @@ The following arguments are supported:
 * `ca_cert` - Ca-Cert.
 * `client_cert` - Client-Cert.
 * `name` - Name.
+* `secondary_server` - Secondary-Server.
 * `server` - Server.
 * `status` - Status. Valid values: `disable`, `enable`.
 

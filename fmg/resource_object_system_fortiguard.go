@@ -287,6 +287,10 @@ func resourceObjectSystemFortiguard() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"subscribe_update_notification": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"update_build_proxy": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -648,6 +652,10 @@ func flattenObjectSystemFortiguardSourceIp(v interface{}, d *schema.ResourceData
 }
 
 func flattenObjectSystemFortiguardSourceIp6(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectSystemFortiguardSubscribeUpdateNotification(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1202,6 +1210,16 @@ func refreshObjectObjectSystemFortiguard(d *schema.ResourceData, o map[string]in
 		}
 	}
 
+	if err = d.Set("subscribe_update_notification", flattenObjectSystemFortiguardSubscribeUpdateNotification(o["subscribe-update-notification"], d, "subscribe_update_notification")); err != nil {
+		if vv, ok := fortiAPIPatch(o["subscribe-update-notification"], "ObjectSystemFortiguard-SubscribeUpdateNotification"); ok {
+			if err = d.Set("subscribe_update_notification", vv); err != nil {
+				return fmt.Errorf("Error reading subscribe_update_notification: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading subscribe_update_notification: %v", err)
+		}
+	}
+
 	if err = d.Set("update_build_proxy", flattenObjectSystemFortiguardUpdateBuildProxy(o["update-build-proxy"], d, "update_build_proxy")); err != nil {
 		if vv, ok := fortiAPIPatch(o["update-build-proxy"], "ObjectSystemFortiguard-UpdateBuildProxy"); ok {
 			if err = d.Set("update_build_proxy", vv); err != nil {
@@ -1564,6 +1582,10 @@ func expandObjectSystemFortiguardSourceIp(d *schema.ResourceData, v interface{},
 }
 
 func expandObjectSystemFortiguardSourceIp6(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectSystemFortiguardSubscribeUpdateNotification(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2072,6 +2094,15 @@ func getObjectObjectSystemFortiguard(d *schema.ResourceData) (*map[string]interf
 			return &obj, err
 		} else if t != nil {
 			obj["source-ip6"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("subscribe_update_notification"); ok || d.HasChange("subscribe_update_notification") {
+		t, err := expandObjectSystemFortiguardSubscribeUpdateNotification(d, v, "subscribe_update_notification")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["subscribe-update-notification"] = t
 		}
 	}
 

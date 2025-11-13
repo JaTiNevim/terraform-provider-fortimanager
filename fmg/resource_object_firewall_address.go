@@ -49,6 +49,12 @@ func resourceObjectFirewallAddress() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"agent_id": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"allow_routing": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -109,6 +115,12 @@ func resourceObjectFirewallAddress() *schema.Resource {
 									},
 								},
 							},
+						},
+						"agent_id": &schema.Schema{
+							Type:     schema.TypeSet,
+							Elem:     &schema.Schema{Type: schema.TypeString},
+							Optional: true,
+							Computed: true,
 						},
 						"allow_routing": &schema.Schema{
 							Type:     schema.TypeString,
@@ -289,6 +301,10 @@ func resourceObjectFirewallAddress() *schema.Resource {
 							Optional: true,
 						},
 						"tag_type": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"tag_uuid": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
 						},
@@ -494,6 +510,10 @@ func resourceObjectFirewallAddress() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"tag_uuid": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"tagging": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -677,6 +697,10 @@ func flattenObjectFirewallAddressImageBase64(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenObjectFirewallAddressAgentId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenObjectFirewallAddressAllowRouting(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -738,6 +762,12 @@ func flattenObjectFirewallAddressDynamicMapping(v interface{}, d *schema.Resourc
 		if _, ok := i["_scope"]; ok {
 			v := flattenObjectFirewallAddressDynamicMappingScope(i["_scope"], d, pre_append)
 			tmp["_scope"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress-DynamicMapping-Scope")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "agent_id"
+		if _, ok := i["agent-id"]; ok {
+			v := flattenObjectFirewallAddressDynamicMappingAgentId(i["agent-id"], d, pre_append)
+			tmp["agent_id"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress-DynamicMapping-AgentId")
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "allow_routing"
@@ -992,6 +1022,12 @@ func flattenObjectFirewallAddressDynamicMapping(v interface{}, d *schema.Resourc
 			tmp["tag_type"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress-DynamicMapping-TagType")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "tag_uuid"
+		if _, ok := i["tag-uuid"]; ok {
+			v := flattenObjectFirewallAddressDynamicMappingTagUuid(i["tag-uuid"], d, pre_append)
+			tmp["tag_uuid"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress-DynamicMapping-TagUuid")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "tags"
 		if _, ok := i["tags"]; ok {
 			v := flattenObjectFirewallAddressDynamicMappingTags(i["tags"], d, pre_append)
@@ -1101,6 +1137,10 @@ func flattenObjectFirewallAddressDynamicMappingScopeName(v interface{}, d *schem
 
 func flattenObjectFirewallAddressDynamicMappingScopeVdom(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
+}
+
+func flattenObjectFirewallAddressDynamicMappingAgentId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenObjectFirewallAddressDynamicMappingAllowRouting(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -1268,6 +1308,10 @@ func flattenObjectFirewallAddressDynamicMappingTagDetectionLevel(v interface{}, 
 }
 
 func flattenObjectFirewallAddressDynamicMappingTagType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAddressDynamicMappingTagUuid(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1494,6 +1538,10 @@ func flattenObjectFirewallAddressTagType(v interface{}, d *schema.ResourceData, 
 	return v
 }
 
+func flattenObjectFirewallAddressTagUuid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectFirewallAddressTagging(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
 	if v == nil {
 		return nil
@@ -1595,6 +1643,16 @@ func refreshObjectObjectFirewallAddress(d *schema.ResourceData, o map[string]int
 			}
 		} else {
 			return fmt.Errorf("Error reading _image_base64: %v", err)
+		}
+	}
+
+	if err = d.Set("agent_id", flattenObjectFirewallAddressAgentId(o["agent-id"], d, "agent_id")); err != nil {
+		if vv, ok := fortiAPIPatch(o["agent-id"], "ObjectFirewallAddress-AgentId"); ok {
+			if err = d.Set("agent_id", vv); err != nil {
+				return fmt.Errorf("Error reading agent_id: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading agent_id: %v", err)
 		}
 	}
 
@@ -2056,6 +2114,16 @@ func refreshObjectObjectFirewallAddress(d *schema.ResourceData, o map[string]int
 		}
 	}
 
+	if err = d.Set("tag_uuid", flattenObjectFirewallAddressTagUuid(o["tag-uuid"], d, "tag_uuid")); err != nil {
+		if vv, ok := fortiAPIPatch(o["tag-uuid"], "ObjectFirewallAddress-TagUuid"); ok {
+			if err = d.Set("tag_uuid", vv); err != nil {
+				return fmt.Errorf("Error reading tag_uuid: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading tag_uuid: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("tagging", flattenObjectFirewallAddressTagging(o["tagging"], d, "tagging")); err != nil {
 			if vv, ok := fortiAPIPatch(o["tagging"], "ObjectFirewallAddress-Tagging"); ok {
@@ -2153,6 +2221,10 @@ func expandObjectFirewallAddressImageBase64(d *schema.ResourceData, v interface{
 	return v, nil
 }
 
+func expandObjectFirewallAddressAgentId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandObjectFirewallAddressAllowRouting(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2212,6 +2284,11 @@ func expandObjectFirewallAddressDynamicMapping(d *schema.ResourceData, v interfa
 			} else if t != nil {
 				tmp["_scope"] = t
 			}
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "agent_id"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["agent-id"], _ = expandObjectFirewallAddressDynamicMappingAgentId(d, i["agent_id"], pre_append)
 		}
 
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "allow_routing"
@@ -2424,6 +2501,11 @@ func expandObjectFirewallAddressDynamicMapping(d *schema.ResourceData, v interfa
 			tmp["tag-type"], _ = expandObjectFirewallAddressDynamicMappingTagType(d, i["tag_type"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "tag_uuid"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["tag-uuid"], _ = expandObjectFirewallAddressDynamicMappingTagUuid(d, i["tag_uuid"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "tags"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["tags"], _ = expandObjectFirewallAddressDynamicMappingTags(d, i["tags"], pre_append)
@@ -2518,6 +2600,10 @@ func expandObjectFirewallAddressDynamicMappingScopeName(d *schema.ResourceData, 
 
 func expandObjectFirewallAddressDynamicMappingScopeVdom(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
+}
+
+func expandObjectFirewallAddressDynamicMappingAgentId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandObjectFirewallAddressDynamicMappingAllowRouting(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -2685,6 +2771,10 @@ func expandObjectFirewallAddressDynamicMappingTagDetectionLevel(d *schema.Resour
 }
 
 func expandObjectFirewallAddressDynamicMappingTagType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAddressDynamicMappingTagUuid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2903,6 +2993,10 @@ func expandObjectFirewallAddressTagType(d *schema.ResourceData, v interface{}, p
 	return v, nil
 }
 
+func expandObjectFirewallAddressTagUuid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectFirewallAddressTagging(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	l := v.([]interface{})
 	result := make([]map[string]interface{}, 0, len(l))
@@ -2987,6 +3081,15 @@ func getObjectObjectFirewallAddress(d *schema.ResourceData) (*map[string]interfa
 			return &obj, err
 		} else if t != nil {
 			obj["_image-base64"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("agent_id"); ok || d.HasChange("agent_id") {
+		t, err := expandObjectFirewallAddressAgentId(d, v, "agent_id")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["agent-id"] = t
 		}
 	}
 
@@ -3374,6 +3477,15 @@ func getObjectObjectFirewallAddress(d *schema.ResourceData) (*map[string]interfa
 			return &obj, err
 		} else if t != nil {
 			obj["tag-type"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("tag_uuid"); ok || d.HasChange("tag_uuid") {
+		t, err := expandObjectFirewallAddressTagUuid(d, v, "tag_uuid")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["tag-uuid"] = t
 		}
 	}
 

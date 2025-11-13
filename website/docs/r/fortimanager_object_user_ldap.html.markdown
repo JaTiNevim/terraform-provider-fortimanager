@@ -190,6 +190,8 @@ The `dynamic_mapping` block supports:
 
 * `user_info_exchange_server` - MS Exchange server from which to fetch user information.
 * `username` - Username (full DN) for initial binding.
+* `validate_server_certificate` - Validate-Server-Certificate. Valid values: `disable`, `enable`.
+
 * `vrf_select` - VRF ID used for connection to server.
 
 The `_scope` block supports:

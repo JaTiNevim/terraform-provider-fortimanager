@@ -29,6 +29,8 @@ The following arguments are supported:
 
 * `feature_set` - Flow/proxy feature set. Valid values: `flow`, `proxy`.
 
+* `fortidata_error_action` - Action to take if FortiData query fails. Valid values: `block`, `log-only`, `ignore`.
+
 * `full_archive_proto` - Protocols to always content archive. Valid values: `smtp`, `pop3`, `imap`, `http-post`, `http-get`, `ftp`, `nntp`, `mapi`, `ssh`, `cifs`.
 
 * `nac_quar_log` - Enable/disable NAC quarantine logging. Valid values: `disable`, `enable`.

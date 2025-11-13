@@ -45,6 +45,16 @@ func resourceObjectAuthenticationScheme() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 			},
+			"digest_algo": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"digest_rfc2069": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"domain_controller": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -68,6 +78,10 @@ func resourceObjectAuthenticationScheme() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
+			},
+			"group_attr_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 			},
 			"kerberos_keytab": &schema.Schema{
 				Type:     schema.TypeString,
@@ -242,6 +256,14 @@ func resourceObjectAuthenticationSchemeRead(d *schema.ResourceData, m interface{
 	return nil
 }
 
+func flattenObjectAuthenticationSchemeDigestAlgo(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenObjectAuthenticationSchemeDigestRfc2069(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectAuthenticationSchemeDomainController(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
 }
@@ -259,6 +281,10 @@ func flattenObjectAuthenticationSchemeFssoAgentForNtlm(v interface{}, d *schema.
 }
 
 func flattenObjectAuthenticationSchemeFssoGuest(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectAuthenticationSchemeGroupAttrType(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -309,6 +335,26 @@ func refreshObjectObjectAuthenticationScheme(d *schema.ResourceData, o map[strin
 		d.Set("scopetype", "inherit")
 	}
 
+	if err = d.Set("digest_algo", flattenObjectAuthenticationSchemeDigestAlgo(o["digest-algo"], d, "digest_algo")); err != nil {
+		if vv, ok := fortiAPIPatch(o["digest-algo"], "ObjectAuthenticationScheme-DigestAlgo"); ok {
+			if err = d.Set("digest_algo", vv); err != nil {
+				return fmt.Errorf("Error reading digest_algo: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading digest_algo: %v", err)
+		}
+	}
+
+	if err = d.Set("digest_rfc2069", flattenObjectAuthenticationSchemeDigestRfc2069(o["digest-rfc2069"], d, "digest_rfc2069")); err != nil {
+		if vv, ok := fortiAPIPatch(o["digest-rfc2069"], "ObjectAuthenticationScheme-DigestRfc2069"); ok {
+			if err = d.Set("digest_rfc2069", vv); err != nil {
+				return fmt.Errorf("Error reading digest_rfc2069: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading digest_rfc2069: %v", err)
+		}
+	}
+
 	if err = d.Set("domain_controller", flattenObjectAuthenticationSchemeDomainController(o["domain-controller"], d, "domain_controller")); err != nil {
 		if vv, ok := fortiAPIPatch(o["domain-controller"], "ObjectAuthenticationScheme-DomainController"); ok {
 			if err = d.Set("domain_controller", vv); err != nil {
@@ -356,6 +402,16 @@ func refreshObjectObjectAuthenticationScheme(d *schema.ResourceData, o map[strin
 			}
 		} else {
 			return fmt.Errorf("Error reading fsso_guest: %v", err)
+		}
+	}
+
+	if err = d.Set("group_attr_type", flattenObjectAuthenticationSchemeGroupAttrType(o["group-attr-type"], d, "group_attr_type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["group-attr-type"], "ObjectAuthenticationScheme-GroupAttrType"); ok {
+			if err = d.Set("group_attr_type", vv); err != nil {
+				return fmt.Errorf("Error reading group_attr_type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading group_attr_type: %v", err)
 		}
 	}
 
@@ -468,6 +524,14 @@ func flattenObjectAuthenticationSchemeFortiTestDebug(d *schema.ResourceData, fos
 	log.Printf("ER List: %v", e)
 }
 
+func expandObjectAuthenticationSchemeDigestAlgo(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandObjectAuthenticationSchemeDigestRfc2069(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectAuthenticationSchemeDomainController(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
 }
@@ -485,6 +549,10 @@ func expandObjectAuthenticationSchemeFssoAgentForNtlm(d *schema.ResourceData, v 
 }
 
 func expandObjectAuthenticationSchemeFssoGuest(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectAuthenticationSchemeGroupAttrType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -531,6 +599,24 @@ func expandObjectAuthenticationSchemeUserDatabase(d *schema.ResourceData, v inte
 func getObjectObjectAuthenticationScheme(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
 
+	if v, ok := d.GetOk("digest_algo"); ok || d.HasChange("digest_algo") {
+		t, err := expandObjectAuthenticationSchemeDigestAlgo(d, v, "digest_algo")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["digest-algo"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("digest_rfc2069"); ok || d.HasChange("digest_rfc2069") {
+		t, err := expandObjectAuthenticationSchemeDigestRfc2069(d, v, "digest_rfc2069")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["digest-rfc2069"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("domain_controller"); ok || d.HasChange("domain_controller") {
 		t, err := expandObjectAuthenticationSchemeDomainController(d, v, "domain_controller")
 		if err != nil {
@@ -573,6 +659,15 @@ func getObjectObjectAuthenticationScheme(d *schema.ResourceData) (*map[string]in
 			return &obj, err
 		} else if t != nil {
 			obj["fsso-guest"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("group_attr_type"); ok || d.HasChange("group_attr_type") {
+		t, err := expandObjectAuthenticationSchemeGroupAttrType(d, v, "group_attr_type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["group-attr-type"] = t
 		}
 	}
 

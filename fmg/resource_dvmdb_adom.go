@@ -189,7 +189,6 @@ func resourceDvmdbAdomCreate(d *schema.ResourceData, m interface{}) error {
 	if err != nil {
 		return fmt.Errorf("Error creating DvmdbAdom resource while getting object: %v", err)
 	}
-
 	wsParams["lockMode"] = "skip_lock"
 
 	_, err = c.CreateDvmdbAdom(obj, paradict, wsParams)

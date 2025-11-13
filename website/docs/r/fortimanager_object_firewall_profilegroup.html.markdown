@@ -47,6 +47,7 @@ The following arguments are supported:
 * `sctp_filter_profile` - Name of an existing SCTP filter profile.
 * `ssh_filter_profile` - Name of an existing SSH filter profile.
 * `ssl_ssh_profile` - Name of an existing SSL SSH profile.
+* `telemetry_profile` - Name of an existing telemetry profile.
 * `videofilter_profile` - Name of an existing VideoFilter profile.
 * `virtual_patch_profile` - Name of an existing virtual-patch profile.
 * `voip_profile` - Name of an existing VoIP profile.

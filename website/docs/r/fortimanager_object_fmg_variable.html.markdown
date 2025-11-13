@@ -35,6 +35,8 @@ The following arguments are supported:
 * `description` - Description.
 * `dynamic_mapping` - Dynamic_Mapping. The structure of `dynamic_mapping` block is documented below.
 * `name` - Name.
+* `type` - Type. Valid values: `normal`, `password`.
+
 * `value` - Value.
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
 

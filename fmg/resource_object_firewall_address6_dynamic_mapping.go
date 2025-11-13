@@ -214,6 +214,10 @@ func resourceObjectFirewallAddress6DynamicMapping() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"wildcard": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"dynamic_sort_subtable": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -592,6 +596,10 @@ func flattenObjectFirewallAddress6DynamicMappingVisibility2edl(v interface{}, d 
 	return v
 }
 
+func flattenObjectFirewallAddress6DynamicMappingWildcard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectObjectFirewallAddress6DynamicMapping(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -941,6 +949,16 @@ func refreshObjectObjectFirewallAddress6DynamicMapping(d *schema.ResourceData, o
 		}
 	}
 
+	if err = d.Set("wildcard", flattenObjectFirewallAddress6DynamicMappingWildcard2edl(o["wildcard"], d, "wildcard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["wildcard"], "ObjectFirewallAddress6DynamicMapping-Wildcard"); ok {
+			if err = d.Set("wildcard", vv); err != nil {
+				return fmt.Errorf("Error reading wildcard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading wildcard: %v", err)
+		}
+	}
+
 	return nil
 }
 
@@ -1156,6 +1174,10 @@ func expandObjectFirewallAddress6DynamicMappingUuid2edl(d *schema.ResourceData, 
 }
 
 func expandObjectFirewallAddress6DynamicMappingVisibility2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAddress6DynamicMappingWildcard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1438,6 +1460,15 @@ func getObjectObjectFirewallAddress6DynamicMapping(d *schema.ResourceData) (*map
 			return &obj, err
 		} else if t != nil {
 			obj["visibility"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("wildcard"); ok || d.HasChange("wildcard") {
+		t, err := expandObjectFirewallAddress6DynamicMappingWildcard2edl(d, v, "wildcard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["wildcard"] = t
 		}
 	}
 

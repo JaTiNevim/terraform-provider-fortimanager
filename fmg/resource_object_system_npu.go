@@ -63,30 +63,37 @@ func resourceObjectSystemNpu() *schema.Resource {
 						"scan_vt": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"stats_qual_access": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"stats_qual_duration": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"stats_update_interval": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"udp_keepalive_interval": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"udp_qual_access": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"udp_qual_duration": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 					},
 				},
@@ -158,6 +165,7 @@ func resourceObjectSystemNpu() *schema.Resource {
 			"dse_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"dsw_dts_profile": &schema.Schema{
 				Type:     schema.TypeList,
@@ -567,6 +575,7 @@ func resourceObjectSystemNpu() *schema.Resource {
 			"hash_config": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"hash_ipv6_sel": &schema.Schema{
 				Type:     schema.TypeInt,
@@ -843,10 +852,12 @@ func resourceObjectSystemNpu() *schema.Resource {
 			"ippool_overload_high": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"ippool_overload_low": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
+				Computed: true,
 			},
 			"ipsec_sts_timeout": &schema.Schema{
 				Type:     schema.TypeString,
@@ -886,6 +897,10 @@ func resourceObjectSystemNpu() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
+			},
+			"ipsec_ordering": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 			},
 			"ipsec_over_vlink": &schema.Schema{
 				Type:     schema.TypeString,
@@ -979,6 +994,10 @@ func resourceObjectSystemNpu() *schema.Resource {
 					},
 				},
 			},
+			"lag_hash_gre": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"isf_np_rx_tr_distr": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1028,6 +1047,10 @@ func resourceObjectSystemNpu() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
+						"custom_etype_lookup": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"ethernet_type": &schema.Schema{
 							Type:     schema.TypeList,
 							Optional: true,
@@ -2536,6 +2559,7 @@ func resourceObjectSystemNpu() *schema.Resource {
 			"pba_eim": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"pba_port_select_mode": &schema.Schema{
 				Type:     schema.TypeString,
@@ -2804,6 +2828,18 @@ func resourceObjectSystemNpu() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"sw_np_pause": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"sw_np_rate": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
+			"sw_np_rate_unit": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"sw_tr_hash": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
@@ -2899,6 +2935,10 @@ func resourceObjectSystemNpu() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
+			},
+			"use_mse_oft": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 			},
 			"vlan_lookup_cache": &schema.Schema{
 				Type:     schema.TypeString,
@@ -4406,6 +4446,10 @@ func flattenObjectSystemNpuIpsecObNpSel(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenObjectSystemNpuIpsecOrdering(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectSystemNpuIpsecOverVlink(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -4531,6 +4575,10 @@ func flattenObjectSystemNpuIsfNpQueuesCos7(v interface{}, d *schema.ResourceData
 	return conv2str(v)
 }
 
+func flattenObjectSystemNpuLagHashGre(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectSystemNpuIsfNpRxTrDistr(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -4576,6 +4624,11 @@ func flattenObjectSystemNpuNpQueues(v interface{}, d *schema.ResourceData, pre s
 	result := make(map[string]interface{})
 
 	pre_append := "" // complex
+	pre_append = pre + ".0." + "custom_etype_lookup"
+	if _, ok := i["custom-etype-lookup"]; ok {
+		result["custom_etype_lookup"] = flattenObjectSystemNpuNpQueuesCustomEtypeLookup(i["custom-etype-lookup"], d, pre_append)
+	}
+
 	pre_append = pre + ".0." + "ethernet_type"
 	if _, ok := i["ethernet-type"]; ok {
 		result["ethernet_type"] = flattenObjectSystemNpuNpQueuesEthernetType(i["ethernet-type"], d, pre_append)
@@ -4603,6 +4656,10 @@ func flattenObjectSystemNpuNpQueues(v interface{}, d *schema.ResourceData, pre s
 
 	lastresult := []map[string]interface{}{result}
 	return lastresult
+}
+
+func flattenObjectSystemNpuNpQueuesCustomEtypeLookup(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
 }
 
 func flattenObjectSystemNpuNpQueuesEthernetType(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
@@ -8082,6 +8139,18 @@ func flattenObjectSystemNpuSwNpBandwidth(v interface{}, d *schema.ResourceData, 
 	return v
 }
 
+func flattenObjectSystemNpuSwNpPause(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectSystemNpuSwNpRate(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectSystemNpuSwNpRateUnit(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectSystemNpuSwTrHash(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
 	if v == nil {
 		return nil
@@ -8278,6 +8347,10 @@ func flattenObjectSystemNpuUespOffload(v interface{}, d *schema.ResourceData, pr
 }
 
 func flattenObjectSystemNpuUllPortMode(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectSystemNpuUseMseOft(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -8886,6 +8959,16 @@ func refreshObjectObjectSystemNpu(d *schema.ResourceData, o map[string]interface
 		}
 	}
 
+	if err = d.Set("ipsec_ordering", flattenObjectSystemNpuIpsecOrdering(o["ipsec-ordering"], d, "ipsec_ordering")); err != nil {
+		if vv, ok := fortiAPIPatch(o["ipsec-ordering"], "ObjectSystemNpu-IpsecOrdering"); ok {
+			if err = d.Set("ipsec_ordering", vv); err != nil {
+				return fmt.Errorf("Error reading ipsec_ordering: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading ipsec_ordering: %v", err)
+		}
+	}
+
 	if err = d.Set("ipsec_over_vlink", flattenObjectSystemNpuIpsecOverVlink(o["ipsec-over-vlink"], d, "ipsec_over_vlink")); err != nil {
 		if vv, ok := fortiAPIPatch(o["ipsec-over-vlink"], "ObjectSystemNpu-IpsecOverVlink"); ok {
 			if err = d.Set("ipsec_over_vlink", vv); err != nil {
@@ -9007,6 +9090,16 @@ func refreshObjectObjectSystemNpu(d *schema.ResourceData, o map[string]interface
 					return fmt.Errorf("Error reading isf_np_queues: %v", err)
 				}
 			}
+		}
+	}
+
+	if err = d.Set("lag_hash_gre", flattenObjectSystemNpuLagHashGre(o["lag-hash-gre"], d, "lag_hash_gre")); err != nil {
+		if vv, ok := fortiAPIPatch(o["lag-hash-gre"], "ObjectSystemNpu-LagHashGre"); ok {
+			if err = d.Set("lag_hash_gre", vv); err != nil {
+				return fmt.Errorf("Error reading lag_hash_gre: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading lag_hash_gre: %v", err)
 		}
 	}
 
@@ -9562,6 +9655,36 @@ func refreshObjectObjectSystemNpu(d *schema.ResourceData, o map[string]interface
 		}
 	}
 
+	if err = d.Set("sw_np_pause", flattenObjectSystemNpuSwNpPause(o["sw-np-pause"], d, "sw_np_pause")); err != nil {
+		if vv, ok := fortiAPIPatch(o["sw-np-pause"], "ObjectSystemNpu-SwNpPause"); ok {
+			if err = d.Set("sw_np_pause", vv); err != nil {
+				return fmt.Errorf("Error reading sw_np_pause: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading sw_np_pause: %v", err)
+		}
+	}
+
+	if err = d.Set("sw_np_rate", flattenObjectSystemNpuSwNpRate(o["sw-np-rate"], d, "sw_np_rate")); err != nil {
+		if vv, ok := fortiAPIPatch(o["sw-np-rate"], "ObjectSystemNpu-SwNpRate"); ok {
+			if err = d.Set("sw_np_rate", vv); err != nil {
+				return fmt.Errorf("Error reading sw_np_rate: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading sw_np_rate: %v", err)
+		}
+	}
+
+	if err = d.Set("sw_np_rate_unit", flattenObjectSystemNpuSwNpRateUnit(o["sw-np-rate-unit"], d, "sw_np_rate_unit")); err != nil {
+		if vv, ok := fortiAPIPatch(o["sw-np-rate-unit"], "ObjectSystemNpu-SwNpRateUnit"); ok {
+			if err = d.Set("sw_np_rate_unit", vv); err != nil {
+				return fmt.Errorf("Error reading sw_np_rate_unit: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading sw_np_rate_unit: %v", err)
+		}
+	}
+
 	if isImportTable() {
 		if err = d.Set("sw_tr_hash", flattenObjectSystemNpuSwTrHash(o["sw-tr-hash"], d, "sw_tr_hash")); err != nil {
 			if vv, ok := fortiAPIPatch(o["sw-tr-hash"], "ObjectSystemNpu-SwTrHash"); ok {
@@ -9681,6 +9804,16 @@ func refreshObjectObjectSystemNpu(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading ull_port_mode: %v", err)
+		}
+	}
+
+	if err = d.Set("use_mse_oft", flattenObjectSystemNpuUseMseOft(o["use-mse-oft"], d, "use_mse_oft")); err != nil {
+		if vv, ok := fortiAPIPatch(o["use-mse-oft"], "ObjectSystemNpu-UseMseOft"); ok {
+			if err = d.Set("use_mse_oft", vv); err != nil {
+				return fmt.Errorf("Error reading use_mse_oft: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading use_mse_oft: %v", err)
 		}
 	}
 
@@ -10984,6 +11117,10 @@ func expandObjectSystemNpuIpsecObNpSel(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandObjectSystemNpuIpsecOrdering(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectSystemNpuIpsecOverVlink(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -11102,6 +11239,10 @@ func expandObjectSystemNpuIsfNpQueuesCos7(d *schema.ResourceData, v interface{},
 	return convstr2list(v, nil), nil
 }
 
+func expandObjectSystemNpuLagHashGre(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectSystemNpuIsfNpRxTrDistr(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -11148,6 +11289,10 @@ func expandObjectSystemNpuNpQueues(d *schema.ResourceData, v interface{}, pre st
 	result := make(map[string]interface{})
 
 	pre_append := "" // complex
+	pre_append = pre + ".0." + "custom_etype_lookup"
+	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+		result["custom-etype-lookup"], _ = expandObjectSystemNpuNpQueuesCustomEtypeLookup(d, i["custom_etype_lookup"], pre_append)
+	}
 	pre_append = pre + ".0." + "ethernet_type"
 	if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 		t, err := expandObjectSystemNpuNpQueuesEthernetType(d, i["ethernet_type"], pre_append)
@@ -11195,6 +11340,10 @@ func expandObjectSystemNpuNpQueues(d *schema.ResourceData, v interface{}, pre st
 	}
 
 	return result, nil
+}
+
+func expandObjectSystemNpuNpQueuesCustomEtypeLookup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandObjectSystemNpuNpQueuesEthernetType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -14349,6 +14498,18 @@ func expandObjectSystemNpuSwNpBandwidth(d *schema.ResourceData, v interface{}, p
 	return v, nil
 }
 
+func expandObjectSystemNpuSwNpPause(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectSystemNpuSwNpRate(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectSystemNpuSwNpRateUnit(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectSystemNpuSwTrHash(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	l := v.([]interface{})
 	if len(l) == 0 || l[0] == nil {
@@ -14525,6 +14686,10 @@ func expandObjectSystemNpuUespOffload(d *schema.ResourceData, v interface{}, pre
 }
 
 func expandObjectSystemNpuUllPortMode(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectSystemNpuUseMseOft(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -14953,6 +15118,15 @@ func getObjectObjectSystemNpu(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
+	if v, ok := d.GetOk("ipsec_ordering"); ok || d.HasChange("ipsec_ordering") {
+		t, err := expandObjectSystemNpuIpsecOrdering(d, v, "ipsec_ordering")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["ipsec-ordering"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("ipsec_over_vlink"); ok || d.HasChange("ipsec_over_vlink") {
 		t, err := expandObjectSystemNpuIpsecOverVlink(d, v, "ipsec_over_vlink")
 		if err != nil {
@@ -15049,6 +15223,15 @@ func getObjectObjectSystemNpu(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["isf-np-queues"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("lag_hash_gre"); ok || d.HasChange("lag_hash_gre") {
+		t, err := expandObjectSystemNpuLagHashGre(d, v, "lag_hash_gre")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["lag-hash-gre"] = t
 		}
 	}
 
@@ -15448,6 +15631,33 @@ func getObjectObjectSystemNpu(d *schema.ResourceData) (*map[string]interface{}, 
 		}
 	}
 
+	if v, ok := d.GetOk("sw_np_pause"); ok || d.HasChange("sw_np_pause") {
+		t, err := expandObjectSystemNpuSwNpPause(d, v, "sw_np_pause")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["sw-np-pause"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("sw_np_rate"); ok || d.HasChange("sw_np_rate") {
+		t, err := expandObjectSystemNpuSwNpRate(d, v, "sw_np_rate")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["sw-np-rate"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("sw_np_rate_unit"); ok || d.HasChange("sw_np_rate_unit") {
+		t, err := expandObjectSystemNpuSwNpRateUnit(d, v, "sw_np_rate_unit")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["sw-np-rate-unit"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("sw_tr_hash"); ok || d.HasChange("sw_tr_hash") {
 		t, err := expandObjectSystemNpuSwTrHash(d, v, "sw_tr_hash")
 		if err != nil {
@@ -15517,6 +15727,15 @@ func getObjectObjectSystemNpu(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["ull-port-mode"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("use_mse_oft"); ok || d.HasChange("use_mse_oft") {
+		t, err := expandObjectSystemNpuUseMseOft(d, v, "use_mse_oft")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["use-mse-oft"] = t
 		}
 	}
 

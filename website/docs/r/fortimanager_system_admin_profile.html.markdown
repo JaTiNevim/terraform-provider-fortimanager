@@ -77,6 +77,8 @@ The following arguments are supported:
 
 * `device_fortiswitch` - Manage FortiSwitch. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
+* `device_fwm_profile` - Device firmware profile permission. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
+
 * `device_manager` - Device manager. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.
 
 * `device_op` - Device add/delete/edit. none - No permission. read - Read permission. read-write - Read-write permission. Valid values: `none`, `read`, `read-write`.

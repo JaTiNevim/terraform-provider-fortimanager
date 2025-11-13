@@ -102,6 +102,10 @@ func resourceObjectCasbUserActivityControlOptions() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"value_name_from_input": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"values": &schema.Schema{
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
@@ -343,6 +347,12 @@ func flattenObjectCasbUserActivityControlOptionsOperations2edl(v interface{}, d 
 			tmp["value_from_input"] = fortiAPISubPartPatch(v, "ObjectCasbUserActivityControlOptions-Operations-ValueFromInput")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "value_name_from_input"
+		if _, ok := i["value-name-from-input"]; ok {
+			v := flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput2edl(i["value-name-from-input"], d, pre_append)
+			tmp["value_name_from_input"] = fortiAPISubPartPatch(v, "ObjectCasbUserActivityControlOptions-Operations-ValueNameFromInput")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "values"
 		if _, ok := i["values"]; ok {
 			v := flattenObjectCasbUserActivityControlOptionsOperationsValues2edl(i["values"], d, pre_append)
@@ -392,6 +402,10 @@ func flattenObjectCasbUserActivityControlOptionsOperationsTarget2edl(v interface
 }
 
 func flattenObjectCasbUserActivityControlOptionsOperationsValueFromInput2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -530,6 +544,11 @@ func expandObjectCasbUserActivityControlOptionsOperations2edl(d *schema.Resource
 			tmp["value-from-input"], _ = expandObjectCasbUserActivityControlOptionsOperationsValueFromInput2edl(d, i["value_from_input"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "value_name_from_input"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["value-name-from-input"], _ = expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput2edl(d, i["value_name_from_input"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "values"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["values"], _ = expandObjectCasbUserActivityControlOptionsOperationsValues2edl(d, i["values"], pre_append)
@@ -578,6 +597,10 @@ func expandObjectCasbUserActivityControlOptionsOperationsTarget2edl(d *schema.Re
 }
 
 func expandObjectCasbUserActivityControlOptionsOperationsValueFromInput2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

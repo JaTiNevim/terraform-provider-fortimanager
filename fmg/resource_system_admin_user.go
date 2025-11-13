@@ -351,6 +351,10 @@ func resourceSystemAdminUser() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"old_password": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"pager_number": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1270,6 +1274,10 @@ func flattenSystemAdminUserMobileNumber(v interface{}, d *schema.ResourceData, p
 	return v
 }
 
+func flattenSystemAdminUserOldPassword(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminUserPagerNumber(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1989,6 +1997,16 @@ func refreshObjectSystemAdminUser(d *schema.ResourceData, o map[string]interface
 			}
 		} else {
 			return fmt.Errorf("Error reading mobile_number: %v", err)
+		}
+	}
+
+	if err = d.Set("old_password", flattenSystemAdminUserOldPassword(o["old-password"], d, "old_password")); err != nil {
+		if vv, ok := fortiAPIPatch(o["old-password"], "SystemAdminUser-OldPassword"); ok {
+			if err = d.Set("old_password", vv); err != nil {
+				return fmt.Errorf("Error reading old_password: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading old_password: %v", err)
 		}
 	}
 
@@ -2907,6 +2925,10 @@ func expandSystemAdminUserMobileNumber(d *schema.ResourceData, v interface{}, pr
 	return v, nil
 }
 
+func expandSystemAdminUserOldPassword(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminUserPagerNumber(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -3468,6 +3490,15 @@ func getObjectSystemAdminUser(d *schema.ResourceData) (*map[string]interface{}, 
 			return &obj, err
 		} else if t != nil {
 			obj["mobile-number"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("old_password"); ok || d.HasChange("old_password") {
+		t, err := expandSystemAdminUserOldPassword(d, v, "old_password")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["old-password"] = t
 		}
 	}
 

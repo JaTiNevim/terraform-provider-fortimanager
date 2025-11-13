@@ -98,9 +98,12 @@ The following arguments are supported:
 * `global_ssl_protocol` - set the lowest SSL protocol version for all SSL connections. sslv3 - set SSLv3 as the lowest version. tlsv1.0 - set TLSv1.0 as the lowest version. tlsv1.1 - set TLSv1.1 as the lowest version. tlsv1.2 - set TLSv1.2 as the lowest version (default). tlsv1.3 - set TLSv1.3 as the lowest version. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
 * `gui_curl_timeout` - GUI curl timeout in seconds (5-300 default 30).
+* `gui_feature_visibility_mode` - Set GUI feature visibility mode (per-adom, per-admin). per-adom - Per-ADOM control in policy &amp; objects and provisioning templates. per-admin - Per-admin control in policy &amp; objects and provisioning templates. Valid values: `per-adom`, `per-admin`.
+
 * `gui_polling_interval` - GUI polling interval in seconds (1-288000 default 5).
 * `ha_member_auto_grouping` - Enable/disable automatically group HA members feature disable - Disable automatically grouping HA members feature. enable - Enable automatically grouping HA members only when group name is unique in your network. Valid values: `disable`, `enable`.
 
+* `hitcount_response_timeout` - Timeout of waiting for hitcount response (60 - 300 seconds).
 * `hostname` - System hostname.
 * `httpd_ssl_protocol` - set SSL protocols for apache daemon (httpd) sslv3 - Enable SSLv3. tlsv1.0 - Enable TLSv1.0. tlsv1.1 - Enable TLSv1.1. tlsv1.2 - Enable TLSv1.2. tlsv1.3 - Enable TLSv1.3. Valid values: `sslv3`, `tlsv1.0`, `tlsv1.1`, `tlsv1.2`, `tlsv1.3`.
 
@@ -164,6 +167,8 @@ The following arguments are supported:
 * `private_data_encryption` - Enable/disable private data encryption using an AES 128-bit key. disable - Disable private data encryption using an AES 128-bit key. enable - Enable private data encryption using an AES 128-bit key. Valid values: `disable`, `enable`.
 
 * `remoteauthtimeout` - Remote authentication (RADIUS/LDAP) timeout (sec).
+* `rpc_log` - Enable/Disable incoming/outgoing rpc log. disable - Disable rpc log. enable - Enable rpc log (default) Valid values: `disable`, `enable`.
+
 * `save_last_hit_in_adomdb` - Enable/Disable save last-hit value in adomdb. disable - Disable save last-hit value in adomdb. enable - Enable save last-hit value in adomdb. Valid values: `disable`, `enable`.
 
 * `search_all_adoms` - Enable/Disable Search all ADOMs for where-used query. disable - Disable search all ADOMs for where-used queries. enable - Enable search all ADOMs for where-used queries. Valid values: `disable`, `enable`.

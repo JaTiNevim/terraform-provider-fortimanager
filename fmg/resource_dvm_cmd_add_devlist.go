@@ -314,7 +314,7 @@ func flattenDvmCmdAddDevListAddDevListDeviceAction(v interface{}, d *schema.Reso
 }
 
 func flattenDvmCmdAddDevListAddDevListDeviceBlueprint(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return convintflist2str(v, d.Get(pre))
+	return conv2str(v)
 }
 
 func flattenDvmCmdAddDevListAddDevListFazQuota(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -559,7 +559,7 @@ func expandDvmCmdAddDevListAddDevListDeviceAction(d *schema.ResourceData, v inte
 }
 
 func expandDvmCmdAddDevListAddDevListDeviceBlueprint(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
-	return convstr2list(v, nil), nil
+	return v, nil
 }
 
 func expandDvmCmdAddDevListAddDevListFazQuota(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {

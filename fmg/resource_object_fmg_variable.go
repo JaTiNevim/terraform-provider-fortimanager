@@ -82,6 +82,11 @@ func resourceObjectFmgVariable() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 			},
+			"type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"value": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -318,6 +323,10 @@ func flattenObjectFmgVariableName(v interface{}, d *schema.ResourceData, pre str
 	return v
 }
 
+func flattenObjectFmgVariableType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectFmgVariableValue(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -374,6 +383,16 @@ func refreshObjectObjectFmgVariable(d *schema.ResourceData, o map[string]interfa
 			}
 		} else {
 			return fmt.Errorf("Error reading name: %v", err)
+		}
+	}
+
+	if err = d.Set("type", flattenObjectFmgVariableType(o["type"], d, "type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["type"], "ObjectFmgVariable-Type"); ok {
+			if err = d.Set("type", vv); err != nil {
+				return fmt.Errorf("Error reading type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading type: %v", err)
 		}
 	}
 
@@ -489,6 +508,10 @@ func expandObjectFmgVariableName(d *schema.ResourceData, v interface{}, pre stri
 	return v, nil
 }
 
+func expandObjectFmgVariableType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectFmgVariableValue(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -520,6 +543,15 @@ func getObjectObjectFmgVariable(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["name"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("type"); ok || d.HasChange("type") {
+		t, err := expandObjectFmgVariableType(d, v, "type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["type"] = t
 		}
 	}
 

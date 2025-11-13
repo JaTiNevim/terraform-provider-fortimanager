@@ -128,6 +128,12 @@ func resourceObjectFirewallProfileGroup() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"telemetry_profile": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"videofilter_profile": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -351,6 +357,10 @@ func flattenObjectFirewallProfileGroupSshFilterProfile(v interface{}, d *schema.
 
 func flattenObjectFirewallProfileGroupSslSshProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenObjectFirewallProfileGroupTelemetryProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenObjectFirewallProfileGroupVideofilterProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -580,6 +590,16 @@ func refreshObjectObjectFirewallProfileGroup(d *schema.ResourceData, o map[strin
 		}
 	}
 
+	if err = d.Set("telemetry_profile", flattenObjectFirewallProfileGroupTelemetryProfile(o["telemetry-profile"], d, "telemetry_profile")); err != nil {
+		if vv, ok := fortiAPIPatch(o["telemetry-profile"], "ObjectFirewallProfileGroup-TelemetryProfile"); ok {
+			if err = d.Set("telemetry_profile", vv); err != nil {
+				return fmt.Errorf("Error reading telemetry_profile: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading telemetry_profile: %v", err)
+		}
+	}
+
 	if err = d.Set("videofilter_profile", flattenObjectFirewallProfileGroupVideofilterProfile(o["videofilter-profile"], d, "videofilter_profile")); err != nil {
 		if vv, ok := fortiAPIPatch(o["videofilter-profile"], "ObjectFirewallProfileGroup-VideofilterProfile"); ok {
 			if err = d.Set("videofilter_profile", vv); err != nil {
@@ -717,6 +737,10 @@ func expandObjectFirewallProfileGroupSshFilterProfile(d *schema.ResourceData, v 
 
 func expandObjectFirewallProfileGroupSslSshProfile(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandObjectFirewallProfileGroupTelemetryProfile(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandObjectFirewallProfileGroupVideofilterProfile(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -919,6 +943,15 @@ func getObjectObjectFirewallProfileGroup(d *schema.ResourceData) (*map[string]in
 			return &obj, err
 		} else if t != nil {
 			obj["ssl-ssh-profile"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("telemetry_profile"); ok || d.HasChange("telemetry_profile") {
+		t, err := expandObjectFirewallProfileGroupTelemetryProfile(d, v, "telemetry_profile")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["telemetry-profile"] = t
 		}
 	}
 

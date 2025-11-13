@@ -86,6 +86,10 @@ func resourceObjectAntivirusProfileSsh() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"malware_stream": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"options": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -246,6 +250,10 @@ func flattenObjectAntivirusProfileSshFortisandbox2edl(v interface{}, d *schema.R
 	return v
 }
 
+func flattenObjectAntivirusProfileSshMalwareStream2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectAntivirusProfileSshOptions2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -345,6 +353,16 @@ func refreshObjectObjectAntivirusProfileSsh(d *schema.ResourceData, o map[string
 		}
 	}
 
+	if err = d.Set("malware_stream", flattenObjectAntivirusProfileSshMalwareStream2edl(o["malware-stream"], d, "malware_stream")); err != nil {
+		if vv, ok := fortiAPIPatch(o["malware-stream"], "ObjectAntivirusProfileSsh-MalwareStream"); ok {
+			if err = d.Set("malware_stream", vv); err != nil {
+				return fmt.Errorf("Error reading malware_stream: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading malware_stream: %v", err)
+		}
+	}
+
 	if err = d.Set("options", flattenObjectAntivirusProfileSshOptions2edl(o["options"], d, "options")); err != nil {
 		if vv, ok := fortiAPIPatch(o["options"], "ObjectAntivirusProfileSsh-Options"); ok {
 			if err = d.Set("options", vv); err != nil {
@@ -413,6 +431,10 @@ func expandObjectAntivirusProfileSshFortindr2edl(d *schema.ResourceData, v inter
 }
 
 func expandObjectAntivirusProfileSshFortisandbox2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectAntivirusProfileSshMalwareStream2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -500,6 +522,15 @@ func getObjectObjectAntivirusProfileSsh(d *schema.ResourceData) (*map[string]int
 			return &obj, err
 		} else if t != nil {
 			obj["fortisandbox"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("malware_stream"); ok || d.HasChange("malware_stream") {
+		t, err := expandObjectAntivirusProfileSshMalwareStream2edl(d, v, "malware_stream")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["malware-stream"] = t
 		}
 	}
 

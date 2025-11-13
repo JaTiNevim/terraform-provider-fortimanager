@@ -118,6 +118,10 @@ func resourceObjectUserExchange() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"validate_server_certificate": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 		},
 	}
 }
@@ -299,6 +303,10 @@ func flattenObjectUserExchangeUsername(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenObjectUserExchangeValidateServerCertificate(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectObjectUserExchange(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -446,6 +454,16 @@ func refreshObjectObjectUserExchange(d *schema.ResourceData, o map[string]interf
 		}
 	}
 
+	if err = d.Set("validate_server_certificate", flattenObjectUserExchangeValidateServerCertificate(o["validate-server-certificate"], d, "validate_server_certificate")); err != nil {
+		if vv, ok := fortiAPIPatch(o["validate-server-certificate"], "ObjectUserExchange-ValidateServerCertificate"); ok {
+			if err = d.Set("validate_server_certificate", vv); err != nil {
+				return fmt.Errorf("Error reading validate_server_certificate: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading validate_server_certificate: %v", err)
+		}
+	}
+
 	return nil
 }
 
@@ -512,6 +530,10 @@ func expandObjectUserExchangeSslMinProtoVersion(d *schema.ResourceData, v interf
 }
 
 func expandObjectUserExchangeUsername(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectUserExchangeValidateServerCertificate(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -650,6 +672,15 @@ func getObjectObjectUserExchange(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["username"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("validate_server_certificate"); ok || d.HasChange("validate_server_certificate") {
+		t, err := expandObjectUserExchangeValidateServerCertificate(d, v, "validate_server_certificate")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["validate-server-certificate"] = t
 		}
 	}
 

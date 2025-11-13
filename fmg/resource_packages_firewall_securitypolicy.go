@@ -177,6 +177,12 @@ func resourcePackagesFirewallSecurityPolicy() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"internet_service_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"internet_service_group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -204,6 +210,12 @@ func resourcePackagesFirewallSecurityPolicy() *schema.Resource {
 			"internet_service_src_custom_group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"internet_service_src_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"internet_service_src_group": &schema.Schema{
 				Type:     schema.TypeString,
@@ -237,6 +249,12 @@ func resourcePackagesFirewallSecurityPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"internet_service6_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"internet_service6_group": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -264,6 +282,12 @@ func resourcePackagesFirewallSecurityPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"internet_service6_src_custom_group": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"internet_service6_src_fortiguard": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
@@ -394,6 +418,12 @@ func resourcePackagesFirewallSecurityPolicy() *schema.Resource {
 			"status": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"telemetry_profile": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"url_category": &schema.Schema{
 				Type:     schema.TypeString,
@@ -714,6 +744,10 @@ func flattenPackagesFirewallSecurityPolicyInternetServiceCustomGroup(v interface
 	return convintflist2str(v, d.Get(pre))
 }
 
+func flattenPackagesFirewallSecurityPolicyInternetServiceFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesFirewallSecurityPolicyInternetServiceGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
 }
@@ -740,6 +774,10 @@ func flattenPackagesFirewallSecurityPolicyInternetServiceSrcCustom(v interface{}
 
 func flattenPackagesFirewallSecurityPolicyInternetServiceSrcCustomGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenPackagesFirewallSecurityPolicyInternetServiceSrcFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesFirewallSecurityPolicyInternetServiceSrcGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -770,6 +808,10 @@ func flattenPackagesFirewallSecurityPolicyInternetService6CustomGroup(v interfac
 	return flattenStringList(v)
 }
 
+func flattenPackagesFirewallSecurityPolicyInternetService6Fortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesFirewallSecurityPolicyInternetService6Group(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -791,6 +833,10 @@ func flattenPackagesFirewallSecurityPolicyInternetService6SrcCustom(v interface{
 }
 
 func flattenPackagesFirewallSecurityPolicyInternetService6SrcCustomGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenPackagesFirewallSecurityPolicyInternetService6SrcFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
 
@@ -912,6 +958,10 @@ func flattenPackagesFirewallSecurityPolicySslSshProfile(v interface{}, d *schema
 
 func flattenPackagesFirewallSecurityPolicyStatus(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
+}
+
+func flattenPackagesFirewallSecurityPolicyTelemetryProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesFirewallSecurityPolicyUrlCategory(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -1253,6 +1303,16 @@ func refreshObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData, o map[s
 		}
 	}
 
+	if err = d.Set("internet_service_fortiguard", flattenPackagesFirewallSecurityPolicyInternetServiceFortiguard(o["internet-service-fortiguard"], d, "internet_service_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-fortiguard"], "PackagesFirewallSecurityPolicy-InternetServiceFortiguard"); ok {
+			if err = d.Set("internet_service_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+		}
+	}
+
 	if err = d.Set("internet_service_group", flattenPackagesFirewallSecurityPolicyInternetServiceGroup(o["internet-service-group"], d, "internet_service_group")); err != nil {
 		if vv, ok := fortiAPIPatch(o["internet-service-group"], "PackagesFirewallSecurityPolicy-InternetServiceGroup"); ok {
 			if err = d.Set("internet_service_group", vv); err != nil {
@@ -1320,6 +1380,16 @@ func refreshObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData, o map[s
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service_src_fortiguard", flattenPackagesFirewallSecurityPolicyInternetServiceSrcFortiguard(o["internet-service-src-fortiguard"], d, "internet_service_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-src-fortiguard"], "PackagesFirewallSecurityPolicy-InternetServiceSrcFortiguard"); ok {
+			if err = d.Set("internet_service_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
 		}
 	}
 
@@ -1393,6 +1463,16 @@ func refreshObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData, o map[s
 		}
 	}
 
+	if err = d.Set("internet_service6_fortiguard", flattenPackagesFirewallSecurityPolicyInternetService6Fortiguard(o["internet-service6-fortiguard"], d, "internet_service6_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service6-fortiguard"], "PackagesFirewallSecurityPolicy-InternetService6Fortiguard"); ok {
+			if err = d.Set("internet_service6_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service6_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service6_fortiguard: %v", err)
+		}
+	}
+
 	if err = d.Set("internet_service6_group", flattenPackagesFirewallSecurityPolicyInternetService6Group(o["internet-service6-group"], d, "internet_service6_group")); err != nil {
 		if vv, ok := fortiAPIPatch(o["internet-service6-group"], "PackagesFirewallSecurityPolicy-InternetService6Group"); ok {
 			if err = d.Set("internet_service6_group", vv); err != nil {
@@ -1450,6 +1530,16 @@ func refreshObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData, o map[s
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service6_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service6_src_fortiguard", flattenPackagesFirewallSecurityPolicyInternetService6SrcFortiguard(o["internet-service6-src-fortiguard"], d, "internet_service6_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service6-src-fortiguard"], "PackagesFirewallSecurityPolicy-InternetService6SrcFortiguard"); ok {
+			if err = d.Set("internet_service6_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
 		}
 	}
 
@@ -1753,6 +1843,16 @@ func refreshObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData, o map[s
 		}
 	}
 
+	if err = d.Set("telemetry_profile", flattenPackagesFirewallSecurityPolicyTelemetryProfile(o["telemetry-profile"], d, "telemetry_profile")); err != nil {
+		if vv, ok := fortiAPIPatch(o["telemetry-profile"], "PackagesFirewallSecurityPolicy-TelemetryProfile"); ok {
+			if err = d.Set("telemetry_profile", vv); err != nil {
+				return fmt.Errorf("Error reading telemetry_profile: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading telemetry_profile: %v", err)
+		}
+	}
+
 	if err = d.Set("url_category", flattenPackagesFirewallSecurityPolicyUrlCategory(o["url-category"], d, "url_category")); err != nil {
 		if vv, ok := fortiAPIPatch(o["url-category"], "PackagesFirewallSecurityPolicy-UrlCategory"); ok {
 			if err = d.Set("url_category", vv); err != nil {
@@ -1962,6 +2062,10 @@ func expandPackagesFirewallSecurityPolicyInternetServiceCustomGroup(d *schema.Re
 	return convstr2list(v, nil), nil
 }
 
+func expandPackagesFirewallSecurityPolicyInternetServiceFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesFirewallSecurityPolicyInternetServiceGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
 }
@@ -1988,6 +2092,10 @@ func expandPackagesFirewallSecurityPolicyInternetServiceSrcCustom(d *schema.Reso
 
 func expandPackagesFirewallSecurityPolicyInternetServiceSrcCustomGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandPackagesFirewallSecurityPolicyInternetServiceSrcFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesFirewallSecurityPolicyInternetServiceSrcGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -2018,6 +2126,10 @@ func expandPackagesFirewallSecurityPolicyInternetService6CustomGroup(d *schema.R
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandPackagesFirewallSecurityPolicyInternetService6Fortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesFirewallSecurityPolicyInternetService6Group(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -2039,6 +2151,10 @@ func expandPackagesFirewallSecurityPolicyInternetService6SrcCustom(d *schema.Res
 }
 
 func expandPackagesFirewallSecurityPolicyInternetService6SrcCustomGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandPackagesFirewallSecurityPolicyInternetService6SrcFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
@@ -2160,6 +2276,10 @@ func expandPackagesFirewallSecurityPolicySslSshProfile(d *schema.ResourceData, v
 
 func expandPackagesFirewallSecurityPolicyStatus(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
+}
+
+func expandPackagesFirewallSecurityPolicyTelemetryProfile(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesFirewallSecurityPolicyUrlCategory(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -2467,6 +2587,15 @@ func getObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData) (*map[strin
 		}
 	}
 
+	if v, ok := d.GetOk("internet_service_fortiguard"); ok || d.HasChange("internet_service_fortiguard") {
+		t, err := expandPackagesFirewallSecurityPolicyInternetServiceFortiguard(d, v, "internet_service_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-fortiguard"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("internet_service_group"); ok || d.HasChange("internet_service_group") {
 		t, err := expandPackagesFirewallSecurityPolicyInternetServiceGroup(d, v, "internet_service_group")
 		if err != nil {
@@ -2527,6 +2656,15 @@ func getObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData) (*map[strin
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service_src_fortiguard"); ok || d.HasChange("internet_service_src_fortiguard") {
+		t, err := expandPackagesFirewallSecurityPolicyInternetServiceSrcFortiguard(d, v, "internet_service_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-src-fortiguard"] = t
 		}
 	}
 
@@ -2593,6 +2731,15 @@ func getObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData) (*map[strin
 		}
 	}
 
+	if v, ok := d.GetOk("internet_service6_fortiguard"); ok || d.HasChange("internet_service6_fortiguard") {
+		t, err := expandPackagesFirewallSecurityPolicyInternetService6Fortiguard(d, v, "internet_service6_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service6-fortiguard"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("internet_service6_group"); ok || d.HasChange("internet_service6_group") {
 		t, err := expandPackagesFirewallSecurityPolicyInternetService6Group(d, v, "internet_service6_group")
 		if err != nil {
@@ -2644,6 +2791,15 @@ func getObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData) (*map[strin
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service6-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service6_src_fortiguard"); ok || d.HasChange("internet_service6_src_fortiguard") {
+		t, err := expandPackagesFirewallSecurityPolicyInternetService6SrcFortiguard(d, v, "internet_service6_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service6-src-fortiguard"] = t
 		}
 	}
 
@@ -2914,6 +3070,15 @@ func getObjectPackagesFirewallSecurityPolicy(d *schema.ResourceData) (*map[strin
 			return &obj, err
 		} else if t != nil {
 			obj["status"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("telemetry_profile"); ok || d.HasChange("telemetry_profile") {
+		t, err := expandPackagesFirewallSecurityPolicyTelemetryProfile(d, v, "telemetry_profile")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["telemetry-profile"] = t
 		}
 	}
 

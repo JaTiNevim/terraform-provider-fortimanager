@@ -45,6 +45,7 @@ The following arguments are supported:
 
 * `antiphish_action` - Action to take for AntiPhishing matches. Valid values: `block`, `log`.
 
+* `comment` - Comment.
 * `dns_address_family` - Resolve IPv4 address, IPv6 address, or both from DNS server. Valid values: `ipv4`, `ipv6`, `both`.
 
 * `exempt` - If action is set to exempt, select the security profile operations that exempt URLs skip. Separate multiple options with a space. Valid values: `av`, `web-content`, `activex-java-cookie`, `dlp`, `fortiguard`, `all`, `filepattern`, `pass`, `range-block`, `antiphish`.

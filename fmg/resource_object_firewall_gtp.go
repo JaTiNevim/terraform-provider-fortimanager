@@ -135,6 +135,10 @@ func resourceObjectFirewallGtp() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
+			"echo_requires_path_in_use": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"extension_log": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -1304,6 +1308,10 @@ func flattenObjectFirewallGtpDeniedLog(v interface{}, d *schema.ResourceData, pr
 }
 
 func flattenObjectFirewallGtpEchoRequestInterval(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallGtpEchoRequiresPathInUse(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -3289,6 +3297,16 @@ func refreshObjectObjectFirewallGtp(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if err = d.Set("echo_requires_path_in_use", flattenObjectFirewallGtpEchoRequiresPathInUse(o["echo-requires-path-in-use"], d, "echo_requires_path_in_use")); err != nil {
+		if vv, ok := fortiAPIPatch(o["echo-requires-path-in-use"], "ObjectFirewallGtp-EchoRequiresPathInUse"); ok {
+			if err = d.Set("echo_requires_path_in_use", vv); err != nil {
+				return fmt.Errorf("Error reading echo_requires_path_in_use: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading echo_requires_path_in_use: %v", err)
+		}
+	}
+
 	if err = d.Set("extension_log", flattenObjectFirewallGtpExtensionLog(o["extension-log"], d, "extension_log")); err != nil {
 		if vv, ok := fortiAPIPatch(o["extension-log"], "ObjectFirewallGtp-ExtensionLog"); ok {
 			if err = d.Set("extension_log", vv); err != nil {
@@ -4297,6 +4315,10 @@ func expandObjectFirewallGtpDeniedLog(d *schema.ResourceData, v interface{}, pre
 }
 
 func expandObjectFirewallGtpEchoRequestInterval(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallGtpEchoRequiresPathInUse(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -6073,6 +6095,15 @@ func getObjectObjectFirewallGtp(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["echo-request-interval"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("echo_requires_path_in_use"); ok || d.HasChange("echo_requires_path_in_use") {
+		t, err := expandObjectFirewallGtpEchoRequiresPathInUse(d, v, "echo_requires_path_in_use")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["echo-requires-path-in-use"] = t
 		}
 	}
 

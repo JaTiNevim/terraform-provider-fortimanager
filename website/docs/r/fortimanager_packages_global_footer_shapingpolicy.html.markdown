@@ -52,11 +52,14 @@ The following arguments are supported:
 * `dstaddr6` - IPv6 destination address and address group names.
 * `dstintf` - One or more outgoing (egress) interfaces.
 * `groups` - Apply this traffic shaping policy to user groups that have authenticated with the FortiGate.
+* `http_response_match` - Http-Response-Match. Valid values: `disable`, `enable`.
+
 * `fosid` - Shaping policy ID (0 - 4294967295).
 * `internet_service` - Enable/disable use of Internet Services for this policy. If enabled, destination address and service are not used. Valid values: `disable`, `enable`.
 
 * `internet_service_custom` - Custom Internet Service name.
 * `internet_service_custom_group` - Custom Internet Service group name.
+* `internet_service_fortiguard` - FortiGuard Internet Service name.
 * `internet_service_group` - Internet Service group name.
 * `internet_service_id` - Internet Service ID.
 * `internet_service_name` - Internet-Service-Name.
@@ -64,6 +67,7 @@ The following arguments are supported:
 
 * `internet_service_src_custom` - Custom Internet Service source name.
 * `internet_service_src_custom_group` - Custom Internet Service source group name.
+* `internet_service_src_fortiguard` - FortiGuard Internet Service source name.
 * `internet_service_src_group` - Internet Service source group name.
 * `internet_service_src_id` - Internet Service source ID.
 * `internet_service_src_name` - Internet-Service-Src-Name.

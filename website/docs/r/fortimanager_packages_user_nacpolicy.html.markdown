@@ -42,6 +42,8 @@ The following arguments are supported:
 * `hw_version` - NAC policy matching hardware version.
 * `mac` - NAC policy matching MAC address.
 * `match_period` - Number of days the matched devices will be retained (0 - always retain)
+* `match_remove` - Options to remove the matched override devices. Valid values: `link-down`, `default`.
+
 * `match_type` - Match and retain the devices based on the type. Valid values: `dynamic`, `override`.
 
 * `name` - NAC policy name.

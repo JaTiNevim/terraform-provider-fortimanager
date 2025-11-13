@@ -98,6 +98,10 @@ func resourceObjectCasbUserActivityControlOptionsOperations() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"value_name_from_input": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"values": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -303,6 +307,10 @@ func flattenObjectCasbUserActivityControlOptionsOperationsValueFromInput3rdl(v i
 	return v
 }
 
+func flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectCasbUserActivityControlOptionsOperationsValues3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -404,6 +412,16 @@ func refreshObjectObjectCasbUserActivityControlOptionsOperations(d *schema.Resou
 		}
 	}
 
+	if err = d.Set("value_name_from_input", flattenObjectCasbUserActivityControlOptionsOperationsValueNameFromInput3rdl(o["value-name-from-input"], d, "value_name_from_input")); err != nil {
+		if vv, ok := fortiAPIPatch(o["value-name-from-input"], "ObjectCasbUserActivityControlOptionsOperations-ValueNameFromInput"); ok {
+			if err = d.Set("value_name_from_input", vv); err != nil {
+				return fmt.Errorf("Error reading value_name_from_input: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading value_name_from_input: %v", err)
+		}
+	}
+
 	if err = d.Set("values", flattenObjectCasbUserActivityControlOptionsOperationsValues3rdl(o["values"], d, "values")); err != nil {
 		if vv, ok := fortiAPIPatch(o["values"], "ObjectCasbUserActivityControlOptionsOperations-Values"); ok {
 			if err = d.Set("values", vv); err != nil {
@@ -456,6 +474,10 @@ func expandObjectCasbUserActivityControlOptionsOperationsTarget3rdl(d *schema.Re
 }
 
 func expandObjectCasbUserActivityControlOptionsOperationsValueFromInput3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -544,6 +566,15 @@ func getObjectObjectCasbUserActivityControlOptionsOperations(d *schema.ResourceD
 			return &obj, err
 		} else if t != nil {
 			obj["value-from-input"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("value_name_from_input"); ok || d.HasChange("value_name_from_input") {
+		t, err := expandObjectCasbUserActivityControlOptionsOperationsValueNameFromInput3rdl(d, v, "value_name_from_input")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["value-name-from-input"] = t
 		}
 	}
 

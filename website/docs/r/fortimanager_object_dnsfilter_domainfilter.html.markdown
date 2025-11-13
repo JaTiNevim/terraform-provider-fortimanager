@@ -42,6 +42,7 @@ The `entries` block supports:
 
 * `action` - Action to take for domain filter matches. Valid values: `block`, `allow`, `monitor`.
 
+* `comment` - Comment.
 * `domain` - Domain entries to be filtered.
 * `id` - Id.
 * `status` - Enable/disable this domain filter. Valid values: `disable`, `enable`.

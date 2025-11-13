@@ -146,6 +146,10 @@ func resourceObjectFirewallAccessProxy6ApiGatewayRealservers() *schema.Resource 
 				Optional: true,
 				Computed: true,
 			},
+			"verify_cert": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"weight": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -390,6 +394,10 @@ func flattenObjectFirewallAccessProxy6ApiGatewayRealserversType3rdl(v interface{
 	return v
 }
 
+func flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectFirewallAccessProxy6ApiGatewayRealserversWeight3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -591,6 +599,16 @@ func refreshObjectObjectFirewallAccessProxy6ApiGatewayRealservers(d *schema.Reso
 		}
 	}
 
+	if err = d.Set("verify_cert", flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert3rdl(o["verify-cert"], d, "verify_cert")); err != nil {
+		if vv, ok := fortiAPIPatch(o["verify-cert"], "ObjectFirewallAccessProxy6ApiGatewayRealservers-VerifyCert"); ok {
+			if err = d.Set("verify_cert", vv); err != nil {
+				return fmt.Errorf("Error reading verify_cert: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading verify_cert: %v", err)
+		}
+	}
+
 	if err = d.Set("weight", flattenObjectFirewallAccessProxy6ApiGatewayRealserversWeight3rdl(o["weight"], d, "weight")); err != nil {
 		if vv, ok := fortiAPIPatch(o["weight"], "ObjectFirewallAccessProxy6ApiGatewayRealservers-Weight"); ok {
 			if err = d.Set("weight", vv); err != nil {
@@ -683,6 +701,10 @@ func expandObjectFirewallAccessProxy6ApiGatewayRealserversTunnelEncryption3rdl(d
 }
 
 func expandObjectFirewallAccessProxy6ApiGatewayRealserversType3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -861,6 +883,15 @@ func getObjectObjectFirewallAccessProxy6ApiGatewayRealservers(d *schema.Resource
 			return &obj, err
 		} else if t != nil {
 			obj["type"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("verify_cert"); ok || d.HasChange("verify_cert") {
+		t, err := expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert3rdl(d, v, "verify_cert")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["verify-cert"] = t
 		}
 	}
 

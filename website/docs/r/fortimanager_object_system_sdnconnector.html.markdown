@@ -84,6 +84,8 @@ The following arguments are supported:
 * `last_update` - Last-Update.
 * `login_endpoint` - Azure Stack login endpoint.
 * `message_server_port` - HTTP port number of the SAP message server.
+* `microsoft_365` - Enable to use as Microsoft 365 connector. Valid values: `disable`, `enable`.
+
 * `name` - SDN connector name.
 * `nic` - Nic. The structure of `nic` block is documented below.
 * `nsx_cert_fingerprint` - NSX certificate fingerprint.
@@ -130,6 +132,7 @@ The following arguments are supported:
 * `vcenter_password` - vCenter server password for NSX quarantine.
 * `vcenter_server` - vCenter server address for NSX quarantine.
 * `vcenter_username` - vCenter server username for NSX quarantine.
+* `vdom` - Virtual domain name of the remote SDN connector.
 * `verify_certificate` - Enable/disable server certificate verification. Valid values: `disable`, `enable`.
 
 * `vmx_image_url` - URL of web-hosted VMX image.

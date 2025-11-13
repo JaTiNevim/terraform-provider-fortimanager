@@ -80,6 +80,7 @@ The following arguments are supported:
 * `type` - Type of IPv6 address object (default = ipprefix). Valid values: `ipprefix`, `iprange`, `nsx`, `dynamic`, `fqdn`, `template`, `mac`, `geography`.
 
 * `uuid` - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
+* `wildcard` - IPv6 address and wildcard netmask.
 * `visibility` - Enable/disable the visibility of the object in the GUI. Valid values: `disable`, `enable`.
 
 * `dynamic_sort_subtable` - true or false, set this parameter to true when using dynamic for_each + toset to configure and sort sub-tables, please do not set this parameter when configuring static sub-tables.
@@ -122,6 +123,7 @@ The `dynamic_mapping` block supports:
 * `uuid` - Universally Unique Identifier (UUID; automatically assigned but can be manually reset).
 * `visibility` - Enable/disable the visibility of the object in the GUI. Valid values: `disable`, `enable`.
 
+* `wildcard` - IPv6 address and wildcard netmask.
 
 The `_scope` block supports:
 

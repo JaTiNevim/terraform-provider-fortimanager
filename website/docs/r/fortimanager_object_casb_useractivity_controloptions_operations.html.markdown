@@ -38,6 +38,7 @@ The following arguments are supported:
 
 * `value_from_input` - Enable/disable value from user input. Valid values: `disable`, `enable`.
 
+* `value_name_from_input` - CASB operation value name from user input.
 * `values` - CASB operation new values.
 
 

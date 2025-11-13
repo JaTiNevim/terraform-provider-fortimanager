@@ -63,6 +63,7 @@ The following arguments are supported:
 
 * `internet_service_custom` - Custom Internet Service name.
 * `internet_service_custom_group` - Custom Internet Service group name.
+* `internet_service_fortiguard` - FortiGuard Internet Service name.
 * `internet_service_group` - Internet Service group name.
 * `internet_service_name` - Internet Service ID.
 * `internet_service_id` - Internet Service ID.
@@ -70,6 +71,7 @@ The following arguments are supported:
 
 * `internet_service_src_custom` - Custom Internet Service source name.
 * `internet_service_src_custom_group` - Custom Internet Service source group name.
+* `internet_service_src_fortiguard` - FortiGuard Internet Service source name.
 * `internet_service_src_group` - Internet Service source group name.
 * `internet_service_src_name` - Internet Service source name.
 * `internet_service_src_id` - Internet Service source ID.

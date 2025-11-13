@@ -123,6 +123,10 @@ func resourceObjectCasbSaasApplication() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"optional": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"required": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
@@ -433,6 +437,12 @@ func flattenObjectCasbSaasApplicationOutputAttributes(v interface{}, d *schema.R
 			tmp["name"] = fortiAPISubPartPatch(v, "ObjectCasbSaasApplication-OutputAttributes-Name")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "optional"
+		if _, ok := i["optional"]; ok {
+			v := flattenObjectCasbSaasApplicationOutputAttributesOptional(i["optional"], d, pre_append)
+			tmp["optional"] = fortiAPISubPartPatch(v, "ObjectCasbSaasApplication-OutputAttributes-Optional")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "required"
 		if _, ok := i["required"]; ok {
 			v := flattenObjectCasbSaasApplicationOutputAttributesRequired(i["required"], d, pre_append)
@@ -464,6 +474,10 @@ func flattenObjectCasbSaasApplicationOutputAttributesDescription(v interface{}, 
 }
 
 func flattenObjectCasbSaasApplicationOutputAttributesName(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectCasbSaasApplicationOutputAttributesOptional(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -757,6 +771,11 @@ func expandObjectCasbSaasApplicationOutputAttributes(d *schema.ResourceData, v i
 			tmp["name"], _ = expandObjectCasbSaasApplicationOutputAttributesName(d, i["name"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "optional"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["optional"], _ = expandObjectCasbSaasApplicationOutputAttributesOptional(d, i["optional"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "required"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["required"], _ = expandObjectCasbSaasApplicationOutputAttributesRequired(d, i["required"], pre_append)
@@ -786,6 +805,10 @@ func expandObjectCasbSaasApplicationOutputAttributesDescription(d *schema.Resour
 }
 
 func expandObjectCasbSaasApplicationOutputAttributesName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCasbSaasApplicationOutputAttributesOptional(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

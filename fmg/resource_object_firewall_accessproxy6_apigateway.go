@@ -260,6 +260,10 @@ func resourceObjectFirewallAccessProxy6ApiGateway() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"verify_cert": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"weight": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
@@ -775,6 +779,12 @@ func flattenObjectFirewallAccessProxy6ApiGatewayRealservers2edl(v interface{}, d
 			tmp["type"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway-Realservers-Type")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert2edl(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallAccessProxy6ApiGatewayRealserversWeight2edl(i["weight"], d, pre_append)
@@ -864,6 +874,10 @@ func flattenObjectFirewallAccessProxy6ApiGatewayRealserversTunnelEncryption2edl(
 }
 
 func flattenObjectFirewallAccessProxy6ApiGatewayRealserversType2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1559,6 +1573,11 @@ func expandObjectFirewallAccessProxy6ApiGatewayRealservers2edl(d *schema.Resourc
 			tmp["type"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversType2edl(d, i["type"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert2edl(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversWeight2edl(d, i["weight"], pre_append)
@@ -1647,6 +1666,10 @@ func expandObjectFirewallAccessProxy6ApiGatewayRealserversTunnelEncryption2edl(d
 }
 
 func expandObjectFirewallAccessProxy6ApiGatewayRealserversType2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

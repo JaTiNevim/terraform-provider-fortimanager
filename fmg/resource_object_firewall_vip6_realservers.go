@@ -100,6 +100,10 @@ func resourceObjectFirewallVip6Realservers() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"verify_cert": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"weight": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -295,6 +299,10 @@ func flattenObjectFirewallVip6RealserversTranslateHost2edl(v interface{}, d *sch
 	return v
 }
 
+func flattenObjectFirewallVip6RealserversVerifyCert2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectFirewallVip6RealserversWeight2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -416,6 +424,16 @@ func refreshObjectObjectFirewallVip6Realservers(d *schema.ResourceData, o map[st
 		}
 	}
 
+	if err = d.Set("verify_cert", flattenObjectFirewallVip6RealserversVerifyCert2edl(o["verify-cert"], d, "verify_cert")); err != nil {
+		if vv, ok := fortiAPIPatch(o["verify-cert"], "ObjectFirewallVip6Realservers-VerifyCert"); ok {
+			if err = d.Set("verify_cert", vv); err != nil {
+				return fmt.Errorf("Error reading verify_cert: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading verify_cert: %v", err)
+		}
+	}
+
 	if err = d.Set("weight", flattenObjectFirewallVip6RealserversWeight2edl(o["weight"], d, "weight")); err != nil {
 		if vv, ok := fortiAPIPatch(o["weight"], "ObjectFirewallVip6Realservers-Weight"); ok {
 			if err = d.Set("weight", vv); err != nil {
@@ -476,6 +494,10 @@ func expandObjectFirewallVip6RealserversStatus2edl(d *schema.ResourceData, v int
 }
 
 func expandObjectFirewallVip6RealserversTranslateHost2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallVip6RealserversVerifyCert2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -582,6 +604,15 @@ func getObjectObjectFirewallVip6Realservers(d *schema.ResourceData) (*map[string
 			return &obj, err
 		} else if t != nil {
 			obj["translate-host"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("verify_cert"); ok || d.HasChange("verify_cert") {
+		t, err := expandObjectFirewallVip6RealserversVerifyCert2edl(d, v, "verify_cert")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["verify-cert"] = t
 		}
 	}
 

@@ -64,6 +64,10 @@ func resourceObjectDlpProfile() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fortidata_error_action": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"full_archive_proto": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -313,6 +317,10 @@ func flattenObjectDlpProfileExtendedLog(v interface{}, d *schema.ResourceData, p
 }
 
 func flattenObjectDlpProfileFeatureSet(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectDlpProfileFortidataErrorAction(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -566,6 +574,16 @@ func refreshObjectObjectDlpProfile(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("fortidata_error_action", flattenObjectDlpProfileFortidataErrorAction(o["fortidata-error-action"], d, "fortidata_error_action")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fortidata-error-action"], "ObjectDlpProfile-FortidataErrorAction"); ok {
+			if err = d.Set("fortidata_error_action", vv); err != nil {
+				return fmt.Errorf("Error reading fortidata_error_action: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fortidata_error_action: %v", err)
+		}
+	}
+
 	if err = d.Set("full_archive_proto", flattenObjectDlpProfileFullArchiveProto(o["full-archive-proto"], d, "full_archive_proto")); err != nil {
 		if vv, ok := fortiAPIPatch(o["full-archive-proto"], "ObjectDlpProfile-FullArchiveProto"); ok {
 			if err = d.Set("full_archive_proto", vv); err != nil {
@@ -662,6 +680,10 @@ func expandObjectDlpProfileExtendedLog(d *schema.ResourceData, v interface{}, pr
 }
 
 func expandObjectDlpProfileFeatureSet(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectDlpProfileFortidataErrorAction(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -880,6 +902,15 @@ func getObjectObjectDlpProfile(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["feature-set"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("fortidata_error_action"); ok || d.HasChange("fortidata_error_action") {
+		t, err := expandObjectDlpProfileFortidataErrorAction(d, v, "fortidata_error_action")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fortidata-error-action"] = t
 		}
 	}
 

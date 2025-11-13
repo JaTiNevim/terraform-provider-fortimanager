@@ -35,6 +35,8 @@ The following arguments are supported:
 
 * `anomaly` - Enable/disable anomaly logging. Valid values: `disable`, `enable`.
 
+* `debug` - Enable/disable debug logging. Valid values: `disable`, `enable`.
+
 * `forti_switch` - Enable/disable Forti-Switch logging. Valid values: `disable`, `enable`.
 
 * `cifs` - Cifs. Valid values: `disable`, `enable`.

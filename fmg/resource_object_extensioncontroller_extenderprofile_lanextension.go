@@ -101,6 +101,7 @@ func resourceObjectExtensionControllerExtenderProfileLanExtension() *schema.Reso
 						"pvid": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"type": &schema.Schema{
 							Type:     schema.TypeString,
@@ -110,6 +111,12 @@ func resourceObjectExtensionControllerExtenderProfileLanExtension() *schema.Reso
 						"vap": &schema.Schema{
 							Type:     schema.TypeSet,
 							Elem:     &schema.Schema{Type: schema.TypeString},
+							Optional: true,
+							Computed: true,
+						},
+						"vids": &schema.Schema{
+							Type:     schema.TypeSet,
+							Elem:     &schema.Schema{Type: schema.TypeInt},
 							Optional: true,
 							Computed: true,
 						},
@@ -399,6 +406,12 @@ func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinks2edl(v 
 			tmp["vap"] = fortiAPISubPartPatch(v, "ObjectExtensionControllerExtenderProfileLanExtension-Downlinks-Vap")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vids"
+		if _, ok := i["vids"]; ok {
+			v := flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids2edl(i["vids"], d, pre_append)
+			tmp["vids"] = fortiAPISubPartPatch(v, "ObjectExtensionControllerExtenderProfileLanExtension-Downlinks-Vids")
+		}
+
 		if len(tmp) > 0 {
 			result = append(result, tmp)
 		}
@@ -427,6 +440,10 @@ func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksType2ed
 
 func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVap2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
+}
+
+func flattenObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenIntegerList(v)
 }
 
 func flattenObjectExtensionControllerExtenderProfileLanExtensionIpsecTunnel2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -745,6 +762,11 @@ func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinks2edl(d *
 			tmp["vap"], _ = expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVap2edl(d, i["vap"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vids"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["vids"], _ = expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids2edl(d, i["vids"], pre_append)
+		}
+
 		if len(tmp) > 0 {
 			result = append(result, tmp)
 		}
@@ -773,6 +795,10 @@ func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksType2edl
 
 func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVap2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandObjectExtensionControllerExtenderProfileLanExtensionDownlinksVids2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandIntegerList(v.(*schema.Set).List()), nil
 }
 
 func expandObjectExtensionControllerExtenderProfileLanExtensionIpsecTunnel2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {

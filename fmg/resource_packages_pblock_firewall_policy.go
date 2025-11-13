@@ -395,6 +395,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"internet_service_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"internet_service_group": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -429,6 +435,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"internet_service_src_custom_group": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"internet_service_src_fortiguard": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
@@ -473,6 +485,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"internet_service6_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"internet_service6_group": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
@@ -502,6 +520,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"internet_service6_src_custom_group": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"internet_service6_src_fortiguard": &schema.Schema{
 				Type:     schema.TypeSet,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
@@ -794,6 +818,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"saml_server": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
 			"scan_botnet_connections": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -804,6 +834,22 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 			},
 			"schedule_timeout": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"scim": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"scim_groups": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
+			},
+			"scim_users": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				Computed: true,
 			},
@@ -924,6 +970,12 @@ func resourcePackagesPblockFirewallPolicy() *schema.Resource {
 			"tcp_timeout_pid": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"telemetry_profile": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"timeout_send_rst": &schema.Schema{
 				Type:     schema.TypeString,
@@ -1555,6 +1607,10 @@ func flattenPackagesPblockFirewallPolicyInternetServiceCustomGroup2edl(v interfa
 	return flattenStringList(v)
 }
 
+func flattenPackagesPblockFirewallPolicyInternetServiceFortiguard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesPblockFirewallPolicyInternetServiceGroup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -1580,6 +1636,10 @@ func flattenPackagesPblockFirewallPolicyInternetServiceSrcCustom2edl(v interface
 }
 
 func flattenPackagesPblockFirewallPolicyInternetServiceSrcCustomGroup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenPackagesPblockFirewallPolicyInternetServiceSrcFortiguard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
 
@@ -1611,6 +1671,10 @@ func flattenPackagesPblockFirewallPolicyInternetService6CustomGroup2edl(v interf
 	return flattenStringList(v)
 }
 
+func flattenPackagesPblockFirewallPolicyInternetService6Fortiguard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesPblockFirewallPolicyInternetService6Group2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
@@ -1632,6 +1696,10 @@ func flattenPackagesPblockFirewallPolicyInternetService6SrcCustom2edl(v interfac
 }
 
 func flattenPackagesPblockFirewallPolicyInternetService6SrcCustomGroup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenPackagesPblockFirewallPolicyInternetService6SrcFortiguard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return flattenStringList(v)
 }
 
@@ -1875,6 +1943,10 @@ func flattenPackagesPblockFirewallPolicyRtpNat2edl(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenPackagesPblockFirewallPolicySamlServer2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenPackagesPblockFirewallPolicyScanBotnetConnections2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1885,6 +1957,18 @@ func flattenPackagesPblockFirewallPolicySchedule2edl(v interface{}, d *schema.Re
 
 func flattenPackagesPblockFirewallPolicyScheduleTimeout2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
+}
+
+func flattenPackagesPblockFirewallPolicyScim2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenPackagesPblockFirewallPolicyScimGroups2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
+func flattenPackagesPblockFirewallPolicyScimUsers2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesPblockFirewallPolicySctpFilterProfile2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -1981,6 +2065,10 @@ func flattenPackagesPblockFirewallPolicyTcpSessionWithoutSyn2edl(v interface{}, 
 
 func flattenPackagesPblockFirewallPolicyTcpTimeoutPid2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenPackagesPblockFirewallPolicyTelemetryProfile2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesPblockFirewallPolicyTimeoutSendRst2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -2886,6 +2974,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("internet_service_fortiguard", flattenPackagesPblockFirewallPolicyInternetServiceFortiguard2edl(o["internet-service-fortiguard"], d, "internet_service_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-fortiguard"], "PackagesPblockFirewallPolicy-InternetServiceFortiguard"); ok {
+			if err = d.Set("internet_service_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+		}
+	}
+
 	if err = d.Set("internet_service_group", flattenPackagesPblockFirewallPolicyInternetServiceGroup2edl(o["internet-service-group"], d, "internet_service_group")); err != nil {
 		if vv, ok := fortiAPIPatch(o["internet-service-group"], "PackagesPblockFirewallPolicy-InternetServiceGroup"); ok {
 			if err = d.Set("internet_service_group", vv); err != nil {
@@ -2953,6 +3051,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service_src_fortiguard", flattenPackagesPblockFirewallPolicyInternetServiceSrcFortiguard2edl(o["internet-service-src-fortiguard"], d, "internet_service_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-src-fortiguard"], "PackagesPblockFirewallPolicy-InternetServiceSrcFortiguard"); ok {
+			if err = d.Set("internet_service_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
 		}
 	}
 
@@ -3026,6 +3134,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("internet_service6_fortiguard", flattenPackagesPblockFirewallPolicyInternetService6Fortiguard2edl(o["internet-service6-fortiguard"], d, "internet_service6_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service6-fortiguard"], "PackagesPblockFirewallPolicy-InternetService6Fortiguard"); ok {
+			if err = d.Set("internet_service6_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service6_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service6_fortiguard: %v", err)
+		}
+	}
+
 	if err = d.Set("internet_service6_group", flattenPackagesPblockFirewallPolicyInternetService6Group2edl(o["internet-service6-group"], d, "internet_service6_group")); err != nil {
 		if vv, ok := fortiAPIPatch(o["internet-service6-group"], "PackagesPblockFirewallPolicy-InternetService6Group"); ok {
 			if err = d.Set("internet_service6_group", vv); err != nil {
@@ -3083,6 +3201,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service6_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service6_src_fortiguard", flattenPackagesPblockFirewallPolicyInternetService6SrcFortiguard2edl(o["internet-service6-src-fortiguard"], d, "internet_service6_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service6-src-fortiguard"], "PackagesPblockFirewallPolicy-InternetService6SrcFortiguard"); ok {
+			if err = d.Set("internet_service6_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service6_src_fortiguard: %v", err)
 		}
 	}
 
@@ -3686,6 +3814,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("saml_server", flattenPackagesPblockFirewallPolicySamlServer2edl(o["saml-server"], d, "saml_server")); err != nil {
+		if vv, ok := fortiAPIPatch(o["saml-server"], "PackagesPblockFirewallPolicy-SamlServer"); ok {
+			if err = d.Set("saml_server", vv); err != nil {
+				return fmt.Errorf("Error reading saml_server: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading saml_server: %v", err)
+		}
+	}
+
 	if err = d.Set("scan_botnet_connections", flattenPackagesPblockFirewallPolicyScanBotnetConnections2edl(o["scan-botnet-connections"], d, "scan_botnet_connections")); err != nil {
 		if vv, ok := fortiAPIPatch(o["scan-botnet-connections"], "PackagesPblockFirewallPolicy-ScanBotnetConnections"); ok {
 			if err = d.Set("scan_botnet_connections", vv); err != nil {
@@ -3713,6 +3851,36 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 			}
 		} else {
 			return fmt.Errorf("Error reading schedule_timeout: %v", err)
+		}
+	}
+
+	if err = d.Set("scim", flattenPackagesPblockFirewallPolicyScim2edl(o["scim"], d, "scim")); err != nil {
+		if vv, ok := fortiAPIPatch(o["scim"], "PackagesPblockFirewallPolicy-Scim"); ok {
+			if err = d.Set("scim", vv); err != nil {
+				return fmt.Errorf("Error reading scim: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading scim: %v", err)
+		}
+	}
+
+	if err = d.Set("scim_groups", flattenPackagesPblockFirewallPolicyScimGroups2edl(o["scim-groups"], d, "scim_groups")); err != nil {
+		if vv, ok := fortiAPIPatch(o["scim-groups"], "PackagesPblockFirewallPolicy-ScimGroups"); ok {
+			if err = d.Set("scim_groups", vv); err != nil {
+				return fmt.Errorf("Error reading scim_groups: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading scim_groups: %v", err)
+		}
+	}
+
+	if err = d.Set("scim_users", flattenPackagesPblockFirewallPolicyScimUsers2edl(o["scim-users"], d, "scim_users")); err != nil {
+		if vv, ok := fortiAPIPatch(o["scim-users"], "PackagesPblockFirewallPolicy-ScimUsers"); ok {
+			if err = d.Set("scim_users", vv); err != nil {
+				return fmt.Errorf("Error reading scim_users: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading scim_users: %v", err)
 		}
 	}
 
@@ -3953,6 +4121,16 @@ func refreshObjectPackagesPblockFirewallPolicy(d *schema.ResourceData, o map[str
 			}
 		} else {
 			return fmt.Errorf("Error reading tcp_timeout_pid: %v", err)
+		}
+	}
+
+	if err = d.Set("telemetry_profile", flattenPackagesPblockFirewallPolicyTelemetryProfile2edl(o["telemetry-profile"], d, "telemetry_profile")); err != nil {
+		if vv, ok := fortiAPIPatch(o["telemetry-profile"], "PackagesPblockFirewallPolicy-TelemetryProfile"); ok {
+			if err = d.Set("telemetry_profile", vv); err != nil {
+				return fmt.Errorf("Error reading telemetry_profile: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading telemetry_profile: %v", err)
 		}
 	}
 
@@ -4651,6 +4829,10 @@ func expandPackagesPblockFirewallPolicyInternetServiceCustomGroup2edl(d *schema.
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandPackagesPblockFirewallPolicyInternetServiceFortiguard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesPblockFirewallPolicyInternetServiceGroup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -4676,6 +4858,10 @@ func expandPackagesPblockFirewallPolicyInternetServiceSrcCustom2edl(d *schema.Re
 }
 
 func expandPackagesPblockFirewallPolicyInternetServiceSrcCustomGroup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandPackagesPblockFirewallPolicyInternetServiceSrcFortiguard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
@@ -4707,6 +4893,10 @@ func expandPackagesPblockFirewallPolicyInternetService6CustomGroup2edl(d *schema
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
+func expandPackagesPblockFirewallPolicyInternetService6Fortiguard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesPblockFirewallPolicyInternetService6Group2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
@@ -4728,6 +4918,10 @@ func expandPackagesPblockFirewallPolicyInternetService6SrcCustom2edl(d *schema.R
 }
 
 func expandPackagesPblockFirewallPolicyInternetService6SrcCustomGroup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandPackagesPblockFirewallPolicyInternetService6SrcFortiguard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
 }
 
@@ -4971,6 +5165,10 @@ func expandPackagesPblockFirewallPolicyRtpNat2edl(d *schema.ResourceData, v inte
 	return v, nil
 }
 
+func expandPackagesPblockFirewallPolicySamlServer2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandPackagesPblockFirewallPolicyScanBotnetConnections2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -4981,6 +5179,18 @@ func expandPackagesPblockFirewallPolicySchedule2edl(d *schema.ResourceData, v in
 
 func expandPackagesPblockFirewallPolicyScheduleTimeout2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
+}
+
+func expandPackagesPblockFirewallPolicyScim2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandPackagesPblockFirewallPolicyScimGroups2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandPackagesPblockFirewallPolicyScimUsers2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesPblockFirewallPolicySctpFilterProfile2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -5077,6 +5287,10 @@ func expandPackagesPblockFirewallPolicyTcpSessionWithoutSyn2edl(d *schema.Resour
 
 func expandPackagesPblockFirewallPolicyTcpTimeoutPid2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandPackagesPblockFirewallPolicyTelemetryProfile2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesPblockFirewallPolicyTimeoutSendRst2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -5904,6 +6118,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 		}
 	}
 
+	if v, ok := d.GetOk("internet_service_fortiguard"); ok || d.HasChange("internet_service_fortiguard") {
+		t, err := expandPackagesPblockFirewallPolicyInternetServiceFortiguard2edl(d, v, "internet_service_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-fortiguard"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("internet_service_group"); ok || d.HasChange("internet_service_group") {
 		t, err := expandPackagesPblockFirewallPolicyInternetServiceGroup2edl(d, v, "internet_service_group")
 		if err != nil {
@@ -5964,6 +6187,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service_src_fortiguard"); ok || d.HasChange("internet_service_src_fortiguard") {
+		t, err := expandPackagesPblockFirewallPolicyInternetServiceSrcFortiguard2edl(d, v, "internet_service_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-src-fortiguard"] = t
 		}
 	}
 
@@ -6030,6 +6262,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 		}
 	}
 
+	if v, ok := d.GetOk("internet_service6_fortiguard"); ok || d.HasChange("internet_service6_fortiguard") {
+		t, err := expandPackagesPblockFirewallPolicyInternetService6Fortiguard2edl(d, v, "internet_service6_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service6-fortiguard"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("internet_service6_group"); ok || d.HasChange("internet_service6_group") {
 		t, err := expandPackagesPblockFirewallPolicyInternetService6Group2edl(d, v, "internet_service6_group")
 		if err != nil {
@@ -6081,6 +6322,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service6-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service6_src_fortiguard"); ok || d.HasChange("internet_service6_src_fortiguard") {
+		t, err := expandPackagesPblockFirewallPolicyInternetService6SrcFortiguard2edl(d, v, "internet_service6_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service6-src-fortiguard"] = t
 		}
 	}
 
@@ -6624,6 +6874,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 		}
 	}
 
+	if v, ok := d.GetOk("saml_server"); ok || d.HasChange("saml_server") {
+		t, err := expandPackagesPblockFirewallPolicySamlServer2edl(d, v, "saml_server")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["saml-server"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("scan_botnet_connections"); ok || d.HasChange("scan_botnet_connections") {
 		t, err := expandPackagesPblockFirewallPolicyScanBotnetConnections2edl(d, v, "scan_botnet_connections")
 		if err != nil {
@@ -6648,6 +6907,33 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["schedule-timeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scim"); ok || d.HasChange("scim") {
+		t, err := expandPackagesPblockFirewallPolicyScim2edl(d, v, "scim")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scim"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scim_groups"); ok || d.HasChange("scim_groups") {
+		t, err := expandPackagesPblockFirewallPolicyScimGroups2edl(d, v, "scim_groups")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scim-groups"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scim_users"); ok || d.HasChange("scim_users") {
+		t, err := expandPackagesPblockFirewallPolicyScimUsers2edl(d, v, "scim_users")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scim-users"] = t
 		}
 	}
 
@@ -6864,6 +7150,15 @@ func getObjectPackagesPblockFirewallPolicy(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["tcp-timeout-pid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("telemetry_profile"); ok || d.HasChange("telemetry_profile") {
+		t, err := expandPackagesPblockFirewallPolicyTelemetryProfile2edl(d, v, "telemetry_profile")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["telemetry-profile"] = t
 		}
 	}
 

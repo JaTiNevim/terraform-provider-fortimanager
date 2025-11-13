@@ -332,6 +332,10 @@ func resourceObjectUserLdap() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"validate_server_certificate": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"vrf_select": &schema.Schema{
 							Type:     schema.TypeInt,
 							Optional: true,
@@ -969,6 +973,12 @@ func flattenObjectUserLdapDynamicMapping(v interface{}, d *schema.ResourceData, 
 			tmp["username"] = fortiAPISubPartPatch(v, "ObjectUserLdap-DynamicMapping-Username")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "validate_server_certificate"
+		if _, ok := i["validate-server-certificate"]; ok {
+			v := flattenObjectUserLdapDynamicMappingValidateServerCertificate(i["validate-server-certificate"], d, pre_append)
+			tmp["validate_server_certificate"] = fortiAPISubPartPatch(v, "ObjectUserLdap-DynamicMapping-ValidateServerCertificate")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "vrf_select"
 		if _, ok := i["vrf-select"]; ok {
 			v := flattenObjectUserLdapDynamicMappingVrfSelect(i["vrf-select"], d, pre_append)
@@ -1219,6 +1229,10 @@ func flattenObjectUserLdapDynamicMappingUserInfoExchangeServer(v interface{}, d 
 }
 
 func flattenObjectUserLdapDynamicMappingUsername(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectUserLdapDynamicMappingValidateServerCertificate(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2122,6 +2136,11 @@ func expandObjectUserLdapDynamicMapping(d *schema.ResourceData, v interface{}, p
 			tmp["username"], _ = expandObjectUserLdapDynamicMappingUsername(d, i["username"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "validate_server_certificate"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["validate-server-certificate"], _ = expandObjectUserLdapDynamicMappingValidateServerCertificate(d, i["validate_server_certificate"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "vrf_select"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["vrf-select"], _ = expandObjectUserLdapDynamicMappingVrfSelect(d, i["vrf_select"], pre_append)
@@ -2368,6 +2387,10 @@ func expandObjectUserLdapDynamicMappingUserInfoExchangeServer(d *schema.Resource
 }
 
 func expandObjectUserLdapDynamicMappingUsername(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectUserLdapDynamicMappingValidateServerCertificate(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

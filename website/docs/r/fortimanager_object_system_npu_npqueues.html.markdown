@@ -38,6 +38,8 @@ The following arguments are supported:
 * `scopetype` - The scope of application of the resource. Valid values: `inherit`, `adom`, `global`. The `inherit` means that the scopetype of the provider will be inherited, and adom will also be inherited. The default value is `inherit`.
 * `adom` - Adom. This value is valid only when the `scopetype` is `adom`, otherwise the value of adom in the provider will be inherited.
 
+* `custom_etype_lookup` - Enable/Disable np-queue lookup for custom Ethernet Types. Valid values: `disable`, `enable`.
+
 * `ethernet_type` - Ethernet-Type. The structure of `ethernet_type` block is documented below.
 * `ip_protocol` - Ip-Protocol. The structure of `ip_protocol` block is documented below.
 * `ip_service` - Ip-Service. The structure of `ip_service` block is documented below.

@@ -234,6 +234,10 @@ func resourceObjectFirewallAddress6() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
+						"wildcard": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 					},
 				},
 			},
@@ -403,6 +407,10 @@ func resourceObjectFirewallAddress6() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
+			},
+			"wildcard": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
 			},
 			"visibility": &schema.Schema{
 				Type:     schema.TypeString,
@@ -763,6 +771,12 @@ func flattenObjectFirewallAddress6DynamicMapping(v interface{}, d *schema.Resour
 			tmp["visibility"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress6-DynamicMapping-Visibility")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "wildcard"
+		if _, ok := i["wildcard"]; ok {
+			v := flattenObjectFirewallAddress6DynamicMappingWildcard(i["wildcard"], d, pre_append)
+			tmp["wildcard"] = fortiAPISubPartPatch(v, "ObjectFirewallAddress6-DynamicMapping-Wildcard")
+		}
+
 		if len(tmp) > 0 {
 			result = append(result, tmp)
 		}
@@ -994,6 +1008,10 @@ func flattenObjectFirewallAddress6DynamicMappingUuid(v interface{}, d *schema.Re
 }
 
 func flattenObjectFirewallAddress6DynamicMappingVisibility(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAddress6DynamicMappingWildcard(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1263,6 +1281,10 @@ func flattenObjectFirewallAddress6Type(v interface{}, d *schema.ResourceData, pr
 }
 
 func flattenObjectFirewallAddress6Uuid(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAddress6Wildcard(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1657,6 +1679,16 @@ func refreshObjectObjectFirewallAddress6(d *schema.ResourceData, o map[string]in
 		}
 	}
 
+	if err = d.Set("wildcard", flattenObjectFirewallAddress6Wildcard(o["wildcard"], d, "wildcard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["wildcard"], "ObjectFirewallAddress6-Wildcard"); ok {
+			if err = d.Set("wildcard", vv); err != nil {
+				return fmt.Errorf("Error reading wildcard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading wildcard: %v", err)
+		}
+	}
+
 	if err = d.Set("visibility", flattenObjectFirewallAddress6Visibility(o["visibility"], d, "visibility")); err != nil {
 		if vv, ok := fortiAPIPatch(o["visibility"], "ObjectFirewallAddress6-Visibility"); ok {
 			if err = d.Set("visibility", vv); err != nil {
@@ -1875,6 +1907,11 @@ func expandObjectFirewallAddress6DynamicMapping(d *schema.ResourceData, v interf
 			tmp["visibility"], _ = expandObjectFirewallAddress6DynamicMappingVisibility(d, i["visibility"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "wildcard"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["wildcard"], _ = expandObjectFirewallAddress6DynamicMappingWildcard(d, i["wildcard"], pre_append)
+		}
+
 		if len(tmp) > 0 {
 			result = append(result, tmp)
 		}
@@ -2091,6 +2128,10 @@ func expandObjectFirewallAddress6DynamicMappingUuid(d *schema.ResourceData, v in
 }
 
 func expandObjectFirewallAddress6DynamicMappingVisibility(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAddress6DynamicMappingWildcard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2336,6 +2377,10 @@ func expandObjectFirewallAddress6Type(d *schema.ResourceData, v interface{}, pre
 }
 
 func expandObjectFirewallAddress6Uuid(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAddress6Wildcard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2631,6 +2676,15 @@ func getObjectObjectFirewallAddress6(d *schema.ResourceData) (*map[string]interf
 			return &obj, err
 		} else if t != nil {
 			obj["uuid"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("wildcard"); ok || d.HasChange("wildcard") {
+		t, err := expandObjectFirewallAddress6Wildcard(d, v, "wildcard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["wildcard"] = t
 		}
 	}
 

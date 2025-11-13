@@ -42,6 +42,8 @@ The following arguments are supported:
 * `fortiap_refresh_cnt` - Max auto refresh FortiAP number each time (1 - 10000).
 * `fortiap_refresh_itvl` - Auto refresh FortiAP status interval (0 - 1440) minutes, set to 0 will disable auto refresh.
 * `fortiext_refresh_cnt` - Max device number for FortiExtender auto refresh (1 - 10000).
+* `handle_nonhasync_config` - Enable/disable nonhasync config handling. disable - Disable. enable - Enable. Valid values: `disable`, `enable`.
+
 * `install_fds_timeout` - Maximum waiting time for fgt update during install (1-30 minutes, default 10).
 * `install_image_timeout` - Maximum waiting time for image transfer and device upgrade (10*60 - 24*60*60 seconds).
 * `install_tunnel_retry_itvl` - Time to re-establish tunnel during install (10 - 60 sec).

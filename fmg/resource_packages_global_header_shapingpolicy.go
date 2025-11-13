@@ -110,6 +110,10 @@ func resourcePackagesGlobalHeaderShapingPolicy() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"http_response_match": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
@@ -128,6 +132,12 @@ func resourcePackagesGlobalHeaderShapingPolicy() *schema.Resource {
 			"internet_service_custom_group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"internet_service_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"internet_service_group": &schema.Schema{
 				Type:     schema.TypeString,
@@ -153,6 +163,12 @@ func resourcePackagesGlobalHeaderShapingPolicy() *schema.Resource {
 			"internet_service_src_custom_group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"internet_service_src_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"internet_service_src_group": &schema.Schema{
 				Type:     schema.TypeString,
@@ -471,6 +487,10 @@ func flattenPackagesGlobalHeaderShapingPolicyGroups(v interface{}, d *schema.Res
 	return convintflist2str(v, d.Get(pre))
 }
 
+func flattenPackagesGlobalHeaderShapingPolicyHttpResponseMatch(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenPackagesGlobalHeaderShapingPolicyId(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -485,6 +505,10 @@ func flattenPackagesGlobalHeaderShapingPolicyInternetServiceCustom(v interface{}
 
 func flattenPackagesGlobalHeaderShapingPolicyInternetServiceCustomGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenPackagesGlobalHeaderShapingPolicyInternetServiceFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesGlobalHeaderShapingPolicyInternetServiceGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -509,6 +533,10 @@ func flattenPackagesGlobalHeaderShapingPolicyInternetServiceSrcCustom(v interfac
 
 func flattenPackagesGlobalHeaderShapingPolicyInternetServiceSrcCustomGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenPackagesGlobalHeaderShapingPolicyInternetServiceSrcFortiguard(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenPackagesGlobalHeaderShapingPolicyInternetServiceSrcGroup(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -766,6 +794,16 @@ func refreshObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData, o ma
 		}
 	}
 
+	if err = d.Set("http_response_match", flattenPackagesGlobalHeaderShapingPolicyHttpResponseMatch(o["http-response-match"], d, "http_response_match")); err != nil {
+		if vv, ok := fortiAPIPatch(o["http-response-match"], "PackagesGlobalHeaderShapingPolicy-HttpResponseMatch"); ok {
+			if err = d.Set("http_response_match", vv); err != nil {
+				return fmt.Errorf("Error reading http_response_match: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading http_response_match: %v", err)
+		}
+	}
+
 	if err = d.Set("fosid", flattenPackagesGlobalHeaderShapingPolicyId(o["id"], d, "fosid")); err != nil {
 		if vv, ok := fortiAPIPatch(o["id"], "PackagesGlobalHeaderShapingPolicy-Id"); ok {
 			if err = d.Set("fosid", vv); err != nil {
@@ -803,6 +841,16 @@ func refreshObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData, o ma
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service_fortiguard", flattenPackagesGlobalHeaderShapingPolicyInternetServiceFortiguard(o["internet-service-fortiguard"], d, "internet_service_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-fortiguard"], "PackagesGlobalHeaderShapingPolicy-InternetServiceFortiguard"); ok {
+			if err = d.Set("internet_service_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
 		}
 	}
 
@@ -863,6 +911,16 @@ func refreshObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData, o ma
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service_src_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service_src_fortiguard", flattenPackagesGlobalHeaderShapingPolicyInternetServiceSrcFortiguard(o["internet-service-src-fortiguard"], d, "internet_service_src_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-src-fortiguard"], "PackagesGlobalHeaderShapingPolicy-InternetServiceSrcFortiguard"); ok {
+			if err = d.Set("internet_service_src_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_src_fortiguard: %v", err)
 		}
 	}
 
@@ -1169,6 +1227,10 @@ func expandPackagesGlobalHeaderShapingPolicyGroups(d *schema.ResourceData, v int
 	return convstr2list(v, nil), nil
 }
 
+func expandPackagesGlobalHeaderShapingPolicyHttpResponseMatch(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandPackagesGlobalHeaderShapingPolicyId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1183,6 +1245,10 @@ func expandPackagesGlobalHeaderShapingPolicyInternetServiceCustom(d *schema.Reso
 
 func expandPackagesGlobalHeaderShapingPolicyInternetServiceCustomGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandPackagesGlobalHeaderShapingPolicyInternetServiceFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesGlobalHeaderShapingPolicyInternetServiceGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -1207,6 +1273,10 @@ func expandPackagesGlobalHeaderShapingPolicyInternetServiceSrcCustom(d *schema.R
 
 func expandPackagesGlobalHeaderShapingPolicyInternetServiceSrcCustomGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandPackagesGlobalHeaderShapingPolicyInternetServiceSrcFortiguard(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandPackagesGlobalHeaderShapingPolicyInternetServiceSrcGroup(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -1448,6 +1518,15 @@ func getObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData) (*map[st
 		}
 	}
 
+	if v, ok := d.GetOk("http_response_match"); ok || d.HasChange("http_response_match") {
+		t, err := expandPackagesGlobalHeaderShapingPolicyHttpResponseMatch(d, v, "http_response_match")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["http-response-match"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("fosid"); ok || d.HasChange("fosid") {
 		t, err := expandPackagesGlobalHeaderShapingPolicyId(d, v, "fosid")
 		if err != nil {
@@ -1481,6 +1560,15 @@ func getObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData) (*map[st
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service_fortiguard"); ok || d.HasChange("internet_service_fortiguard") {
+		t, err := expandPackagesGlobalHeaderShapingPolicyInternetServiceFortiguard(d, v, "internet_service_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-fortiguard"] = t
 		}
 	}
 
@@ -1535,6 +1623,15 @@ func getObjectPackagesGlobalHeaderShapingPolicy(d *schema.ResourceData) (*map[st
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service-src-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service_src_fortiguard"); ok || d.HasChange("internet_service_src_fortiguard") {
+		t, err := expandPackagesGlobalHeaderShapingPolicyInternetServiceSrcFortiguard(d, v, "internet_service_src_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-src-fortiguard"] = t
 		}
 	}
 

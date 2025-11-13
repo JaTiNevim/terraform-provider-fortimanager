@@ -62,6 +62,7 @@ The following arguments are supported:
 * `scep_password` - Scep-Password.
 * `scep_server` - Scep-Server.
 * `state` - State.
+* `subject_alt_name` - <i>Support meta variable</i>
 * `subject_name` - Subject-Name.
 * `type` - Type. Valid values: `external`, `local`.
 

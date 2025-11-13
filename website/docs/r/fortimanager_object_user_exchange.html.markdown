@@ -56,6 +56,8 @@ The following arguments are supported:
 * `ssl_min_proto_version` - Minimum SSL/TLS protocol version for HTTPS transport (default is to follow system global setting). Valid values: `default`, `TLSv1-1`, `TLSv1-2`, `SSLv3`, `TLSv1`.
 
 * `username` - User name used to sign in to the server. Must have proper permissions for service.
+* `validate_server_certificate` - Enable/disable exchange server certificate validation. Valid values: `disable`, `enable`.
+
 
 
 ## Attribute Reference

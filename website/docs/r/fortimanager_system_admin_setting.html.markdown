@@ -69,6 +69,7 @@ The following arguments are supported:
 * `preferred_fgfm_intf` - Preferred interface for FGFM connection.
 * `register_passwd` - Password for register a device.
 * `rtm_max_monitor_by_days` - Maximum rtm monitor (sdwan, traffic shaping, etc) history by days (1 - 180).
+* `rtm_max_monitor_by_size` - Maximum rtm monitor (sdwan, traffic shaping, etc) history by size in MB per device per data type (10 - 200000).
 * `rtm_temp_file_limit` - Set rtm monitor temp file limit by hours. Lower value will reduce disk usage, but may cause data loss (1 - 120).
 * `sdwan_monitor_history` - Enable/disable sdwan-monitor-history. disable - Disable setting. enable - Enable setting. Valid values: `disable`, `enable`.
 

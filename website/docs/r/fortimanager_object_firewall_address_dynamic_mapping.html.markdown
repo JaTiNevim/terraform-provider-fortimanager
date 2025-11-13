@@ -24,6 +24,7 @@ The following arguments are supported:
 
 * `_image_base64` - _Image-Base64.
 * `_scope` - _Scope. The structure of `_scope` block is documented below.
+* `agent_id` - Telemetry agent id.
 * `allow_routing` - Enable/disable use of this address in the static route configuration. Valid values: `disable`, `enable`.
 
 * `associated_interface` - Network interface associated with address.
@@ -74,6 +75,7 @@ The following arguments are supported:
 * `sw_version` - Dynamic address matching software version.
 * `tag_detection_level` - Tag detection level of dynamic address object.
 * `tag_type` - Tag type of dynamic address object.
+* `tag_uuid` - Foreign UUID of dynamic address object.
 * `tags` - Tags.
 * `tenant` - Tenant.
 * `type` - Type of address. Valid values: `ipmask`, `iprange`, `fqdn`, `wildcard`, `geography`, `url`, `wildcard-fqdn`, `nsx`, `aws`, `dynamic`, `interface-subnet`, `mac`.

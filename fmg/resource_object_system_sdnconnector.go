@@ -221,6 +221,10 @@ func resourceObjectSystemSdnConnector() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
+			"microsoft_365": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
@@ -462,6 +466,7 @@ func resourceObjectSystemSdnConnector() *schema.Resource {
 			"use_metadata_iam": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"user_id": &schema.Schema{
 				Type:     schema.TypeString,
@@ -485,6 +490,12 @@ func resourceObjectSystemSdnConnector() *schema.Resource {
 			"vcenter_username": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"vdom": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"verify_certificate": &schema.Schema{
 				Type:     schema.TypeString,
@@ -936,6 +947,10 @@ func flattenObjectSystemSdnConnectorMessageServerPort(v interface{}, d *schema.R
 	return v
 }
 
+func flattenObjectSystemSdnConnectorMicrosoft365(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectSystemSdnConnectorName(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1380,6 +1395,10 @@ func flattenObjectSystemSdnConnectorVcenterUsername(v interface{}, d *schema.Res
 	return v
 }
 
+func flattenObjectSystemSdnConnectorVdom(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
+}
+
 func flattenObjectSystemSdnConnectorVerifyCertificate(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1684,6 +1703,16 @@ func refreshObjectObjectSystemSdnConnector(d *schema.ResourceData, o map[string]
 			}
 		} else {
 			return fmt.Errorf("Error reading message_server_port: %v", err)
+		}
+	}
+
+	if err = d.Set("microsoft_365", flattenObjectSystemSdnConnectorMicrosoft365(o["microsoft-365"], d, "microsoft_365")); err != nil {
+		if vv, ok := fortiAPIPatch(o["microsoft-365"], "ObjectSystemSdnConnector-Microsoft365"); ok {
+			if err = d.Set("microsoft_365", vv); err != nil {
+				return fmt.Errorf("Error reading microsoft_365: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading microsoft_365: %v", err)
 		}
 	}
 
@@ -2103,6 +2132,16 @@ func refreshObjectObjectSystemSdnConnector(d *schema.ResourceData, o map[string]
 		}
 	}
 
+	if err = d.Set("vdom", flattenObjectSystemSdnConnectorVdom(o["vdom"], d, "vdom")); err != nil {
+		if vv, ok := fortiAPIPatch(o["vdom"], "ObjectSystemSdnConnector-Vdom"); ok {
+			if err = d.Set("vdom", vv); err != nil {
+				return fmt.Errorf("Error reading vdom: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading vdom: %v", err)
+		}
+	}
+
 	if err = d.Set("verify_certificate", flattenObjectSystemSdnConnectorVerifyCertificate(o["verify-certificate"], d, "verify_certificate")); err != nil {
 		if vv, ok := fortiAPIPatch(o["verify-certificate"], "ObjectSystemSdnConnector-VerifyCertificate"); ok {
 			if err = d.Set("verify_certificate", vv); err != nil {
@@ -2430,6 +2469,10 @@ func expandObjectSystemSdnConnectorLoginEndpoint(d *schema.ResourceData, v inter
 }
 
 func expandObjectSystemSdnConnectorMessageServerPort(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectSystemSdnConnectorMicrosoft365(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2858,6 +2901,10 @@ func expandObjectSystemSdnConnectorVcenterUsername(d *schema.ResourceData, v int
 	return v, nil
 }
 
+func expandObjectSystemSdnConnectorVdom(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
+}
+
 func expandObjectSystemSdnConnectorVerifyCertificate(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -3099,6 +3146,15 @@ func getObjectObjectSystemSdnConnector(d *schema.ResourceData) (*map[string]inte
 			return &obj, err
 		} else if t != nil {
 			obj["message-server-port"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("microsoft_365"); ok || d.HasChange("microsoft_365") {
+		t, err := expandObjectSystemSdnConnectorMicrosoft365(d, v, "microsoft_365")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["microsoft-365"] = t
 		}
 	}
 
@@ -3459,6 +3515,15 @@ func getObjectObjectSystemSdnConnector(d *schema.ResourceData) (*map[string]inte
 			return &obj, err
 		} else if t != nil {
 			obj["vcenter-username"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("vdom"); ok || d.HasChange("vdom") {
+		t, err := expandObjectSystemSdnConnectorVdom(d, v, "vdom")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["vdom"] = t
 		}
 	}
 

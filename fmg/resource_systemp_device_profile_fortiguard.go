@@ -84,6 +84,10 @@ func resourceSystempDeviceProfileFortiguard() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"vrf_select": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 		},
 	}
 }
@@ -226,6 +230,10 @@ func flattenSystempDeviceProfileFortiguardTargetIp(v interface{}, d *schema.Reso
 	return v
 }
 
+func flattenSystempDeviceProfileFortiguardVrfSelect(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectSystempDeviceProfileFortiguard(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
@@ -303,6 +311,16 @@ func refreshObjectSystempDeviceProfileFortiguard(d *schema.ResourceData, o map[s
 		}
 	}
 
+	if err = d.Set("vrf_select", flattenSystempDeviceProfileFortiguardVrfSelect(o["vrf-select"], d, "vrf_select")); err != nil {
+		if vv, ok := fortiAPIPatch(o["vrf-select"], "SystempDeviceProfileFortiguard-VrfSelect"); ok {
+			if err = d.Set("vrf_select", vv); err != nil {
+				return fmt.Errorf("Error reading vrf_select: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading vrf_select: %v", err)
+		}
+	}
+
 	return nil
 }
 
@@ -337,6 +355,10 @@ func expandSystempDeviceProfileFortiguardTarget(d *schema.ResourceData, v interf
 }
 
 func expandSystempDeviceProfileFortiguardTargetIp(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystempDeviceProfileFortiguardVrfSelect(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -403,6 +425,15 @@ func getObjectSystempDeviceProfileFortiguard(d *schema.ResourceData) (*map[strin
 			return &obj, err
 		} else if t != nil {
 			obj["target-ip"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("vrf_select"); ok || d.HasChange("vrf_select") {
+		t, err := expandSystempDeviceProfileFortiguardVrfSelect(d, v, "vrf_select")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["vrf-select"] = t
 		}
 	}
 

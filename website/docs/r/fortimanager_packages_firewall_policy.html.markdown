@@ -195,6 +195,7 @@ The following arguments are supported:
 
 * `internet_service_custom` - Custom Internet Service name.
 * `internet_service_custom_group` - Custom Internet Service group name.
+* `internet_service_fortiguard` - FortiGuard Internet Service name.
 * `internet_service_group` - Internet Service group name.
 * `internet_service_name` - Internet Service name.
 * `internet_service_id` - Internet Service ID.
@@ -204,6 +205,7 @@ The following arguments are supported:
 
 * `internet_service_src_custom` - Custom Internet Service source name.
 * `internet_service_src_custom_group` - Custom Internet Service source group name.
+* `internet_service_src_fortiguard` - FortiGuard Internet Service source name.
 * `internet_service_src_group` - Internet Service source group name.
 * `internet_service_src_name` - Internet Service source name.
 * `internet_service_src_id` - Internet Service source ID.
@@ -213,6 +215,7 @@ The following arguments are supported:
 
 * `internet_service6_custom` - Custom IPv6 Internet Service name.
 * `internet_service6_custom_group` - Custom Internet Service6 group name.
+* `internet_service6_fortiguard` - FortiGuard IPv6 Internet Service name.
 * `internet_service6_group` - Internet Service group name.
 * `internet_service6_name` - IPv6 Internet Service name.
 * `internet_service6_negate` - When enabled internet-service6 specifies what the service must NOT be. Valid values: `disable`, `enable`.
@@ -221,6 +224,7 @@ The following arguments are supported:
 
 * `internet_service6_src_custom` - Custom IPv6 Internet Service source name.
 * `internet_service6_src_custom_group` - Custom Internet Service6 source group name.
+* `internet_service6_src_fortiguard` - FortiGuard IPv6 Internet Service source name.
 * `internet_service6_src_group` - Internet Service6 source group name.
 * `internet_service6_src_name` - IPv6 Internet Service source name.
 * `internet_service6_src_negate` - When enabled internet-service6-src specifies what the service must NOT be. Valid values: `disable`, `enable`.
@@ -315,11 +319,16 @@ The following arguments are supported:
 * `rtp_addr` - Address names if this is an RTP NAT policy.
 * `rtp_nat` - Enable Real Time Protocol (RTP) NAT. Valid values: `disable`, `enable`.
 
+* `saml_server` - SAML server name.
 * `scan_botnet_connections` - Block or monitor connections to Botnet servers or disable Botnet scanning. Valid values: `disable`, `block`, `monitor`.
 
 * `schedule` - Schedule name.
 * `schedule_timeout` - Enable to force current sessions to end when the schedule object times out. Disable allows them to end from inactivity. Valid values: `disable`, `enable`.
 
+* `scim` - Enable/disable SCIM (default = disable). Valid values: `disable`, `enable`.
+
+* `scim_groups` - Names of SCIM groups.
+* `scim_users` - Names of SCIM users.
 * `sctp_filter_profile` - Name of an existing SCTP filter profile.
 * `send_deny_packet` - Enable to send a reply when a session is denied or blocked by a firewall policy. Valid values: `disable`, `enable`.
 
@@ -353,6 +362,7 @@ The following arguments are supported:
 * `tcp_session_without_syn` - Enable/disable creation of TCP session without SYN flag. Valid values: `all`, `data-only`, `disable`.
 
 * `tcp_timeout_pid` - TCP timeout profile ID
+* `telemetry_profile` - Name of an existing telemetry profile.
 * `timeout_send_rst` - Enable/disable sending RST packets when TCP sessions expire. Valid values: `disable`, `enable`.
 
 * `tos` - ToS (Type of Service) value used for comparison.

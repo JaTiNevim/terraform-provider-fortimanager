@@ -60,6 +60,10 @@ func resourceObjectWebfilterUrlfilterEntries() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"comment": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"dns_address_family": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -252,6 +256,10 @@ func flattenObjectWebfilterUrlfilterEntriesAntiphishAction2edl(v interface{}, d 
 	return v
 }
 
+func flattenObjectWebfilterUrlfilterEntriesComment2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectWebfilterUrlfilterEntriesDnsAddressFamily2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -308,6 +316,16 @@ func refreshObjectObjectWebfilterUrlfilterEntries(d *schema.ResourceData, o map[
 			}
 		} else {
 			return fmt.Errorf("Error reading antiphish_action: %v", err)
+		}
+	}
+
+	if err = d.Set("comment", flattenObjectWebfilterUrlfilterEntriesComment2edl(o["comment"], d, "comment")); err != nil {
+		if vv, ok := fortiAPIPatch(o["comment"], "ObjectWebfilterUrlfilterEntries-Comment"); ok {
+			if err = d.Set("comment", vv); err != nil {
+				return fmt.Errorf("Error reading comment: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading comment: %v", err)
 		}
 	}
 
@@ -408,6 +426,10 @@ func expandObjectWebfilterUrlfilterEntriesAntiphishAction2edl(d *schema.Resource
 	return v, nil
 }
 
+func expandObjectWebfilterUrlfilterEntriesComment2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectWebfilterUrlfilterEntriesDnsAddressFamily2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -458,6 +480,15 @@ func getObjectObjectWebfilterUrlfilterEntries(d *schema.ResourceData) (*map[stri
 			return &obj, err
 		} else if t != nil {
 			obj["antiphish-action"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("comment"); ok || d.HasChange("comment") {
+		t, err := expandObjectWebfilterUrlfilterEntriesComment2edl(d, v, "comment")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["comment"] = t
 		}
 	}
 

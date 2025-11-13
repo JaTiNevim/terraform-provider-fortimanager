@@ -99,6 +99,11 @@ func resourceSystemDm() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"handle_nonhasync_config": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"install_fds_timeout": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -307,6 +312,10 @@ func flattenSystemDmFortiextRefreshCnt(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemDmHandleNonhasyncConfig(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemDmInstallFdsTimeout(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -499,6 +508,16 @@ func refreshObjectSystemDm(d *schema.ResourceData, o map[string]interface{}) err
 			}
 		} else {
 			return fmt.Errorf("Error reading fortiext_refresh_cnt: %v", err)
+		}
+	}
+
+	if err = d.Set("handle_nonhasync_config", flattenSystemDmHandleNonhasyncConfig(o["handle-nonhasync-config"], d, "handle_nonhasync_config")); err != nil {
+		if vv, ok := fortiAPIPatch(o["handle-nonhasync-config"], "SystemDm-HandleNonhasyncConfig"); ok {
+			if err = d.Set("handle_nonhasync_config", vv); err != nil {
+				return fmt.Errorf("Error reading handle_nonhasync_config: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading handle_nonhasync_config: %v", err)
 		}
 	}
 
@@ -697,6 +716,10 @@ func expandSystemDmFortiextRefreshCnt(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemDmHandleNonhasyncConfig(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemDmInstallFdsTimeout(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -875,6 +898,15 @@ func getObjectSystemDm(d *schema.ResourceData) (*map[string]interface{}, error) 
 			return &obj, err
 		} else if t != nil {
 			obj["fortiext-refresh-cnt"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("handle_nonhasync_config"); ok || d.HasChange("handle_nonhasync_config") {
+		t, err := expandSystemDmHandleNonhasyncConfig(d, v, "handle_nonhasync_config")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["handle-nonhasync-config"] = t
 		}
 	}
 

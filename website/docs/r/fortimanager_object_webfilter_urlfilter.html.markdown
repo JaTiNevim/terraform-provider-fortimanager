@@ -37,6 +37,8 @@ The following arguments are supported:
 * `comment` - Optional comments.
 * `entries` - Entries. The structure of `entries` block is documented below.
 * `fosid` - ID.
+* `include_subdomains` - Enable/disable matching subdomains. Applies only to simple type (default = enable). Valid values: `disable`, `enable`.
+
 * `ip_addr_block` - Enable/disable blocking URLs when the hostname appears as an IP address. Valid values: `disable`, `enable`.
 
 * `ip4_mapped_ip6` - Enable/disable matching of IPv4 mapped IPv6 URLs. Valid values: `disable`, `enable`.
@@ -52,6 +54,7 @@ The `entries` block supports:
 
 * `antiphish_action` - Action to take for AntiPhishing matches. Valid values: `block`, `log`.
 
+* `comment` - Comment.
 * `dns_address_family` - Resolve IPv4 address, IPv6 address, or both from DNS server. Valid values: `ipv4`, `ipv6`, `both`.
 
 * `exempt` - If action is set to exempt, select the security profile operations that exempt URLs skip. Separate multiple options with a space. Valid values: `av`, `web-content`, `activex-java-cookie`, `dlp`, `fortiguard`, `all`, `filepattern`, `pass`, `range-block`, `antiphish`.

@@ -86,6 +86,27 @@ func resourceObjectCliTemplate() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"scopemember": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						"name": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+						"vdom": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
+					},
+				},
+			},
+			"dynamic_sort_subtable": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Default:  "false",
+			},
 		},
 	}
 }
@@ -247,11 +268,64 @@ func flattenObjectCliTemplateVariables(v interface{}, d *schema.ResourceData, pr
 	return flattenStringList(v)
 }
 
+func flattenObjectCliTemplateScopeMember(v interface{}, d *schema.ResourceData, pre string) []map[string]interface{} {
+	if v == nil {
+		return nil
+	}
+
+	l := v.([]interface{})
+	if len(l) == 0 || l[0] == nil {
+		return nil
+	}
+
+	result := make([]map[string]interface{}, 0, len(l))
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "name"
+		if _, ok := i["name"]; ok {
+			v := flattenObjectCliTemplateScopeMemberName(i["name"], d, pre_append)
+			tmp["name"] = fortiAPISubPartPatch(v, "ObjectCliTemplate-ScopeMember-Name")
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vdom"
+		if _, ok := i["vdom"]; ok {
+			v := flattenObjectCliTemplateScopeMemberVdom(i["vdom"], d, pre_append)
+			tmp["vdom"] = fortiAPISubPartPatch(v, "ObjectCliTemplate-ScopeMember-Vdom")
+		}
+
+		if len(tmp) > 0 {
+			result = append(result, tmp)
+		}
+
+		con += 1
+	}
+
+	return result
+}
+
+func flattenObjectCliTemplateScopeMemberName(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectCliTemplateScopeMemberVdom(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func refreshObjectObjectCliTemplate(d *schema.ResourceData, o map[string]interface{}) error {
 	var err error
 
 	if stValue := d.Get("scopetype"); stValue == "" {
 		d.Set("scopetype", "inherit")
+	}
+
+	if dssValue := d.Get("dynamic_sort_subtable"); dssValue == "" {
+		d.Set("dynamic_sort_subtable", "false")
 	}
 
 	if err = d.Set("description", flattenObjectCliTemplateDescription(o["description"], d, "description")); err != nil {
@@ -344,6 +418,30 @@ func refreshObjectObjectCliTemplate(d *schema.ResourceData, o map[string]interfa
 		}
 	}
 
+	if isImportTable() {
+		if err = d.Set("scopemember", flattenObjectCliTemplateScopeMember(o["scope member"], d, "scopemember")); err != nil {
+			if vv, ok := fortiAPIPatch(o["scope member"], "ObjectCliTemplate-ScopeMember"); ok {
+				if err = d.Set("scopemember", vv); err != nil {
+					return fmt.Errorf("Error reading scopemember: %v", err)
+				}
+			} else {
+				return fmt.Errorf("Error reading scopemember: %v", err)
+			}
+		}
+	} else {
+		if _, ok := d.GetOk("scopemember"); ok {
+			if err = d.Set("scopemember", flattenObjectCliTemplateScopeMember(o["scope member"], d, "scopemember")); err != nil {
+				if vv, ok := fortiAPIPatch(o["scope member"], "ObjectCliTemplate-ScopeMember"); ok {
+					if err = d.Set("scopemember", vv); err != nil {
+						return fmt.Errorf("Error reading scopemember: %v", err)
+					}
+				} else {
+					return fmt.Errorf("Error reading scopemember: %v", err)
+				}
+			}
+		}
+	}
+
 	return nil
 }
 
@@ -387,6 +485,48 @@ func expandObjectCliTemplateType(d *schema.ResourceData, v interface{}, pre stri
 
 func expandObjectCliTemplateVariables(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandObjectCliTemplateScopeMember(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	l := v.([]interface{})
+	result := make([]map[string]interface{}, 0, len(l))
+
+	if len(l) == 0 || l[0] == nil {
+		return result, nil
+	}
+
+	con := 0
+	for _, r := range l {
+		tmp := make(map[string]interface{})
+		i := r.(map[string]interface{})
+		pre_append := "" // table
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "name"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["name"], _ = expandObjectCliTemplateScopeMemberName(d, i["name"], pre_append)
+		}
+
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "vdom"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["vdom"], _ = expandObjectCliTemplateScopeMemberVdom(d, i["vdom"], pre_append)
+		}
+
+		if len(tmp) > 0 {
+			result = append(result, tmp)
+		}
+
+		con += 1
+	}
+
+	return result, nil
+}
+
+func expandObjectCliTemplateScopeMemberName(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectCliTemplateScopeMemberVdom(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func getObjectObjectCliTemplate(d *schema.ResourceData) (*map[string]interface{}, error) {
@@ -470,6 +610,15 @@ func getObjectObjectCliTemplate(d *schema.ResourceData) (*map[string]interface{}
 			return &obj, err
 		} else if t != nil {
 			obj["variables"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scopemember"); ok || d.HasChange("scopemember") {
+		t, err := expandObjectCliTemplateScopeMember(d, v, "scopemember")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scope member"] = t
 		}
 	}
 

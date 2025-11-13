@@ -37,6 +37,7 @@ The following arguments are supported:
 * `target` - Target. Valid values: `none`, `direct`, `this-fmg`.
 
 * `target_ip` - Target-Ip.
+* `vrf_select` - Vrf-Select.
 
 
 ## Attribute Reference

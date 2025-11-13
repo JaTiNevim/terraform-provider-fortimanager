@@ -114,6 +114,10 @@ func resourceWantempSystemSdwanService() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"fib_best_match_force": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"gateway": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -183,6 +187,12 @@ func resourceWantempSystemSdwanService() *schema.Resource {
 			"internet_service_custom_group": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+			},
+			"internet_service_fortiguard": &schema.Schema{
+				Type:     schema.TypeSet,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+				Computed: true,
 			},
 			"internet_service_group": &schema.Schema{
 				Type:     schema.TypeString,
@@ -570,6 +580,10 @@ func flattenWantempSystemSdwanServiceEndSrcPort2edl(v interface{}, d *schema.Res
 	return v
 }
 
+func flattenWantempSystemSdwanServiceFibBestMatchForce2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenWantempSystemSdwanServiceGateway2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -628,6 +642,10 @@ func flattenWantempSystemSdwanServiceInternetServiceCustom2edl(v interface{}, d 
 
 func flattenWantempSystemSdwanServiceInternetServiceCustomGroup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return convintflist2str(v, d.Get(pre))
+}
+
+func flattenWantempSystemSdwanServiceInternetServiceFortiguard2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return flattenStringList(v)
 }
 
 func flattenWantempSystemSdwanServiceInternetServiceGroup2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
@@ -974,6 +992,16 @@ func refreshObjectWantempSystemSdwanService(d *schema.ResourceData, o map[string
 		}
 	}
 
+	if err = d.Set("fib_best_match_force", flattenWantempSystemSdwanServiceFibBestMatchForce2edl(o["fib-best-match-force"], d, "fib_best_match_force")); err != nil {
+		if vv, ok := fortiAPIPatch(o["fib-best-match-force"], "WantempSystemSdwanService-FibBestMatchForce"); ok {
+			if err = d.Set("fib_best_match_force", vv); err != nil {
+				return fmt.Errorf("Error reading fib_best_match_force: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading fib_best_match_force: %v", err)
+		}
+	}
+
 	if err = d.Set("gateway", flattenWantempSystemSdwanServiceGateway2edl(o["gateway"], d, "gateway")); err != nil {
 		if vv, ok := fortiAPIPatch(o["gateway"], "WantempSystemSdwanService-Gateway"); ok {
 			if err = d.Set("gateway", vv); err != nil {
@@ -1121,6 +1149,16 @@ func refreshObjectWantempSystemSdwanService(d *schema.ResourceData, o map[string
 			}
 		} else {
 			return fmt.Errorf("Error reading internet_service_custom_group: %v", err)
+		}
+	}
+
+	if err = d.Set("internet_service_fortiguard", flattenWantempSystemSdwanServiceInternetServiceFortiguard2edl(o["internet-service-fortiguard"], d, "internet_service_fortiguard")); err != nil {
+		if vv, ok := fortiAPIPatch(o["internet-service-fortiguard"], "WantempSystemSdwanService-InternetServiceFortiguard"); ok {
+			if err = d.Set("internet_service_fortiguard", vv); err != nil {
+				return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading internet_service_fortiguard: %v", err)
 		}
 	}
 
@@ -1573,6 +1611,10 @@ func expandWantempSystemSdwanServiceEndSrcPort2edl(d *schema.ResourceData, v int
 	return v, nil
 }
 
+func expandWantempSystemSdwanServiceFibBestMatchForce2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandWantempSystemSdwanServiceGateway2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -1631,6 +1673,10 @@ func expandWantempSystemSdwanServiceInternetServiceCustom2edl(d *schema.Resource
 
 func expandWantempSystemSdwanServiceInternetServiceCustomGroup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return convstr2list(v, nil), nil
+}
+
+func expandWantempSystemSdwanServiceInternetServiceFortiguard2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return expandStringList(v.(*schema.Set).List()), nil
 }
 
 func expandWantempSystemSdwanServiceInternetServiceGroup2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -1948,6 +1994,15 @@ func getObjectWantempSystemSdwanService(d *schema.ResourceData) (*map[string]int
 		}
 	}
 
+	if v, ok := d.GetOk("fib_best_match_force"); ok || d.HasChange("fib_best_match_force") {
+		t, err := expandWantempSystemSdwanServiceFibBestMatchForce2edl(d, v, "fib_best_match_force")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["fib-best-match-force"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("gateway"); ok || d.HasChange("gateway") {
 		t, err := expandWantempSystemSdwanServiceGateway2edl(d, v, "gateway")
 		if err != nil {
@@ -2080,6 +2135,15 @@ func getObjectWantempSystemSdwanService(d *schema.ResourceData) (*map[string]int
 			return &obj, err
 		} else if t != nil {
 			obj["internet-service-custom-group"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("internet_service_fortiguard"); ok || d.HasChange("internet_service_fortiguard") {
+		t, err := expandWantempSystemSdwanServiceInternetServiceFortiguard2edl(d, v, "internet_service_fortiguard")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["internet-service-fortiguard"] = t
 		}
 	}
 

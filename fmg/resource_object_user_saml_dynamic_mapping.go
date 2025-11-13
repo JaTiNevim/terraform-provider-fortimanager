@@ -133,6 +133,14 @@ func resourceObjectUserSamlDynamicMapping() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"scim_group_attr_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+			"scim_user_attr_type": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"single_logout_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -412,6 +420,14 @@ func flattenObjectUserSamlDynamicMappingScimClient2edl(v interface{}, d *schema.
 	return flattenStringList(v)
 }
 
+func flattenObjectUserSamlDynamicMappingScimGroupAttrType2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectUserSamlDynamicMappingScimUserAttrType2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectUserSamlDynamicMappingSingleLogoutUrl2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -613,6 +629,26 @@ func refreshObjectObjectUserSamlDynamicMapping(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("scim_group_attr_type", flattenObjectUserSamlDynamicMappingScimGroupAttrType2edl(o["scim-group-attr-type"], d, "scim_group_attr_type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["scim-group-attr-type"], "ObjectUserSamlDynamicMapping-ScimGroupAttrType"); ok {
+			if err = d.Set("scim_group_attr_type", vv); err != nil {
+				return fmt.Errorf("Error reading scim_group_attr_type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading scim_group_attr_type: %v", err)
+		}
+	}
+
+	if err = d.Set("scim_user_attr_type", flattenObjectUserSamlDynamicMappingScimUserAttrType2edl(o["scim-user-attr-type"], d, "scim_user_attr_type")); err != nil {
+		if vv, ok := fortiAPIPatch(o["scim-user-attr-type"], "ObjectUserSamlDynamicMapping-ScimUserAttrType"); ok {
+			if err = d.Set("scim_user_attr_type", vv); err != nil {
+				return fmt.Errorf("Error reading scim_user_attr_type: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading scim_user_attr_type: %v", err)
+		}
+	}
+
 	if err = d.Set("single_logout_url", flattenObjectUserSamlDynamicMappingSingleLogoutUrl2edl(o["single-logout-url"], d, "single_logout_url")); err != nil {
 		if vv, ok := fortiAPIPatch(o["single-logout-url"], "ObjectUserSamlDynamicMapping-SingleLogoutUrl"); ok {
 			if err = d.Set("single_logout_url", vv); err != nil {
@@ -762,6 +798,14 @@ func expandObjectUserSamlDynamicMappingReauth2edl(d *schema.ResourceData, v inte
 
 func expandObjectUserSamlDynamicMappingScimClient2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return expandStringList(v.(*schema.Set).List()), nil
+}
+
+func expandObjectUserSamlDynamicMappingScimGroupAttrType2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectUserSamlDynamicMappingScimUserAttrType2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
 }
 
 func expandObjectUserSamlDynamicMappingSingleLogoutUrl2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
@@ -924,6 +968,24 @@ func getObjectObjectUserSamlDynamicMapping(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["scim-client"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scim_group_attr_type"); ok || d.HasChange("scim_group_attr_type") {
+		t, err := expandObjectUserSamlDynamicMappingScimGroupAttrType2edl(d, v, "scim_group_attr_type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scim-group-attr-type"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("scim_user_attr_type"); ok || d.HasChange("scim_user_attr_type") {
+		t, err := expandObjectUserSamlDynamicMappingScimUserAttrType2edl(d, v, "scim_user_attr_type")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["scim-user-attr-type"] = t
 		}
 	}
 

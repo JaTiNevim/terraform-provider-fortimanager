@@ -49,6 +49,10 @@ func resourceObjectUserFlexvm() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"default_config": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"folder": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -203,6 +207,10 @@ func flattenObjectUserFlexvmConfig(v interface{}, d *schema.ResourceData, pre st
 	return v
 }
 
+func flattenObjectUserFlexvmDefaultConfig(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectUserFlexvmFolder(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -241,6 +249,16 @@ func refreshObjectObjectUserFlexvm(d *schema.ResourceData, o map[string]interfac
 			}
 		} else {
 			return fmt.Errorf("Error reading config: %v", err)
+		}
+	}
+
+	if err = d.Set("default_config", flattenObjectUserFlexvmDefaultConfig(o["default_config"], d, "default_config")); err != nil {
+		if vv, ok := fortiAPIPatch(o["default_config"], "ObjectUserFlexvm-DefaultConfig"); ok {
+			if err = d.Set("default_config", vv); err != nil {
+				return fmt.Errorf("Error reading default_config: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading default_config: %v", err)
 		}
 	}
 
@@ -317,6 +335,10 @@ func expandObjectUserFlexvmConfig(d *schema.ResourceData, v interface{}, pre str
 	return v, nil
 }
 
+func expandObjectUserFlexvmDefaultConfig(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectUserFlexvmFolder(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -350,6 +372,15 @@ func getObjectObjectUserFlexvm(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["config"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("default_config"); ok || d.HasChange("default_config") {
+		t, err := expandObjectUserFlexvmDefaultConfig(d, v, "default_config")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["default_config"] = t
 		}
 	}
 

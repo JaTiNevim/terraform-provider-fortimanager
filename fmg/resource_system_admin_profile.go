@@ -173,6 +173,11 @@ func resourceSystemAdminProfile() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"device_fwm_profile": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"device_manager": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -787,6 +792,10 @@ func flattenSystemAdminProfileDeviceFortiswitch(v interface{}, d *schema.Resourc
 	return v
 }
 
+func flattenSystemAdminProfileDeviceFwmProfile(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemAdminProfileDeviceManager(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -1365,6 +1374,16 @@ func refreshObjectSystemAdminProfile(d *schema.ResourceData, o map[string]interf
 			}
 		} else {
 			return fmt.Errorf("Error reading device_fortiswitch: %v", err)
+		}
+	}
+
+	if err = d.Set("device_fwm_profile", flattenSystemAdminProfileDeviceFwmProfile(o["device-fwm-profile"], d, "device_fwm_profile")); err != nil {
+		if vv, ok := fortiAPIPatch(o["device-fwm-profile"], "SystemAdminProfile-DeviceFwmProfile"); ok {
+			if err = d.Set("device_fwm_profile", vv); err != nil {
+				return fmt.Errorf("Error reading device_fwm_profile: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading device_fwm_profile: %v", err)
 		}
 	}
 
@@ -2207,6 +2226,10 @@ func expandSystemAdminProfileDeviceFortiswitch(d *schema.ResourceData, v interfa
 	return v, nil
 }
 
+func expandSystemAdminProfileDeviceFwmProfile(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemAdminProfileDeviceManager(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -2741,6 +2764,15 @@ func getObjectSystemAdminProfile(d *schema.ResourceData) (*map[string]interface{
 			return &obj, err
 		} else if t != nil {
 			obj["device-fortiswitch"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("device_fwm_profile"); ok || d.HasChange("device_fwm_profile") {
+		t, err := expandSystemAdminProfileDeviceFwmProfile(d, v, "device_fwm_profile")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["device-fwm-profile"] = t
 		}
 	}
 

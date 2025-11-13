@@ -104,6 +104,10 @@ func resourcePackagesUserNacPolicy() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
+			"match_remove": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"match_type": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -378,6 +382,10 @@ func flattenPackagesUserNacPolicyMatchPeriod(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenPackagesUserNacPolicyMatchRemove(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenPackagesUserNacPolicyMatchType(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -552,6 +560,16 @@ func refreshObjectPackagesUserNacPolicy(d *schema.ResourceData, o map[string]int
 			}
 		} else {
 			return fmt.Errorf("Error reading match_period: %v", err)
+		}
+	}
+
+	if err = d.Set("match_remove", flattenPackagesUserNacPolicyMatchRemove(o["match-remove"], d, "match_remove")); err != nil {
+		if vv, ok := fortiAPIPatch(o["match-remove"], "PackagesUserNacPolicy-MatchRemove"); ok {
+			if err = d.Set("match_remove", vv); err != nil {
+				return fmt.Errorf("Error reading match_remove: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading match_remove: %v", err)
 		}
 	}
 
@@ -758,6 +776,10 @@ func expandPackagesUserNacPolicyMatchPeriod(d *schema.ResourceData, v interface{
 	return v, nil
 }
 
+func expandPackagesUserNacPolicyMatchRemove(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandPackagesUserNacPolicyMatchType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -917,6 +939,15 @@ func getObjectPackagesUserNacPolicy(d *schema.ResourceData) (*map[string]interfa
 			return &obj, err
 		} else if t != nil {
 			obj["match-period"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("match_remove"); ok || d.HasChange("match_remove") {
+		t, err := expandPackagesUserNacPolicyMatchRemove(d, v, "match_remove")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["match-remove"] = t
 		}
 	}
 

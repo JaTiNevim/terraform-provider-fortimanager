@@ -5096,6 +5096,172 @@ func (c *FortiSDKClient) ReadObjectDlpDictionaryEntriesMove(mkey string, paradic
 	return
 }
 
+// CreateObjectDlpExactDataMatch API operation for FortiManager creates a new Exact Data Match.
+// Returns the index value of the Exact Data Match and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectDlpExactDataMatch(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectDlpExactDataMatch API operation for FortiManager updates the specified Exact Data Match.
+// Returns the index value of the Exact Data Match and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpExactDataMatch(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectDlpExactDataMatch API operation for FortiManager deletes the specified Exact Data Match.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectDlpExactDataMatch(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectDlpExactDataMatch API operation for FortiManager gets the Exact Data Match
+// with the specified index value.
+// Returns the requested Exact Data Match value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpExactDataMatch(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectDlpExactDataMatchColumns API operation for FortiManager creates a new Exact Data MatchColumns.
+// Returns the index value of the Exact Data MatchColumns and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectDlpExactDataMatchColumns(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectDlpExactDataMatchColumns API operation for FortiManager updates the specified Exact Data MatchColumns.
+// Returns the index value of the Exact Data MatchColumns and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpExactDataMatchColumns(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectDlpExactDataMatchColumns API operation for FortiManager deletes the specified Exact Data MatchColumns.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectDlpExactDataMatchColumns(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectDlpExactDataMatchColumns API operation for FortiManager gets the Exact Data MatchColumns
+// with the specified index value.
+// Returns the requested Exact Data MatchColumns value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpExactDataMatchColumns(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectDlpExactDataMatchColumnsMove API operation for FortiManager updates the specified Exact Data MatchColumnsMove.
+// Returns the index value of the Exact Data MatchColumnsMove and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpExactDataMatchColumnsMove(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns/{columns}"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "move", params, true, wsParams)
+	return
+}
+
+// ReadObjectDlpExactDataMatchColumnsMove API operation for FortiManager gets the Exact Data MatchColumnsMove
+// with the specified index value.
+// Returns the requested Exact Data MatchColumnsMove value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - exact-data-match columns move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpExactDataMatchColumnsMove(mkey string, paradict map[string]string) (listTmp []interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/exact-data-match/{exact-data-match}/columns"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	params := map[string]interface{}{
+		"fields": []string{"index"},
+	}
+	listTmp, err = readMove(c, path, "get", &params, true)
+	return
+}
+
 // CreateObjectDlpFilepattern API operation for FortiManager creates a new Filepattern.
 // Returns the index value of the Filepattern and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -5325,6 +5491,172 @@ func (c *FortiSDKClient) ReadObjectDlpFpSensitivity(mkey string, paradict map[st
 	path += "/" + escapeURLString(mkey)
 
 	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectDlpLabel API operation for FortiManager creates a new Label.
+// Returns the index value of the Label and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectDlpLabel(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectDlpLabel API operation for FortiManager updates the specified Label.
+// Returns the index value of the Label and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpLabel(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectDlpLabel API operation for FortiManager deletes the specified Label.
+// Returns error for service API and SDK errors.
+// See the object dlp - label chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectDlpLabel(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/dlp/label"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectDlpLabel API operation for FortiManager gets the Label
+// with the specified index value.
+// Returns the requested Label value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpLabel(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectDlpLabelEntries API operation for FortiManager creates a new LabelEntries.
+// Returns the index value of the LabelEntries and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectDlpLabelEntries(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectDlpLabelEntries API operation for FortiManager updates the specified LabelEntries.
+// Returns the index value of the LabelEntries and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpLabelEntries(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectDlpLabelEntries API operation for FortiManager deletes the specified LabelEntries.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectDlpLabelEntries(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectDlpLabelEntries API operation for FortiManager gets the LabelEntries
+// with the specified index value.
+// Returns the requested LabelEntries value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpLabelEntries(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectDlpLabelEntriesMove API operation for FortiManager updates the specified LabelEntriesMove.
+// Returns the index value of the LabelEntriesMove and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectDlpLabelEntriesMove(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries/{entries}"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "move", params, true, wsParams)
+	return
+}
+
+// ReadObjectDlpLabelEntriesMove API operation for FortiManager gets the LabelEntriesMove
+// with the specified index value.
+// Returns the requested LabelEntriesMove value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object dlp - label entries move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectDlpLabelEntriesMove(mkey string, paradict map[string]string) (listTmp []interface{}, err error) {
+	path := "/pm/config/[*]/obj/dlp/label/{label}/entries"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	params := map[string]interface{}{
+		"fields": []string{"id"},
+	}
+	listTmp, err = readMove(c, path, "get", &params, true)
 	return
 }
 
@@ -10282,6 +10614,72 @@ func (c *FortiSDKClient) ReadObjectExtensionControllerExtenderProfileWifiRadio2(
 	return
 }
 
+// CreateObjectExtensionControllerExtenderVap API operation for FortiManager creates a new Extender Vap.
+// Returns the index value of the Extender Vap and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object extension-controller - extender-vap chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectExtensionControllerExtenderVap(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/extension-controller/extender-vap"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectExtensionControllerExtenderVap API operation for FortiManager updates the specified Extender Vap.
+// Returns the index value of the Extender Vap and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object extension-controller - extender-vap chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectExtensionControllerExtenderVap(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/extension-controller/extender-vap"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectExtensionControllerExtenderVap API operation for FortiManager deletes the specified Extender Vap.
+// Returns error for service API and SDK errors.
+// See the object extension-controller - extender-vap chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectExtensionControllerExtenderVap(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/extension-controller/extender-vap"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectExtensionControllerExtenderVap API operation for FortiManager gets the Extender Vap
+// with the specified index value.
+// Returns the requested Extender Vap value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object extension-controller - extender-vap chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectExtensionControllerExtenderVap(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/extension-controller/extender-vap"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectFileFilterProfile API operation for FortiManager creates a new Profile.
 // Returns the index value of the Profile and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -15120,6 +15518,468 @@ func (c *FortiSDKClient) ReadObjectFirewallInternetServiceCustomEntryPortRange(m
 	return
 }
 
+// CreateObjectFirewallInternetServiceExtension API operation for FortiManager creates a new Internet Service Extension.
+// Returns the index value of the Internet Service Extension and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtension(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtension API operation for FortiManager updates the specified Internet Service Extension.
+// Returns the index value of the Internet Service Extension and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtension(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtension API operation for FortiManager deletes the specified Internet Service Extension.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtension(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtension API operation for FortiManager gets the Internet Service Extension
+// with the specified index value.
+// Returns the requested Internet Service Extension value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtension(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionDisableEntry API operation for FortiManager creates a new Internet Service ExtensionDisable Entry.
+// Returns the index value of the Internet Service ExtensionDisable Entry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionDisableEntry(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionDisableEntry API operation for FortiManager updates the specified Internet Service ExtensionDisable Entry.
+// Returns the index value of the Internet Service ExtensionDisable Entry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionDisableEntry(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionDisableEntry API operation for FortiManager deletes the specified Internet Service ExtensionDisable Entry.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionDisableEntry(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionDisableEntry API operation for FortiManager gets the Internet Service ExtensionDisable Entry
+// with the specified index value.
+// Returns the requested Internet Service ExtensionDisable Entry value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionDisableEntry(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionDisableEntryIpRange API operation for FortiManager creates a new Internet Service ExtensionDisable EntryIp Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryIp Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionDisableEntryIpRange(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionDisableEntryIpRange API operation for FortiManager updates the specified Internet Service ExtensionDisable EntryIp Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryIp Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionDisableEntryIpRange(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionDisableEntryIpRange API operation for FortiManager deletes the specified Internet Service ExtensionDisable EntryIp Range.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionDisableEntryIpRange(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionDisableEntryIpRange API operation for FortiManager gets the Internet Service ExtensionDisable EntryIp Range
+// with the specified index value.
+// Returns the requested Internet Service ExtensionDisable EntryIp Range value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionDisableEntryIpRange(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionDisableEntryIp6Range API operation for FortiManager creates a new Internet Service ExtensionDisable EntryIp6 Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryIp6 Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip6-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionDisableEntryIp6Range(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip6-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionDisableEntryIp6Range API operation for FortiManager updates the specified Internet Service ExtensionDisable EntryIp6 Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryIp6 Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip6-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionDisableEntryIp6Range(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip6-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionDisableEntryIp6Range API operation for FortiManager deletes the specified Internet Service ExtensionDisable EntryIp6 Range.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip6-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionDisableEntryIp6Range(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip6-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionDisableEntryIp6Range API operation for FortiManager gets the Internet Service ExtensionDisable EntryIp6 Range
+// with the specified index value.
+// Returns the requested Internet Service ExtensionDisable EntryIp6 Range value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry ip6-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionDisableEntryIp6Range(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/ip6-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionDisableEntryPortRange API operation for FortiManager creates a new Internet Service ExtensionDisable EntryPort Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryPort Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionDisableEntryPortRange(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionDisableEntryPortRange API operation for FortiManager updates the specified Internet Service ExtensionDisable EntryPort Range.
+// Returns the index value of the Internet Service ExtensionDisable EntryPort Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionDisableEntryPortRange(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionDisableEntryPortRange API operation for FortiManager deletes the specified Internet Service ExtensionDisable EntryPort Range.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionDisableEntryPortRange(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionDisableEntryPortRange API operation for FortiManager gets the Internet Service ExtensionDisable EntryPort Range
+// with the specified index value.
+// Returns the requested Internet Service ExtensionDisable EntryPort Range value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension disable-entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionDisableEntryPortRange(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/disable-entry/{disable-entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionEntry API operation for FortiManager creates a new Internet Service ExtensionEntry.
+// Returns the index value of the Internet Service ExtensionEntry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionEntry(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionEntry API operation for FortiManager updates the specified Internet Service ExtensionEntry.
+// Returns the index value of the Internet Service ExtensionEntry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionEntry(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionEntry API operation for FortiManager deletes the specified Internet Service ExtensionEntry.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionEntry(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionEntry API operation for FortiManager gets the Internet Service ExtensionEntry
+// with the specified index value.
+// Returns the requested Internet Service ExtensionEntry value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionEntry(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallInternetServiceExtensionEntryPortRange API operation for FortiManager creates a new Internet Service ExtensionEntryPort Range.
+// Returns the index value of the Internet Service ExtensionEntryPort Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallInternetServiceExtensionEntryPortRange(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry/{entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallInternetServiceExtensionEntryPortRange API operation for FortiManager updates the specified Internet Service ExtensionEntryPort Range.
+// Returns the index value of the Internet Service ExtensionEntryPort Range and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallInternetServiceExtensionEntryPortRange(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry/{entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallInternetServiceExtensionEntryPortRange API operation for FortiManager deletes the specified Internet Service ExtensionEntryPort Range.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallInternetServiceExtensionEntryPortRange(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry/{entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallInternetServiceExtensionEntryPortRange API operation for FortiManager gets the Internet Service ExtensionEntryPort Range
+// with the specified index value.
+// Returns the requested Internet Service ExtensionEntryPort Range value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - internet-service-extension entry port-range chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallInternetServiceExtensionEntryPortRange(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/internet-service-extension/{internet-service-extension}/entry/{entry}/port-range"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectFirewallInternetServiceGroup API operation for FortiManager creates a new Internet Service Group.
 // Returns the index value of the Internet Service Group and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -16099,6 +16959,72 @@ func (c *FortiSDKClient) DeleteObjectFirewallNetworkServiceDynamic(mkey string, 
 // See the object firewall - network-service-dynamic chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadObjectFirewallNetworkServiceDynamic(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/pm/config/[*]/obj/firewall/network-service-dynamic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectFirewallPfcp API operation for FortiManager creates a new Pfcp.
+// Returns the index value of the Pfcp and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - pfcp chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectFirewallPfcp(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/pfcp"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectFirewallPfcp API operation for FortiManager updates the specified Pfcp.
+// Returns the index value of the Pfcp and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - pfcp chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectFirewallPfcp(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/pfcp"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectFirewallPfcp API operation for FortiManager deletes the specified Pfcp.
+// Returns error for service API and SDK errors.
+// See the object firewall - pfcp chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectFirewallPfcp(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/firewall/pfcp"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectFirewallPfcp API operation for FortiManager gets the Pfcp
+// with the specified index value.
+// Returns the requested Pfcp value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object firewall - pfcp chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectFirewallPfcp(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/firewall/pfcp"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -21984,6 +22910,72 @@ func (c *FortiSDKClient) ReadObjectGlobalIpsSensorOverride(mkey string, paradict
 	return
 }
 
+// CreateObjectGtpRatTimeoutProfile API operation for FortiManager creates a new Rat Timeout Profile.
+// Returns the index value of the Rat Timeout Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object gtp - rat-timeout-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectGtpRatTimeoutProfile(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/gtp/rat-timeout-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectGtpRatTimeoutProfile API operation for FortiManager updates the specified Rat Timeout Profile.
+// Returns the index value of the Rat Timeout Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object gtp - rat-timeout-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectGtpRatTimeoutProfile(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/gtp/rat-timeout-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectGtpRatTimeoutProfile API operation for FortiManager deletes the specified Rat Timeout Profile.
+// Returns error for service API and SDK errors.
+// See the object gtp - rat-timeout-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectGtpRatTimeoutProfile(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/gtp/rat-timeout-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectGtpRatTimeoutProfile API operation for FortiManager gets the Rat Timeout Profile
+// with the specified index value.
+// Returns the requested Rat Timeout Profile value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object gtp - rat-timeout-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectGtpRatTimeoutProfile(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/gtp/rat-timeout-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectIcapProfile API operation for FortiManager creates a new Profile.
 // Returns the index value of the Profile and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -22303,6 +23295,138 @@ func (c *FortiSDKClient) DeleteObjectIcapServer(mkey string, paradict, wsParams 
 // See the object icap - server chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadObjectIcapServer(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/pm/config/[*]/obj/icap/server"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectIcapServerGroup API operation for FortiManager creates a new Server Group.
+// Returns the index value of the Server Group and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectIcapServerGroup(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectIcapServerGroup API operation for FortiManager updates the specified Server Group.
+// Returns the index value of the Server Group and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectIcapServerGroup(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectIcapServerGroup API operation for FortiManager deletes the specified Server Group.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectIcapServerGroup(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/icap/server-group"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectIcapServerGroup API operation for FortiManager gets the Server Group
+// with the specified index value.
+// Returns the requested Server Group value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectIcapServerGroup(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectIcapServerGroupServerList API operation for FortiManager creates a new Server GroupServer List.
+// Returns the index value of the Server GroupServer List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectIcapServerGroupServerList(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group/{server-group}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectIcapServerGroupServerList API operation for FortiManager updates the specified Server GroupServer List.
+// Returns the index value of the Server GroupServer List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectIcapServerGroupServerList(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group/{server-group}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectIcapServerGroupServerList API operation for FortiManager deletes the specified Server GroupServer List.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectIcapServerGroupServerList(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/icap/server-group/{server-group}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectIcapServerGroupServerList API operation for FortiManager gets the Server GroupServer List
+// with the specified index value.
+// Returns the requested Server GroupServer List value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object icap - server-group server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectIcapServerGroupServerList(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/icap/server-group/{server-group}/server-list"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -26206,6 +27330,72 @@ func (c *FortiSDKClient) ReadObjectSwitchControllerSecurityPolicy8021X(mkey stri
 	return
 }
 
+// CreateObjectSwitchControllerSecurityPolicyLocalAccess API operation for FortiManager creates a new Security PolicyLocal Access.
+// Returns the index value of the Security PolicyLocal Access and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object switch-controller - security-policy local-access chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectSwitchControllerSecurityPolicyLocalAccess(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/switch-controller/security-policy/local-access"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectSwitchControllerSecurityPolicyLocalAccess API operation for FortiManager updates the specified Security PolicyLocal Access.
+// Returns the index value of the Security PolicyLocal Access and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object switch-controller - security-policy local-access chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectSwitchControllerSecurityPolicyLocalAccess(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/switch-controller/security-policy/local-access"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectSwitchControllerSecurityPolicyLocalAccess API operation for FortiManager deletes the specified Security PolicyLocal Access.
+// Returns error for service API and SDK errors.
+// See the object switch-controller - security-policy local-access chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectSwitchControllerSecurityPolicyLocalAccess(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/switch-controller/security-policy/local-access"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectSwitchControllerSecurityPolicyLocalAccess API operation for FortiManager gets the Security PolicyLocal Access
+// with the specified index value.
+// Returns the requested Security PolicyLocal Access value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object switch-controller - security-policy local-access chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectSwitchControllerSecurityPolicyLocalAccess(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/switch-controller/security-policy/local-access"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectSwitchControllerSwitchInterfaceTag API operation for FortiManager creates a new Switch Interface Tag.
 // Returns the index value of the Switch Interface Tag and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -26789,6 +27979,138 @@ func (c *FortiSDKClient) DeleteObjectSystemDhcpServerReservedAddress(mkey string
 // See the object system - dhcp server reserved-address chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadObjectSystemDhcpServerReservedAddress(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/pm/config/[*]/obj/system/dhcp/server/{server}/reserved-address"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectSystemDnsDatabase API operation for FortiManager creates a new Dns Database.
+// Returns the index value of the Dns Database and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectSystemDnsDatabase(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectSystemDnsDatabase API operation for FortiManager updates the specified Dns Database.
+// Returns the index value of the Dns Database and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectSystemDnsDatabase(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectSystemDnsDatabase API operation for FortiManager deletes the specified Dns Database.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectSystemDnsDatabase(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/system/dns-database"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectSystemDnsDatabase API operation for FortiManager gets the Dns Database
+// with the specified index value.
+// Returns the requested Dns Database value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectSystemDnsDatabase(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectSystemDnsDatabaseDnsEntry API operation for FortiManager creates a new Dns DatabaseDns Entry.
+// Returns the index value of the Dns DatabaseDns Entry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database dns-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectSystemDnsDatabaseDnsEntry(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database/{dns-database}/dns-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectSystemDnsDatabaseDnsEntry API operation for FortiManager updates the specified Dns DatabaseDns Entry.
+// Returns the index value of the Dns DatabaseDns Entry and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database dns-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectSystemDnsDatabaseDnsEntry(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database/{dns-database}/dns-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectSystemDnsDatabaseDnsEntry API operation for FortiManager deletes the specified Dns DatabaseDns Entry.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database dns-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectSystemDnsDatabaseDnsEntry(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/system/dns-database/{dns-database}/dns-entry"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectSystemDnsDatabaseDnsEntry API operation for FortiManager gets the Dns DatabaseDns Entry
+// with the specified index value.
+// Returns the requested Dns DatabaseDns Entry value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object system - dns-database dns-entry chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectSystemDnsDatabaseDnsEntry(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/system/dns-database/{dns-database}/dns-entry"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -31718,6 +33040,376 @@ func (c *FortiSDKClient) ReadObjectSystemVirtualWirePair(mkey string, paradict m
 	return
 }
 
+// CreateObjectTelemetryControllerAgent API operation for FortiManager creates a new Agent.
+// Returns the index value of the Agent and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectTelemetryControllerAgent(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectTelemetryControllerAgent API operation for FortiManager updates the specified Agent.
+// Returns the index value of the Agent and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerAgent(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerAgent API operation for FortiManager deletes the specified Agent.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerAgent(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectTelemetryControllerAgent API operation for FortiManager gets the Agent
+// with the specified index value.
+// Returns the requested Agent value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerAgent(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectTelemetryControllerAgentProfile API operation for FortiManager creates a new Agent Profile.
+// Returns the index value of the Agent Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectTelemetryControllerAgentProfile(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectTelemetryControllerAgentProfile API operation for FortiManager updates the specified Agent Profile.
+// Returns the index value of the Agent Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerAgentProfile(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerAgentProfile API operation for FortiManager deletes the specified Agent Profile.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerAgentProfile(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectTelemetryControllerAgentProfile API operation for FortiManager gets the Agent Profile
+// with the specified index value.
+// Returns the requested Agent Profile value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - agent-profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerAgentProfile(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/agent-profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectTelemetryControllerApplicationPredefine API operation for FortiManager creates a new ApplicationPredefine.
+// Returns the index value of the ApplicationPredefine and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - application predefine chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectTelemetryControllerApplicationPredefine(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/application/predefine"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectTelemetryControllerApplicationPredefine API operation for FortiManager updates the specified ApplicationPredefine.
+// Returns the index value of the ApplicationPredefine and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - application predefine chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerApplicationPredefine(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/application/predefine"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerApplicationPredefine API operation for FortiManager deletes the specified ApplicationPredefine.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - application predefine chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerApplicationPredefine(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/application/predefine"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectTelemetryControllerApplicationPredefine API operation for FortiManager gets the ApplicationPredefine
+// with the specified index value.
+// Returns the requested ApplicationPredefine value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - application predefine chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerApplicationPredefine(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/application/predefine"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectTelemetryControllerProfile API operation for FortiManager creates a new Profile.
+// Returns the index value of the Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectTelemetryControllerProfile(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectTelemetryControllerProfile API operation for FortiManager updates the specified Profile.
+// Returns the index value of the Profile and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerProfile(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerProfile API operation for FortiManager deletes the specified Profile.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerProfile(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectTelemetryControllerProfile API operation for FortiManager gets the Profile
+// with the specified index value.
+// Returns the requested Profile value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerProfile(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectTelemetryControllerProfileApplication API operation for FortiManager creates a new ProfileApplication.
+// Returns the index value of the ProfileApplication and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectTelemetryControllerProfileApplication(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectTelemetryControllerProfileApplication API operation for FortiManager updates the specified ProfileApplication.
+// Returns the index value of the ProfileApplication and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerProfileApplication(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerProfileApplication API operation for FortiManager deletes the specified ProfileApplication.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerProfileApplication(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectTelemetryControllerProfileApplication API operation for FortiManager gets the ProfileApplication
+// with the specified index value.
+// Returns the requested ProfileApplication value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerProfileApplication(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectTelemetryControllerProfileApplicationSla API operation for FortiManager updates the specified ProfileApplicationSla.
+// Returns the index value of the ProfileApplicationSla and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application sla chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectTelemetryControllerProfileApplicationSla(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application/{application}/sla"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectTelemetryControllerProfileApplicationSla API operation for FortiManager deletes the specified ProfileApplicationSla.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application sla chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectTelemetryControllerProfileApplicationSla(mkey string, paradict, wsParams map[string]string) (err error) {
+
+	//No unset API for object telemetry-controller - profile application sla
+	return
+}
+
+// ReadObjectTelemetryControllerProfileApplicationSla API operation for FortiManager gets the ProfileApplicationSla
+// with the specified index value.
+// Returns the requested ProfileApplicationSla value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object telemetry-controller - profile application sla chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectTelemetryControllerProfileApplicationSla(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/telemetry-controller/profile/{profile}/application/{application}/sla"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectUmsSetting API operation for FortiManager creates a new Setting.
 // Returns the index value of the Setting and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -34424,6 +36116,72 @@ func (c *FortiSDKClient) ReadObjectUserSamlDynamicMapping(mkey string, paradict 
 	return
 }
 
+// CreateObjectUserScim API operation for FortiManager creates a new Scim.
+// Returns the index value of the Scim and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object user - scim chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectUserScim(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/user/scim"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectUserScim API operation for FortiManager updates the specified Scim.
+// Returns the index value of the Scim and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object user - scim chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectUserScim(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/user/scim"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectUserScim API operation for FortiManager deletes the specified Scim.
+// Returns error for service API and SDK errors.
+// See the object user - scim chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectUserScim(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/user/scim"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectUserScim API operation for FortiManager gets the Scim
+// with the specified index value.
+// Returns the requested Scim value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object user - scim chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectUserScim(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/user/scim"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectUserSecurityExemptList API operation for FortiManager creates a new Security Exempt List.
 // Returns the index value of the Security Exempt List and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -35774,6 +37532,72 @@ func (c *FortiSDKClient) ReadObjectVpnCertificateCa(mkey string, paradict map[st
 	return
 }
 
+// CreateObjectVpnCertificateHsmLocal API operation for FortiManager creates a new CertificateHsm Local.
+// Returns the index value of the CertificateHsm Local and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - certificate hsm-local chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectVpnCertificateHsmLocal(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/certificate/hsm-local"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectVpnCertificateHsmLocal API operation for FortiManager updates the specified CertificateHsm Local.
+// Returns the index value of the CertificateHsm Local and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - certificate hsm-local chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnCertificateHsmLocal(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/certificate/hsm-local"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectVpnCertificateHsmLocal API operation for FortiManager deletes the specified CertificateHsm Local.
+// Returns error for service API and SDK errors.
+// See the object vpn - certificate hsm-local chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectVpnCertificateHsmLocal(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/vpn/certificate/hsm-local"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectVpnCertificateHsmLocal API operation for FortiManager gets the CertificateHsm Local
+// with the specified index value.
+// Returns the requested CertificateHsm Local value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - certificate hsm-local chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnCertificateHsmLocal(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/certificate/hsm-local"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
 // CreateObjectVpnCertificateOcspServer API operation for FortiManager creates a new CertificateOcsp Server.
 // Returns the index value of the CertificateOcsp Server and execution result when the request executes successfully.
 // Returns error for service API and SDK errors.
@@ -36069,6 +37893,304 @@ func (c *FortiSDKClient) ReadObjectVpnIpsecFecMappingsMove(mkey string, paradict
 		"fields": []string{"seqno"},
 	}
 	listTmp, err = readMove(c, path, "get", &params, true)
+	return
+}
+
+// CreateObjectVpnIpsecManualkey API operation for FortiManager creates a new IpsecManualkey.
+// Returns the index value of the IpsecManualkey and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - ipsec manualkey chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectVpnIpsecManualkey(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/ipsec/manualkey"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectVpnIpsecManualkey API operation for FortiManager updates the specified IpsecManualkey.
+// Returns the index value of the IpsecManualkey and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - ipsec manualkey chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnIpsecManualkey(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/ipsec/manualkey"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectVpnIpsecManualkey API operation for FortiManager deletes the specified IpsecManualkey.
+// Returns error for service API and SDK errors.
+// See the object vpn - ipsec manualkey chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectVpnIpsecManualkey(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/vpn/ipsec/manualkey"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectVpnIpsecManualkey API operation for FortiManager gets the IpsecManualkey
+// with the specified index value.
+// Returns the requested IpsecManualkey value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - ipsec manualkey chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnIpsecManualkey(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/ipsec/manualkey"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectVpnKmipServer API operation for FortiManager creates a new Kmip Server.
+// Returns the index value of the Kmip Server and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectVpnKmipServer(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectVpnKmipServer API operation for FortiManager updates the specified Kmip Server.
+// Returns the index value of the Kmip Server and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnKmipServer(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectVpnKmipServer API operation for FortiManager deletes the specified Kmip Server.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectVpnKmipServer(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectVpnKmipServer API operation for FortiManager gets the Kmip Server
+// with the specified index value.
+// Returns the requested Kmip Server value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnKmipServer(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectVpnKmipServerServerList API operation for FortiManager creates a new Kmip ServerServer List.
+// Returns the index value of the Kmip ServerServer List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectVpnKmipServerServerList(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectVpnKmipServerServerList API operation for FortiManager updates the specified Kmip ServerServer List.
+// Returns the index value of the Kmip ServerServer List and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnKmipServerServerList(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectVpnKmipServerServerList API operation for FortiManager deletes the specified Kmip ServerServer List.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectVpnKmipServerServerList(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectVpnKmipServerServerList API operation for FortiManager gets the Kmip ServerServer List
+// with the specified index value.
+// Returns the requested Kmip ServerServer List value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnKmipServerServerList(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectVpnKmipServerServerListMove API operation for FortiManager updates the specified Kmip ServerServer ListMove.
+// Returns the index value of the Kmip ServerServer ListMove and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnKmipServerServerListMove(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list/{server-list}"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "move", params, true, wsParams)
+	return
+}
+
+// ReadObjectVpnKmipServerServerListMove API operation for FortiManager gets the Kmip ServerServer ListMove
+// with the specified index value.
+// Returns the requested Kmip ServerServer ListMove value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - kmip-server server-list move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnKmipServerServerListMove(mkey string, paradict map[string]string) (listTmp []interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/kmip-server/{kmip-server}/server-list"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	params := map[string]interface{}{
+		"fields": []string{"id"},
+	}
+	listTmp, err = readMove(c, path, "get", &params, true)
+	return
+}
+
+// CreateObjectVpnQkd API operation for FortiManager creates a new Qkd.
+// Returns the index value of the Qkd and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - qkd chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectVpnQkd(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/qkd"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectVpnQkd API operation for FortiManager updates the specified Qkd.
+// Returns the index value of the Qkd and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - qkd chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectVpnQkd(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/qkd"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectVpnQkd API operation for FortiManager deletes the specified Qkd.
+// Returns error for service API and SDK errors.
+// See the object vpn - qkd chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectVpnQkd(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/vpn/qkd"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectVpnQkd API operation for FortiManager gets the Qkd
+// with the specified index value.
+// Returns the requested Qkd value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object vpn - qkd chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectVpnQkd(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/vpn/qkd"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
 	return
 }
 
@@ -39863,6 +41985,72 @@ func (c *FortiSDKClient) DeleteObjectWebfilterFtgdLocalRating(mkey string, parad
 // See the object webfilter - ftgd-local-rating chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadObjectWebfilterFtgdLocalRating(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/pm/config/[*]/obj/webfilter/ftgd-local-rating"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectWebfilterFtgdRiskLevel API operation for FortiManager creates a new Ftgd Risk Level.
+// Returns the index value of the Ftgd Risk Level and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object webfilter - ftgd-risk-level chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectWebfilterFtgdRiskLevel(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/webfilter/ftgd-risk-level"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectWebfilterFtgdRiskLevel API operation for FortiManager updates the specified Ftgd Risk Level.
+// Returns the index value of the Ftgd Risk Level and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object webfilter - ftgd-risk-level chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectWebfilterFtgdRiskLevel(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/webfilter/ftgd-risk-level"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectWebfilterFtgdRiskLevel API operation for FortiManager deletes the specified Ftgd Risk Level.
+// Returns error for service API and SDK errors.
+// See the object webfilter - ftgd-risk-level chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectWebfilterFtgdRiskLevel(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/webfilter/ftgd-risk-level"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectWebfilterFtgdRiskLevel API operation for FortiManager gets the Ftgd Risk Level
+// with the specified index value.
+// Returns the requested Ftgd Risk Level value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object webfilter - ftgd-risk-level chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectWebfilterFtgdRiskLevel(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/webfilter/ftgd-risk-level"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -45447,6 +47635,1018 @@ func (c *FortiSDKClient) DeleteObjectWirelessControllerWtpProfileSplitTunnelingA
 // See the object wireless-controller - wtp-profile split-tunneling-acl chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadObjectWirelessControllerWtpProfileSplitTunnelingAcl(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/pm/config/[*]/obj/wireless-controller/wtp-profile/{wtp-profile}/split-tunneling-acl"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaTrafficForwardProxy API operation for FortiManager creates a new Traffic Forward Proxy.
+// Returns the index value of the Traffic Forward Proxy and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaTrafficForwardProxy(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaTrafficForwardProxy API operation for FortiManager updates the specified Traffic Forward Proxy.
+// Returns the index value of the Traffic Forward Proxy and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaTrafficForwardProxy(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaTrafficForwardProxy API operation for FortiManager deletes the specified Traffic Forward Proxy.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaTrafficForwardProxy(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaTrafficForwardProxy API operation for FortiManager gets the Traffic Forward Proxy
+// with the specified index value.
+// Returns the requested Traffic Forward Proxy value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaTrafficForwardProxy(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectZtnaTrafficForwardProxyQuic API operation for FortiManager updates the specified Traffic Forward ProxyQuic.
+// Returns the index value of the Traffic Forward ProxyQuic and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaTrafficForwardProxyQuic(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaTrafficForwardProxyQuic API operation for FortiManager deletes the specified Traffic Forward ProxyQuic.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaTrafficForwardProxyQuic(mkey string, paradict, wsParams map[string]string) (err error) {
+
+	//No unset API for object ztna - traffic-forward-proxy quic
+	return
+}
+
+// ReadObjectZtnaTrafficForwardProxyQuic API operation for FortiManager gets the Traffic Forward ProxyQuic
+// with the specified index value.
+// Returns the requested Traffic Forward ProxyQuic value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaTrafficForwardProxyQuic(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaTrafficForwardProxySslCipherSuites API operation for FortiManager creates a new Traffic Forward ProxySsl Cipher Suites.
+// Returns the index value of the Traffic Forward ProxySsl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaTrafficForwardProxySslCipherSuites(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaTrafficForwardProxySslCipherSuites API operation for FortiManager updates the specified Traffic Forward ProxySsl Cipher Suites.
+// Returns the index value of the Traffic Forward ProxySsl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaTrafficForwardProxySslCipherSuites(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaTrafficForwardProxySslCipherSuites API operation for FortiManager deletes the specified Traffic Forward ProxySsl Cipher Suites.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaTrafficForwardProxySslCipherSuites(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaTrafficForwardProxySslCipherSuites API operation for FortiManager gets the Traffic Forward ProxySsl Cipher Suites
+// with the specified index value.
+// Returns the requested Traffic Forward ProxySsl Cipher Suites value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaTrafficForwardProxySslCipherSuites(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaTrafficForwardProxySslServerCipherSuites API operation for FortiManager creates a new Traffic Forward ProxySsl Server Cipher Suites.
+// Returns the index value of the Traffic Forward ProxySsl Server Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-server-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaTrafficForwardProxySslServerCipherSuites(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-server-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaTrafficForwardProxySslServerCipherSuites API operation for FortiManager updates the specified Traffic Forward ProxySsl Server Cipher Suites.
+// Returns the index value of the Traffic Forward ProxySsl Server Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-server-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaTrafficForwardProxySslServerCipherSuites(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-server-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaTrafficForwardProxySslServerCipherSuites API operation for FortiManager deletes the specified Traffic Forward ProxySsl Server Cipher Suites.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-server-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaTrafficForwardProxySslServerCipherSuites(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-server-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaTrafficForwardProxySslServerCipherSuites API operation for FortiManager gets the Traffic Forward ProxySsl Server Cipher Suites
+// with the specified index value.
+// Returns the requested Traffic Forward ProxySsl Server Cipher Suites value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - traffic-forward-proxy ssl-server-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaTrafficForwardProxySslServerCipherSuites(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/traffic-forward-proxy/{traffic-forward-proxy}/ssl-server-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebPortal API operation for FortiManager creates a new Web Portal.
+// Returns the index value of the Web Portal and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebPortal(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebPortal API operation for FortiManager updates the specified Web Portal.
+// Returns the index value of the Web Portal and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebPortal(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebPortal API operation for FortiManager deletes the specified Web Portal.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebPortal(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebPortal API operation for FortiManager gets the Web Portal
+// with the specified index value.
+// Returns the requested Web Portal value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebPortal(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebPortalBookmark API operation for FortiManager creates a new Web Portal Bookmark.
+// Returns the index value of the Web Portal Bookmark and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebPortalBookmark(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebPortalBookmark API operation for FortiManager updates the specified Web Portal Bookmark.
+// Returns the index value of the Web Portal Bookmark and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebPortalBookmark(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebPortalBookmark API operation for FortiManager deletes the specified Web Portal Bookmark.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebPortalBookmark(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebPortalBookmark API operation for FortiManager gets the Web Portal Bookmark
+// with the specified index value.
+// Returns the requested Web Portal Bookmark value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebPortalBookmark(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebPortalBookmarkBookmarks API operation for FortiManager creates a new Web Portal BookmarkBookmarks.
+// Returns the index value of the Web Portal BookmarkBookmarks and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebPortalBookmarkBookmarks(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebPortalBookmarkBookmarks API operation for FortiManager updates the specified Web Portal BookmarkBookmarks.
+// Returns the index value of the Web Portal BookmarkBookmarks and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebPortalBookmarkBookmarks(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebPortalBookmarkBookmarks API operation for FortiManager deletes the specified Web Portal BookmarkBookmarks.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebPortalBookmarkBookmarks(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebPortalBookmarkBookmarks API operation for FortiManager gets the Web Portal BookmarkBookmarks
+// with the specified index value.
+// Returns the requested Web Portal BookmarkBookmarks value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebPortalBookmarkBookmarks(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectZtnaWebPortalBookmarkBookmarksMove API operation for FortiManager updates the specified Web Portal BookmarkBookmarksMove.
+// Returns the index value of the Web Portal BookmarkBookmarksMove and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebPortalBookmarkBookmarksMove(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks/{bookmarks}"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "move", params, true, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebPortalBookmarkBookmarksMove API operation for FortiManager gets the Web Portal BookmarkBookmarksMove
+// with the specified index value.
+// Returns the requested Web Portal BookmarkBookmarksMove value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-portal-bookmark bookmarks move chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebPortalBookmarkBookmarksMove(mkey string, paradict map[string]string) (listTmp []interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-portal-bookmark/{web-portal-bookmark}/bookmarks"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	params := map[string]interface{}{
+		"fields": []string{"name"},
+	}
+	listTmp, err = readMove(c, path, "get", &params, true)
+	return
+}
+
+// CreateObjectZtnaWebProxy API operation for FortiManager creates a new Web Proxy.
+// Returns the index value of the Web Proxy and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxy(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxy API operation for FortiManager updates the specified Web Proxy.
+// Returns the index value of the Web Proxy and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxy(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxy API operation for FortiManager deletes the specified Web Proxy.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxy(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxy API operation for FortiManager gets the Web Proxy
+// with the specified index value.
+// Returns the requested Web Proxy value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxy(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGateway API operation for FortiManager creates a new Web ProxyApi Gateway.
+// Returns the index value of the Web ProxyApi Gateway and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGateway(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGateway API operation for FortiManager updates the specified Web ProxyApi Gateway.
+// Returns the index value of the Web ProxyApi Gateway and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGateway(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGateway API operation for FortiManager deletes the specified Web ProxyApi Gateway.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGateway(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGateway API operation for FortiManager gets the Web ProxyApi Gateway
+// with the specified index value.
+// Returns the requested Web ProxyApi Gateway value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGateway(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGateway6 API operation for FortiManager creates a new Web ProxyApi Gateway6.
+// Returns the index value of the Web ProxyApi Gateway6 and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGateway6(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGateway6 API operation for FortiManager updates the specified Web ProxyApi Gateway6.
+// Returns the index value of the Web ProxyApi Gateway6 and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGateway6(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGateway6 API operation for FortiManager deletes the specified Web ProxyApi Gateway6.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGateway6(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGateway6 API operation for FortiManager gets the Web ProxyApi Gateway6
+// with the specified index value.
+// Returns the requested Web ProxyApi Gateway6 value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGateway6(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGateway6Quic API operation for FortiManager updates the specified Web ProxyApi Gateway6Quic.
+// Returns the index value of the Web ProxyApi Gateway6Quic and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGateway6Quic(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGateway6Quic API operation for FortiManager deletes the specified Web ProxyApi Gateway6Quic.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGateway6Quic(mkey string, paradict, wsParams map[string]string) (err error) {
+
+	//No unset API for object ztna - web-proxy api-gateway6 quic
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGateway6Quic API operation for FortiManager gets the Web ProxyApi Gateway6Quic
+// with the specified index value.
+// Returns the requested Web ProxyApi Gateway6Quic value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGateway6Quic(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGateway6Realservers API operation for FortiManager creates a new Web ProxyApi Gateway6Realservers.
+// Returns the index value of the Web ProxyApi Gateway6Realservers and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGateway6Realservers(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGateway6Realservers API operation for FortiManager updates the specified Web ProxyApi Gateway6Realservers.
+// Returns the index value of the Web ProxyApi Gateway6Realservers and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGateway6Realservers(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGateway6Realservers API operation for FortiManager deletes the specified Web ProxyApi Gateway6Realservers.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGateway6Realservers(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGateway6Realservers API operation for FortiManager gets the Web ProxyApi Gateway6Realservers
+// with the specified index value.
+// Returns the requested Web ProxyApi Gateway6Realservers value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGateway6Realservers(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGateway6SslCipherSuites API operation for FortiManager creates a new Web ProxyApi Gateway6Ssl Cipher Suites.
+// Returns the index value of the Web ProxyApi Gateway6Ssl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGateway6SslCipherSuites(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGateway6SslCipherSuites API operation for FortiManager updates the specified Web ProxyApi Gateway6Ssl Cipher Suites.
+// Returns the index value of the Web ProxyApi Gateway6Ssl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGateway6SslCipherSuites(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGateway6SslCipherSuites API operation for FortiManager deletes the specified Web ProxyApi Gateway6Ssl Cipher Suites.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGateway6SslCipherSuites(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGateway6SslCipherSuites API operation for FortiManager gets the Web ProxyApi Gateway6Ssl Cipher Suites
+// with the specified index value.
+// Returns the requested Web ProxyApi Gateway6Ssl Cipher Suites value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway6 ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGateway6SslCipherSuites(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway6/{api-gateway6}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGatewayQuic API operation for FortiManager updates the specified Web ProxyApi GatewayQuic.
+// Returns the index value of the Web ProxyApi GatewayQuic and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGatewayQuic(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGatewayQuic API operation for FortiManager deletes the specified Web ProxyApi GatewayQuic.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGatewayQuic(mkey string, paradict, wsParams map[string]string) (err error) {
+
+	//No unset API for object ztna - web-proxy api-gateway quic
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGatewayQuic API operation for FortiManager gets the Web ProxyApi GatewayQuic
+// with the specified index value.
+// Returns the requested Web ProxyApi GatewayQuic value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway quic chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGatewayQuic(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/quic"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGatewayRealservers API operation for FortiManager creates a new Web ProxyApi GatewayRealservers.
+// Returns the index value of the Web ProxyApi GatewayRealservers and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGatewayRealservers(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGatewayRealservers API operation for FortiManager updates the specified Web ProxyApi GatewayRealservers.
+// Returns the index value of the Web ProxyApi GatewayRealservers and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGatewayRealservers(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGatewayRealservers API operation for FortiManager deletes the specified Web ProxyApi GatewayRealservers.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGatewayRealservers(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGatewayRealservers API operation for FortiManager gets the Web ProxyApi GatewayRealservers
+// with the specified index value.
+// Returns the requested Web ProxyApi GatewayRealservers value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway realservers chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGatewayRealservers(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/realservers"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateObjectZtnaWebProxyApiGatewaySslCipherSuites API operation for FortiManager creates a new Web ProxyApi GatewaySsl Cipher Suites.
+// Returns the index value of the Web ProxyApi GatewaySsl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateObjectZtnaWebProxyApiGatewaySslCipherSuites(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateObjectZtnaWebProxyApiGatewaySslCipherSuites API operation for FortiManager updates the specified Web ProxyApi GatewaySsl Cipher Suites.
+// Returns the index value of the Web ProxyApi GatewaySsl Cipher Suites and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateObjectZtnaWebProxyApiGatewaySslCipherSuites(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteObjectZtnaWebProxyApiGatewaySslCipherSuites API operation for FortiManager deletes the specified Web ProxyApi GatewaySsl Cipher Suites.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteObjectZtnaWebProxyApiGatewaySslCipherSuites(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/ssl-cipher-suites"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadObjectZtnaWebProxyApiGatewaySslCipherSuites API operation for FortiManager gets the Web ProxyApi GatewaySsl Cipher Suites
+// with the specified index value.
+// Returns the requested Web ProxyApi GatewaySsl Cipher Suites value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the object ztna - web-proxy api-gateway ssl-cipher-suites chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadObjectZtnaWebProxyApiGatewaySslCipherSuites(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/pm/config/[*]/obj/ztna/web-proxy/{web-proxy}/api-gateway/{api-gateway}/ssl-cipher-suites"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
@@ -53149,6 +56349,72 @@ func (c *FortiSDKClient) DeleteSystemLogDeviceDisable(mkey string, paradict, wsP
 // See the system - log device-disable chapter in the FortiManager Handbook - CLI Reference.
 func (c *FortiSDKClient) ReadSystemLogDeviceDisable(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
 	path := "/cli/[*]/system/log/device-disable"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	mapTmp, err = read(c, path, "get", false)
+	return
+}
+
+// CreateSystemLogDeviceSelector API operation for FortiManager creates a new LogDevice Selector.
+// Returns the index value of the LogDevice Selector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) CreateSystemLogDeviceSelector(params *map[string]interface{}, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	output, err = createUpdate(c, path, "add", params, false, wsParams)
+	return
+}
+
+// UpdateSystemLogDeviceSelector API operation for FortiManager updates the specified LogDevice Selector.
+// Returns the index value of the LogDevice Selector and execution result when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) UpdateSystemLogDeviceSelector(params *map[string]interface{}, mkey string, paradict, wsParams map[string]string) (output map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	output, err = createUpdate(c, path, "set", params, false, wsParams)
+	return
+}
+
+// DeleteSystemLogDeviceSelector API operation for FortiManager deletes the specified LogDevice Selector.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) DeleteSystemLogDeviceSelector(mkey string, paradict, wsParams map[string]string) (err error) {
+	path := "/cli/[*]/system/log/device-selector"
+	path, err = replaceParaWithValue(path, paradict)
+	if err != nil {
+		return fmt.Errorf("%v", err)
+	}
+
+	path += "/" + escapeURLString(mkey)
+
+	err = delete(c, path, "delete", false, wsParams)
+	return
+}
+
+// ReadSystemLogDeviceSelector API operation for FortiManager gets the LogDevice Selector
+// with the specified index value.
+// Returns the requested LogDevice Selector value when the request executes successfully.
+// Returns error for service API and SDK errors.
+// See the system - log device-selector chapter in the FortiManager Handbook - CLI Reference.
+func (c *FortiSDKClient) ReadSystemLogDeviceSelector(mkey string, paradict map[string]string) (mapTmp map[string]interface{}, err error) {
+	path := "/cli/[*]/system/log/device-selector"
 	path, err = replaceParaWithValue(path, paradict)
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)

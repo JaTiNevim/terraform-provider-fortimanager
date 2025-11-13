@@ -314,7 +314,7 @@ func flattenObjectFmgDeviceBlueprintHaConfig(v interface{}, d *schema.ResourceDa
 }
 
 func flattenObjectFmgDeviceBlueprintHaHbdev(v interface{}, d *schema.ResourceData, pre string) interface{} {
-	return v
+	return conv2str(v)
 }
 
 func flattenObjectFmgDeviceBlueprintHaMonitor(v interface{}, d *schema.ResourceData, pre string) interface{} {

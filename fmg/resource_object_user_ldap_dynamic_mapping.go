@@ -285,6 +285,10 @@ func resourceObjectUserLdapDynamicMapping() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
+			"validate_server_certificate": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"vrf_select": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -677,6 +681,10 @@ func flattenObjectUserLdapDynamicMappingUserInfoExchangeServer2edl(v interface{}
 }
 
 func flattenObjectUserLdapDynamicMappingUsername2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectUserLdapDynamicMappingValidateServerCertificate2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1189,6 +1197,16 @@ func refreshObjectObjectUserLdapDynamicMapping(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("validate_server_certificate", flattenObjectUserLdapDynamicMappingValidateServerCertificate2edl(o["validate-server-certificate"], d, "validate_server_certificate")); err != nil {
+		if vv, ok := fortiAPIPatch(o["validate-server-certificate"], "ObjectUserLdapDynamicMapping-ValidateServerCertificate"); ok {
+			if err = d.Set("validate_server_certificate", vv); err != nil {
+				return fmt.Errorf("Error reading validate_server_certificate: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading validate_server_certificate: %v", err)
+		}
+	}
+
 	if err = d.Set("vrf_select", flattenObjectUserLdapDynamicMappingVrfSelect2edl(o["vrf-select"], d, "vrf_select")); err != nil {
 		if vv, ok := fortiAPIPatch(o["vrf-select"], "ObjectUserLdapDynamicMapping-VrfSelect"); ok {
 			if err = d.Set("vrf_select", vv); err != nil {
@@ -1439,6 +1457,10 @@ func expandObjectUserLdapDynamicMappingUserInfoExchangeServer2edl(d *schema.Reso
 }
 
 func expandObjectUserLdapDynamicMappingUsername2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectUserLdapDynamicMappingValidateServerCertificate2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -1887,6 +1909,15 @@ func getObjectObjectUserLdapDynamicMapping(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["username"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("validate_server_certificate"); ok || d.HasChange("validate_server_certificate") {
+		t, err := expandObjectUserLdapDynamicMappingValidateServerCertificate2edl(d, v, "validate_server_certificate")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["validate-server-certificate"] = t
 		}
 	}
 

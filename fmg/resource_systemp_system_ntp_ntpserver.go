@@ -53,6 +53,7 @@ func resourceSystempSystemNtpNtpserver() *schema.Resource {
 			"authentication": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				Computed: true,
 			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,

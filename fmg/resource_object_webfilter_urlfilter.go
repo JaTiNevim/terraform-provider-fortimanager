@@ -64,6 +64,10 @@ func resourceObjectWebfilterUrlfilter() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"comment": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"dns_address_family": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
@@ -107,6 +111,10 @@ func resourceObjectWebfilterUrlfilter() *schema.Resource {
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
+				Optional: true,
+			},
+			"include_subdomains": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 			},
 			"ip_addr_block": &schema.Schema{
@@ -293,6 +301,12 @@ func flattenObjectWebfilterUrlfilterEntries(v interface{}, d *schema.ResourceDat
 			tmp["antiphish_action"] = fortiAPISubPartPatch(v, "ObjectWebfilterUrlfilter-Entries-AntiphishAction")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "comment"
+		if _, ok := i["comment"]; ok {
+			v := flattenObjectWebfilterUrlfilterEntriesComment(i["comment"], d, pre_append)
+			tmp["comment"] = fortiAPISubPartPatch(v, "ObjectWebfilterUrlfilter-Entries-Comment")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "dns_address_family"
 		if _, ok := i["dns-address-family"]; ok {
 			v := flattenObjectWebfilterUrlfilterEntriesDnsAddressFamily(i["dns-address-family"], d, pre_append)
@@ -359,6 +373,10 @@ func flattenObjectWebfilterUrlfilterEntriesAntiphishAction(v interface{}, d *sch
 	return v
 }
 
+func flattenObjectWebfilterUrlfilterEntriesComment(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectWebfilterUrlfilterEntriesDnsAddressFamily(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -392,6 +410,10 @@ func flattenObjectWebfilterUrlfilterEntriesWebProxyProfile(v interface{}, d *sch
 }
 
 func flattenObjectWebfilterUrlfilterId(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectWebfilterUrlfilterIncludeSubdomains(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -463,6 +485,16 @@ func refreshObjectObjectWebfilterUrlfilter(d *schema.ResourceData, o map[string]
 			}
 		} else {
 			return fmt.Errorf("Error reading fosid: %v", err)
+		}
+	}
+
+	if err = d.Set("include_subdomains", flattenObjectWebfilterUrlfilterIncludeSubdomains(o["include-subdomains"], d, "include_subdomains")); err != nil {
+		if vv, ok := fortiAPIPatch(o["include-subdomains"], "ObjectWebfilterUrlfilter-IncludeSubdomains"); ok {
+			if err = d.Set("include_subdomains", vv); err != nil {
+				return fmt.Errorf("Error reading include_subdomains: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading include_subdomains: %v", err)
 		}
 	}
 
@@ -543,6 +575,11 @@ func expandObjectWebfilterUrlfilterEntries(d *schema.ResourceData, v interface{}
 			tmp["antiphish-action"], _ = expandObjectWebfilterUrlfilterEntriesAntiphishAction(d, i["antiphish_action"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "comment"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["comment"], _ = expandObjectWebfilterUrlfilterEntriesComment(d, i["comment"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "dns_address_family"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["dns-address-family"], _ = expandObjectWebfilterUrlfilterEntriesDnsAddressFamily(d, i["dns_address_family"], pre_append)
@@ -601,6 +638,10 @@ func expandObjectWebfilterUrlfilterEntriesAntiphishAction(d *schema.ResourceData
 	return v, nil
 }
 
+func expandObjectWebfilterUrlfilterEntriesComment(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectWebfilterUrlfilterEntriesDnsAddressFamily(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -634,6 +675,10 @@ func expandObjectWebfilterUrlfilterEntriesWebProxyProfile(d *schema.ResourceData
 }
 
 func expandObjectWebfilterUrlfilterId(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectWebfilterUrlfilterIncludeSubdomains(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -680,6 +725,15 @@ func getObjectObjectWebfilterUrlfilter(d *schema.ResourceData) (*map[string]inte
 			return &obj, err
 		} else if t != nil {
 			obj["id"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("include_subdomains"); ok || d.HasChange("include_subdomains") {
+		t, err := expandObjectWebfilterUrlfilterIncludeSubdomains(d, v, "include_subdomains")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["include-subdomains"] = t
 		}
 	}
 

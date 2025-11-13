@@ -58,6 +58,10 @@ func resourceObjectUserPxgrid() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 			},
+			"secondary_server": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"server": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -203,6 +207,10 @@ func flattenObjectUserPxgridName(v interface{}, d *schema.ResourceData, pre stri
 	return v
 }
 
+func flattenObjectUserPxgridSecondaryServer(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectUserPxgridServer(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -248,6 +256,16 @@ func refreshObjectObjectUserPxgrid(d *schema.ResourceData, o map[string]interfac
 		}
 	}
 
+	if err = d.Set("secondary_server", flattenObjectUserPxgridSecondaryServer(o["secondary-server"], d, "secondary_server")); err != nil {
+		if vv, ok := fortiAPIPatch(o["secondary-server"], "ObjectUserPxgrid-SecondaryServer"); ok {
+			if err = d.Set("secondary_server", vv); err != nil {
+				return fmt.Errorf("Error reading secondary_server: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading secondary_server: %v", err)
+		}
+	}
+
 	if err = d.Set("server", flattenObjectUserPxgridServer(o["server"], d, "server")); err != nil {
 		if vv, ok := fortiAPIPatch(o["server"], "ObjectUserPxgrid-Server"); ok {
 			if err = d.Set("server", vv); err != nil {
@@ -289,6 +307,10 @@ func expandObjectUserPxgridName(d *schema.ResourceData, v interface{}, pre strin
 	return v, nil
 }
 
+func expandObjectUserPxgridSecondaryServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectUserPxgridServer(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -324,6 +346,15 @@ func getObjectObjectUserPxgrid(d *schema.ResourceData) (*map[string]interface{},
 			return &obj, err
 		} else if t != nil {
 			obj["name"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("secondary_server"); ok || d.HasChange("secondary_server") {
+		t, err := expandObjectUserPxgridSecondaryServer(d, v, "secondary_server")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["secondary-server"] = t
 		}
 	}
 

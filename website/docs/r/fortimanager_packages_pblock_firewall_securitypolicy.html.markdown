@@ -57,6 +57,7 @@ The following arguments are supported:
 
 * `internet_service_custom` - Custom Internet Service name.
 * `internet_service_custom_group` - Custom Internet Service group name.
+* `internet_service_fortiguard` - Internet-Service-Fortiguard.
 * `internet_service_group` - Internet Service group name.
 * `internet_service_id` - Internet Service ID.
 * `internet_service_name` - Internet Service name.
@@ -66,6 +67,7 @@ The following arguments are supported:
 
 * `internet_service_src_custom` - Custom Internet Service source name.
 * `internet_service_src_custom_group` - Custom Internet Service source group name.
+* `internet_service_src_fortiguard` - Internet-Service-Src-Fortiguard.
 * `internet_service_src_group` - Internet Service source group name.
 * `internet_service_src_id` - Internet Service source ID.
 * `internet_service_src_name` - Internet Service source name.
@@ -75,6 +77,7 @@ The following arguments are supported:
 
 * `internet_service6_custom` - Custom IPv6 Internet Service name.
 * `internet_service6_custom_group` - Custom IPv6 Internet Service group name.
+* `internet_service6_fortiguard` - Internet-Service6-Fortiguard.
 * `internet_service6_group` - Internet Service group name.
 * `internet_service6_name` - IPv6 Internet Service name.
 * `internet_service6_negate` - When enabled internet-service6 specifies what the service must NOT be. Valid values: `disable`, `enable`.
@@ -83,6 +86,7 @@ The following arguments are supported:
 
 * `internet_service6_src_custom` - Custom IPv6 Internet Service source name.
 * `internet_service6_src_custom_group` - Custom Internet Service6 source group name.
+* `internet_service6_src_fortiguard` - Internet-Service6-Src-Fortiguard.
 * `internet_service6_src_group` - Internet Service6 source group name.
 * `internet_service6_src_name` - IPv6 Internet Service source name.
 * `internet_service6_src_negate` - When enabled internet-service6-src specifies what the service must NOT be. Valid values: `disable`, `enable`.
@@ -125,6 +129,7 @@ The following arguments are supported:
 * `ssl_ssh_profile` - Name of an existing SSL SSH profile.
 * `status` - Enable or disable this policy. Valid values: `disable`, `enable`.
 
+* `telemetry_profile` - Name of an existing telemetry profile.
 * `url_category` - URL category ID list.
 * `users` - Names of individual users that can authenticate with this policy.
 * `utm_status` - Enable security profiles. Valid values: `disable`, `enable`.

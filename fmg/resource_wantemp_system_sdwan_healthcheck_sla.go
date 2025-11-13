@@ -55,6 +55,10 @@ func resourceWantempSystemSdwanHealthCheckSla() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 			},
+			"custom_profile_threshold": &schema.Schema{
+				Type:     schema.TypeInt,
+				Optional: true,
+			},
 			"fosid": &schema.Schema{
 				Type:     schema.TypeInt,
 				ForceNew: true,
@@ -256,6 +260,10 @@ func resourceWantempSystemSdwanHealthCheckSlaRead(d *schema.ResourceData, m inte
 	return nil
 }
 
+func flattenWantempSystemSdwanHealthCheckSlaCustomProfileThreshold3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenWantempSystemSdwanHealthCheckSlaId3rdl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -293,6 +301,16 @@ func refreshObjectWantempSystemSdwanHealthCheckSla(d *schema.ResourceData, o map
 
 	if stValue := d.Get("scopetype"); stValue == "" {
 		d.Set("scopetype", "inherit")
+	}
+
+	if err = d.Set("custom_profile_threshold", flattenWantempSystemSdwanHealthCheckSlaCustomProfileThreshold3rdl(o["custom-profile-threshold"], d, "custom_profile_threshold")); err != nil {
+		if vv, ok := fortiAPIPatch(o["custom-profile-threshold"], "WantempSystemSdwanHealthCheckSla-CustomProfileThreshold"); ok {
+			if err = d.Set("custom_profile_threshold", vv); err != nil {
+				return fmt.Errorf("Error reading custom_profile_threshold: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading custom_profile_threshold: %v", err)
+		}
 	}
 
 	if err = d.Set("fosid", flattenWantempSystemSdwanHealthCheckSlaId3rdl(o["id"], d, "fosid")); err != nil {
@@ -384,6 +402,10 @@ func flattenWantempSystemSdwanHealthCheckSlaFortiTestDebug(d *schema.ResourceDat
 	log.Printf("ER List: %v", e)
 }
 
+func expandWantempSystemSdwanHealthCheckSlaCustomProfileThreshold3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandWantempSystemSdwanHealthCheckSlaId3rdl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -418,6 +440,15 @@ func expandWantempSystemSdwanHealthCheckSlaPriorityOutSla3rdl(d *schema.Resource
 
 func getObjectWantempSystemSdwanHealthCheckSla(d *schema.ResourceData) (*map[string]interface{}, error) {
 	obj := make(map[string]interface{})
+
+	if v, ok := d.GetOk("custom_profile_threshold"); ok || d.HasChange("custom_profile_threshold") {
+		t, err := expandWantempSystemSdwanHealthCheckSlaCustomProfileThreshold3rdl(d, v, "custom_profile_threshold")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["custom-profile-threshold"] = t
+		}
+	}
 
 	if v, ok := d.GetOk("fosid"); ok || d.HasChange("fosid") {
 		t, err := expandWantempSystemSdwanHealthCheckSlaId3rdl(d, v, "fosid")

@@ -79,6 +79,10 @@ func resourceObjectWebProxyIsolatorServer() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"masquerade": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
@@ -246,6 +250,10 @@ func flattenObjectWebProxyIsolatorServerIpv6(v interface{}, d *schema.ResourceDa
 	return v
 }
 
+func flattenObjectWebProxyIsolatorServerMasquerade(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectWebProxyIsolatorServerName(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -335,6 +343,16 @@ func refreshObjectObjectWebProxyIsolatorServer(d *schema.ResourceData, o map[str
 		}
 	}
 
+	if err = d.Set("masquerade", flattenObjectWebProxyIsolatorServerMasquerade(o["masquerade"], d, "masquerade")); err != nil {
+		if vv, ok := fortiAPIPatch(o["masquerade"], "ObjectWebProxyIsolatorServer-Masquerade"); ok {
+			if err = d.Set("masquerade", vv); err != nil {
+				return fmt.Errorf("Error reading masquerade: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading masquerade: %v", err)
+		}
+	}
+
 	if err = d.Set("name", flattenObjectWebProxyIsolatorServerName(o["name"], d, "name")); err != nil {
 		if vv, ok := fortiAPIPatch(o["name"], "ObjectWebProxyIsolatorServer-Name"); ok {
 			if err = d.Set("name", vv); err != nil {
@@ -399,6 +417,10 @@ func expandObjectWebProxyIsolatorServerIp(d *schema.ResourceData, v interface{},
 }
 
 func expandObjectWebProxyIsolatorServerIpv6(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectWebProxyIsolatorServerMasquerade(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -477,6 +499,15 @@ func getObjectObjectWebProxyIsolatorServer(d *schema.ResourceData) (*map[string]
 			return &obj, err
 		} else if t != nil {
 			obj["ipv6"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("masquerade"); ok || d.HasChange("masquerade") {
+		t, err := expandObjectWebProxyIsolatorServerMasquerade(d, v, "masquerade")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["masquerade"] = t
 		}
 	}
 

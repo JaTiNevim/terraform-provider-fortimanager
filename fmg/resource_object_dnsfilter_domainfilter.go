@@ -59,6 +59,10 @@ func resourceObjectDnsfilterDomainFilter() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
+						"comment": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
+						},
 						"domain": &schema.Schema{
 							Type:     schema.TypeString,
 							Optional: true,
@@ -248,6 +252,12 @@ func flattenObjectDnsfilterDomainFilterEntries(v interface{}, d *schema.Resource
 			tmp["action"] = fortiAPISubPartPatch(v, "ObjectDnsfilterDomainFilter-Entries-Action")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "comment"
+		if _, ok := i["comment"]; ok {
+			v := flattenObjectDnsfilterDomainFilterEntriesComment(i["comment"], d, pre_append)
+			tmp["comment"] = fortiAPISubPartPatch(v, "ObjectDnsfilterDomainFilter-Entries-Comment")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "domain"
 		if _, ok := i["domain"]; ok {
 			v := flattenObjectDnsfilterDomainFilterEntriesDomain(i["domain"], d, pre_append)
@@ -283,6 +293,10 @@ func flattenObjectDnsfilterDomainFilterEntries(v interface{}, d *schema.Resource
 }
 
 func flattenObjectDnsfilterDomainFilterEntriesAction(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectDnsfilterDomainFilterEntriesComment(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -407,6 +421,11 @@ func expandObjectDnsfilterDomainFilterEntries(d *schema.ResourceData, v interfac
 			tmp["action"], _ = expandObjectDnsfilterDomainFilterEntriesAction(d, i["action"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "comment"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["comment"], _ = expandObjectDnsfilterDomainFilterEntriesComment(d, i["comment"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "domain"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["domain"], _ = expandObjectDnsfilterDomainFilterEntriesDomain(d, i["domain"], pre_append)
@@ -438,6 +457,10 @@ func expandObjectDnsfilterDomainFilterEntries(d *schema.ResourceData, v interfac
 }
 
 func expandObjectDnsfilterDomainFilterEntriesAction(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectDnsfilterDomainFilterEntriesComment(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

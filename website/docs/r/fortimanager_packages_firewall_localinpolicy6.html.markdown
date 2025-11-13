@@ -45,6 +45,7 @@ The following arguments are supported:
 
 * `internet_service6_src_custom` - Custom IPv6 Internet Service source name.
 * `internet_service6_src_custom_group` - Custom Internet Service6 source group name.
+* `internet_service6_src_fortiguard` - FortiGuard IPv6 Internet Service source name.
 * `internet_service6_src_group` - Internet Service6 source group name.
 * `internet_service6_src_name` - IPv6 Internet Service source name.
 * `internet_service6_src_negate` - When enabled internet-service6-src specifies what the service must NOT be. Valid values: `disable`, `enable`.

@@ -26,6 +26,8 @@ The following arguments are supported:
 
 * `description` - CASB attribute description.
 * `name` - CASB attribute name.
+* `optional` - CASB output attribute optional. Valid values: `disable`, `enable`.
+
 * `required` - CASB attribute required. Valid values: `disable`, `enable`.
 
 * `type` - CASB attribute format type. Valid values: `string`, `string-list`, `integer`, `integer-list`, `boolean`.

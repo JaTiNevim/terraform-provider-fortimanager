@@ -55,6 +55,10 @@ func resourceObjectDnsfilterDomainFilterEntries() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"comment": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"domain": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -224,6 +228,10 @@ func flattenObjectDnsfilterDomainFilterEntriesAction2edl(v interface{}, d *schem
 	return v
 }
 
+func flattenObjectDnsfilterDomainFilterEntriesComment2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectDnsfilterDomainFilterEntriesDomain2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -254,6 +262,16 @@ func refreshObjectObjectDnsfilterDomainFilterEntries(d *schema.ResourceData, o m
 			}
 		} else {
 			return fmt.Errorf("Error reading action: %v", err)
+		}
+	}
+
+	if err = d.Set("comment", flattenObjectDnsfilterDomainFilterEntriesComment2edl(o["comment"], d, "comment")); err != nil {
+		if vv, ok := fortiAPIPatch(o["comment"], "ObjectDnsfilterDomainFilterEntries-Comment"); ok {
+			if err = d.Set("comment", vv); err != nil {
+				return fmt.Errorf("Error reading comment: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading comment: %v", err)
 		}
 	}
 
@@ -310,6 +328,10 @@ func expandObjectDnsfilterDomainFilterEntriesAction2edl(d *schema.ResourceData, 
 	return v, nil
 }
 
+func expandObjectDnsfilterDomainFilterEntriesComment2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectDnsfilterDomainFilterEntriesDomain2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -335,6 +357,15 @@ func getObjectObjectDnsfilterDomainFilterEntries(d *schema.ResourceData) (*map[s
 			return &obj, err
 		} else if t != nil {
 			obj["action"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("comment"); ok || d.HasChange("comment") {
+		t, err := expandObjectDnsfilterDomainFilterEntriesComment2edl(d, v, "comment")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["comment"] = t
 		}
 	}
 

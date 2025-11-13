@@ -28,12 +28,18 @@ The following arguments are supported:
 * `scopetype` - The scope of application of the resource. Valid values: `inherit`, `adom`, `global`. The `inherit` means that the scopetype of the provider will be inherited, and adom will also be inherited. The default value is `inherit`.
 * `adom` - Adom. This value is valid only when the `scopetype` is `adom`, otherwise the value of adom in the provider will be inherited.
 
+* `digest_algo` - Digest Authentication Algorithms. Valid values: `md5`, `sha-256`.
+
+* `digest_rfc2069` - Enable/disable support for the deprecated RFC2069 Digest Client (no cnonce field, default = disable). Valid values: `disable`, `enable`.
+
 * `domain_controller` - Domain controller setting.
 * `external_idp` - External identity provider configuration.
 * `ems_device_owner` - Enable/disable SSH public-key authentication with device owner (default = disable). Valid values: `disable`, `enable`.
 
 * `fsso_agent_for_ntlm` - FSSO agent to use for NTLM authentication.
 * `fsso_guest` - Enable/disable user fsso-guest authentication (default = disable). Valid values: `disable`, `enable`.
+
+* `group_attr_type` - Group attribute type used to match SCIM groups (default = display-name). Valid values: `display-name`, `external-id`.
 
 * `kerberos_keytab` - Kerberos keytab setting.
 * `method` - Authentication methods (default = basic). Valid values: `ntlm`, `basic`, `digest`, `form`, `negotiate`, `fsso`, `rsso`, `ssh-publickey`.

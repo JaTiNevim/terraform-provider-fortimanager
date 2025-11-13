@@ -53,6 +53,7 @@ The following arguments are supported:
 * `server_identity_check` - Certificate verification option. Valid values: `none`, `basic`, `full`.
 
 * `source_ip` - Source IPv4 address used to communicate with server.
+* `source_ip_interface` - IPv4 Source interface for communication with the server.
 * `status` - Enable/disable user resource. Valid values: `disable`, `enable`.
 
 * `type` - User resource type. Valid values: `category`, `address`, `domain`, `malware`.

@@ -84,11 +84,14 @@ The following arguments are supported:
 * `groups` - Names of group objects.
 * `http_tunnel_auth` - Enable/disable HTTP tunnel authentication. Valid values: `disable`, `enable`.
 
+* `https_sub_category` - Enable/disable HTTPS sub-category policy matching. Valid values: `disable`, `enable`.
+
 * `icap_profile` - Name of an existing ICAP profile.
 * `internet_service` - Enable/disable use of Internet Services for this policy. If enabled, destination address and service are not used. Valid values: `disable`, `enable`.
 
 * `internet_service_custom` - Custom Internet Service name.
 * `internet_service_custom_group` - Custom Internet Service group name.
+* `internet_service_fortiguard` - FortiGuard Internet Service name.
 * `internet_service_group` - Internet Service group name.
 * `internet_service_name` - Internet Service name.
 * `internet_service_id` - Internet Service ID.
@@ -98,6 +101,7 @@ The following arguments are supported:
 
 * `internet_service6_custom` - Custom Internet Service IPv6 name.
 * `internet_service6_custom_group` - Custom Internet Service IPv6 group name.
+* `internet_service6_fortiguard` - FortiGuard Internet Service IPv6 name.
 * `internet_service6_group` - Internet Service IPv6 group name.
 * `internet_service6_name` - Internet Service IPv6 name.
 * `internet_service6_negate` - When enabled, Internet Services match against any internet service IPv6 EXCEPT the selected Internet Service IPv6. Valid values: `disable`, `enable`.
@@ -144,6 +148,7 @@ The following arguments are supported:
 * `ssl_ssh_profile` - Name of an existing SSL SSH profile.
 * `status` - Enable/disable the active status of the policy. Valid values: `disable`, `enable`.
 
+* `telemetry_profile` - Name of an existing telemetry profile.
 * `transparent` - Enable to use the IP address of the client to connect to the server. Valid values: `disable`, `enable`.
 
 * `url_risk` - URL risk level name.

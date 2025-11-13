@@ -29,6 +29,7 @@ The following arguments are supported:
 * `adom` - Adom. This value is valid only when the `scopetype` is `adom`, otherwise the value of adom in the provider will be inherited.
 
 * `config` - Config.
+* `default_config` - Default_Config.
 * `folder` - Folder.
 * `name` - Name.
 * `password` - Password.

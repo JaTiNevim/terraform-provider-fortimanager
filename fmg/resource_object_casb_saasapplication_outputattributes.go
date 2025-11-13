@@ -64,6 +64,10 @@ func resourceObjectCasbSaasApplicationOutputAttributes() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 			},
+			"optional": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"required": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -232,6 +236,10 @@ func flattenObjectCasbSaasApplicationOutputAttributesName2edl(v interface{}, d *
 	return v
 }
 
+func flattenObjectCasbSaasApplicationOutputAttributesOptional2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenObjectCasbSaasApplicationOutputAttributesRequired2edl(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
@@ -277,6 +285,16 @@ func refreshObjectObjectCasbSaasApplicationOutputAttributes(d *schema.ResourceDa
 		}
 	}
 
+	if err = d.Set("optional", flattenObjectCasbSaasApplicationOutputAttributesOptional2edl(o["optional"], d, "optional")); err != nil {
+		if vv, ok := fortiAPIPatch(o["optional"], "ObjectCasbSaasApplicationOutputAttributes-Optional"); ok {
+			if err = d.Set("optional", vv); err != nil {
+				return fmt.Errorf("Error reading optional: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading optional: %v", err)
+		}
+	}
+
 	if err = d.Set("required", flattenObjectCasbSaasApplicationOutputAttributesRequired2edl(o["required"], d, "required")); err != nil {
 		if vv, ok := fortiAPIPatch(o["required"], "ObjectCasbSaasApplicationOutputAttributes-Required"); ok {
 			if err = d.Set("required", vv); err != nil {
@@ -318,6 +336,10 @@ func expandObjectCasbSaasApplicationOutputAttributesName2edl(d *schema.ResourceD
 	return v, nil
 }
 
+func expandObjectCasbSaasApplicationOutputAttributesOptional2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandObjectCasbSaasApplicationOutputAttributesRequired2edl(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
@@ -353,6 +375,15 @@ func getObjectObjectCasbSaasApplicationOutputAttributes(d *schema.ResourceData) 
 			return &obj, err
 		} else if t != nil {
 			obj["name"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("optional"); ok || d.HasChange("optional") {
+		t, err := expandObjectCasbSaasApplicationOutputAttributesOptional2edl(d, v, "optional")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["optional"] = t
 		}
 	}
 

@@ -264,6 +264,10 @@ func resourceObjectFirewallAccessProxy6() *schema.Resource {
 										Optional: true,
 										Computed: true,
 									},
+									"verify_cert": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
+									},
 									"weight": &schema.Schema{
 										Type:     schema.TypeInt,
 										Optional: true,
@@ -565,6 +569,10 @@ func resourceObjectFirewallAccessProxy6() *schema.Resource {
 										Type:     schema.TypeString,
 										Optional: true,
 										Computed: true,
+									},
+									"verify_cert": &schema.Schema{
+										Type:     schema.TypeString,
+										Optional: true,
 									},
 									"weight": &schema.Schema{
 										Type:     schema.TypeInt,
@@ -1320,6 +1328,12 @@ func flattenObjectFirewallAccessProxy6ApiGatewayRealservers(v interface{}, d *sc
 			tmp["type"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway-Realservers-Type")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallAccessProxy6ApiGatewayRealserversWeight(i["weight"], d, pre_append)
@@ -1409,6 +1423,10 @@ func flattenObjectFirewallAccessProxy6ApiGatewayRealserversTunnelEncryption(v in
 }
 
 func flattenObjectFirewallAccessProxy6ApiGatewayRealserversType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1990,6 +2008,12 @@ func flattenObjectFirewallAccessProxy6ApiGateway6Realservers(v interface{}, d *s
 			tmp["type"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway6-Realservers-Type")
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := i["verify-cert"]; ok {
+			v := flattenObjectFirewallAccessProxy6ApiGateway6RealserversVerifyCert(i["verify-cert"], d, pre_append)
+			tmp["verify_cert"] = fortiAPISubPartPatch(v, "ObjectFirewallAccessProxy6ApiGateway6-Realservers-VerifyCert")
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := i["weight"]; ok {
 			v := flattenObjectFirewallAccessProxy6ApiGateway6RealserversWeight(i["weight"], d, pre_append)
@@ -2079,6 +2103,10 @@ func flattenObjectFirewallAccessProxy6ApiGateway6RealserversTunnelEncryption(v i
 }
 
 func flattenObjectFirewallAccessProxy6ApiGateway6RealserversType(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenObjectFirewallAccessProxy6ApiGateway6RealserversVerifyCert(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -2889,6 +2917,11 @@ func expandObjectFirewallAccessProxy6ApiGatewayRealservers(d *schema.ResourceDat
 			tmp["type"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversType(d, i["type"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallAccessProxy6ApiGatewayRealserversWeight(d, i["weight"], pre_append)
@@ -2977,6 +3010,10 @@ func expandObjectFirewallAccessProxy6ApiGatewayRealserversTunnelEncryption(d *sc
 }
 
 func expandObjectFirewallAccessProxy6ApiGatewayRealserversType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAccessProxy6ApiGatewayRealserversVerifyCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -3501,6 +3538,11 @@ func expandObjectFirewallAccessProxy6ApiGateway6Realservers(d *schema.ResourceDa
 			tmp["type"], _ = expandObjectFirewallAccessProxy6ApiGateway6RealserversType(d, i["type"], pre_append)
 		}
 
+		pre_append = pre + "." + strconv.Itoa(con) + "." + "verify_cert"
+		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
+			tmp["verify-cert"], _ = expandObjectFirewallAccessProxy6ApiGateway6RealserversVerifyCert(d, i["verify_cert"], pre_append)
+		}
+
 		pre_append = pre + "." + strconv.Itoa(con) + "." + "weight"
 		if _, ok := d.GetOk(pre_append); ok || d.HasChange(pre_append) {
 			tmp["weight"], _ = expandObjectFirewallAccessProxy6ApiGateway6RealserversWeight(d, i["weight"], pre_append)
@@ -3589,6 +3631,10 @@ func expandObjectFirewallAccessProxy6ApiGateway6RealserversTunnelEncryption(d *s
 }
 
 func expandObjectFirewallAccessProxy6ApiGateway6RealserversType(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandObjectFirewallAccessProxy6ApiGateway6RealserversVerifyCert(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 

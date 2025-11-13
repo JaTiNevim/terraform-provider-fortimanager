@@ -232,6 +232,11 @@ func resourceSystemGlobal() *schema.Resource {
 				Optional: true,
 				Computed: true,
 			},
+			"gui_feature_visibility_mode": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
 			"gui_polling_interval": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -239,6 +244,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"ha_member_auto_grouping": &schema.Schema{
 				Type:     schema.TypeString,
+				Optional: true,
+				Computed: true,
+			},
+			"hitcount_response_timeout": &schema.Schema{
+				Type:     schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
@@ -440,6 +450,11 @@ func resourceSystemGlobal() *schema.Resource {
 			},
 			"remoteauthtimeout": &schema.Schema{
 				Type:     schema.TypeInt,
+				Optional: true,
+				Computed: true,
+			},
+			"rpc_log": &schema.Schema{
+				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
@@ -831,11 +846,19 @@ func flattenSystemGlobalGuiCurlTimeout(v interface{}, d *schema.ResourceData, pr
 	return v
 }
 
+func flattenSystemGlobalGuiFeatureVisibilityMode(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
 func flattenSystemGlobalGuiPollingInterval(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
 func flattenSystemGlobalHaMemberAutoGrouping(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalHitcountResponseTimeout(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1027,6 +1050,10 @@ func flattenSystemGlobalPrivateDataEncryption(v interface{}, d *schema.ResourceD
 }
 
 func flattenSystemGlobalRemoteauthtimeout(v interface{}, d *schema.ResourceData, pre string) interface{} {
+	return v
+}
+
+func flattenSystemGlobalRpcLog(v interface{}, d *schema.ResourceData, pre string) interface{} {
 	return v
 }
 
@@ -1590,6 +1617,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 		}
 	}
 
+	if err = d.Set("gui_feature_visibility_mode", flattenSystemGlobalGuiFeatureVisibilityMode(o["gui-feature-visibility-mode"], d, "gui_feature_visibility_mode")); err != nil {
+		if vv, ok := fortiAPIPatch(o["gui-feature-visibility-mode"], "SystemGlobal-GuiFeatureVisibilityMode"); ok {
+			if err = d.Set("gui_feature_visibility_mode", vv); err != nil {
+				return fmt.Errorf("Error reading gui_feature_visibility_mode: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading gui_feature_visibility_mode: %v", err)
+		}
+	}
+
 	if err = d.Set("gui_polling_interval", flattenSystemGlobalGuiPollingInterval(o["gui-polling-interval"], d, "gui_polling_interval")); err != nil {
 		if vv, ok := fortiAPIPatch(o["gui-polling-interval"], "SystemGlobal-GuiPollingInterval"); ok {
 			if err = d.Set("gui_polling_interval", vv); err != nil {
@@ -1607,6 +1644,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading ha_member_auto_grouping: %v", err)
+		}
+	}
+
+	if err = d.Set("hitcount_response_timeout", flattenSystemGlobalHitcountResponseTimeout(o["hitcount-response-timeout"], d, "hitcount_response_timeout")); err != nil {
+		if vv, ok := fortiAPIPatch(o["hitcount-response-timeout"], "SystemGlobal-HitcountResponseTimeout"); ok {
+			if err = d.Set("hitcount_response_timeout", vv); err != nil {
+				return fmt.Errorf("Error reading hitcount_response_timeout: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading hitcount_response_timeout: %v", err)
 		}
 	}
 
@@ -2011,6 +2058,16 @@ func refreshObjectSystemGlobal(d *schema.ResourceData, o map[string]interface{})
 			}
 		} else {
 			return fmt.Errorf("Error reading remoteauthtimeout: %v", err)
+		}
+	}
+
+	if err = d.Set("rpc_log", flattenSystemGlobalRpcLog(o["rpc-log"], d, "rpc_log")); err != nil {
+		if vv, ok := fortiAPIPatch(o["rpc-log"], "SystemGlobal-RpcLog"); ok {
+			if err = d.Set("rpc_log", vv); err != nil {
+				return fmt.Errorf("Error reading rpc_log: %v", err)
+			}
+		} else {
+			return fmt.Errorf("Error reading rpc_log: %v", err)
 		}
 	}
 
@@ -2421,11 +2478,19 @@ func expandSystemGlobalGuiCurlTimeout(d *schema.ResourceData, v interface{}, pre
 	return v, nil
 }
 
+func expandSystemGlobalGuiFeatureVisibilityMode(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
 func expandSystemGlobalGuiPollingInterval(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
 func expandSystemGlobalHaMemberAutoGrouping(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalHitcountResponseTimeout(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -2611,6 +2676,10 @@ func expandSystemGlobalPrivateDataEncryption(d *schema.ResourceData, v interface
 }
 
 func expandSystemGlobalRemoteauthtimeout(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
+	return v, nil
+}
+
+func expandSystemGlobalRpcLog(d *schema.ResourceData, v interface{}, pre string) (interface{}, error) {
 	return v, nil
 }
 
@@ -3121,6 +3190,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 		}
 	}
 
+	if v, ok := d.GetOk("gui_feature_visibility_mode"); ok || d.HasChange("gui_feature_visibility_mode") {
+		t, err := expandSystemGlobalGuiFeatureVisibilityMode(d, v, "gui_feature_visibility_mode")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["gui-feature-visibility-mode"] = t
+		}
+	}
+
 	if v, ok := d.GetOk("gui_polling_interval"); ok || d.HasChange("gui_polling_interval") {
 		t, err := expandSystemGlobalGuiPollingInterval(d, v, "gui_polling_interval")
 		if err != nil {
@@ -3136,6 +3214,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["ha-member-auto-grouping"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("hitcount_response_timeout"); ok || d.HasChange("hitcount_response_timeout") {
+		t, err := expandSystemGlobalHitcountResponseTimeout(d, v, "hitcount_response_timeout")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["hitcount-response-timeout"] = t
 		}
 	}
 
@@ -3487,6 +3574,15 @@ func getObjectSystemGlobal(d *schema.ResourceData) (*map[string]interface{}, err
 			return &obj, err
 		} else if t != nil {
 			obj["remoteauthtimeout"] = t
+		}
+	}
+
+	if v, ok := d.GetOk("rpc_log"); ok || d.HasChange("rpc_log") {
+		t, err := expandSystemGlobalRpcLog(d, v, "rpc_log")
+		if err != nil {
+			return &obj, err
+		} else if t != nil {
+			obj["rpc-log"] = t
 		}
 	}
 
